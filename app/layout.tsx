@@ -15,8 +15,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang="en" className="h-full">
+      <body className={`${inter.className} flex flex-col min-h-full`}>
+        {/* <header className="min-h-[10px] bg-green-100">Header</header> */}
+        <main className="flex-grow">{children}</main>
+        {/* <footer className="min-h-[100px] bg-blue-100">Footer</footer> */}
+      </body>
+      {/* Create a footer that show a nice message */}
     </html>
   );
 }
