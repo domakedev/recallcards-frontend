@@ -3,31 +3,24 @@
 import React from "react";
 import NavBar from "../components/NavBar";
 import CardPreview from "../components/CardPreview";
-import CardImage from "@/assets/image-card-example.jpg";
 import DadosIcon from "@/assets/dados-icon.svg";
 import LargeButton from "../components/LargeButton";
-import { StaticImageData } from "next/image";
-import { DeckType } from "@/types/Deck";
 import { useParams } from "next/navigation";
 import { Decks } from "@/mock/decks";
 import Link from "next/link";
 
-interface DeckObj {
-  deckObj: DeckType;
-}
+// declare const require: {
+//   context(
+//     directory: string,
+//     useSubdirectories?: boolean,
+//     regExp?: RegExp
+//   ): {
+//     keys: () => string[];
+//     <T>(id: string): T;
+//   };
+// };
 
-declare const require: {
-  context(
-    directory: string,
-    useSubdirectories?: boolean,
-    regExp?: RegExp
-  ): {
-    keys: () => string[];
-    <T>(id: string): T;
-  };
-};
-
-const page: React.FC<DeckObj> = ({ deckObj }) => {
+const page = () => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const params = useParams();
 
@@ -57,7 +50,11 @@ const page: React.FC<DeckObj> = ({ deckObj }) => {
         }
         goBack
       />
-      <Link href={`/${params.cards}/${Math.floor(Math.random()* (actualDeck?.deckSize || 0)) + 1}`}>
+      <Link
+        href={`/${params.cards}/${
+          Math.floor(Math.random() * (actualDeck?.deckSize || 0)) + 1
+        }`}
+      >
         <LargeButton
           text="Elegir una carta al azar"
           icon={DadosIcon}

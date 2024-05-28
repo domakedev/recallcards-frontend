@@ -60,7 +60,7 @@ const page = () => {
                 ? `/${params.cards}/${Number(params.card) - 1}`
                 : ""
             }
-            className="rounded-l-[12px] w-6 min-h-[46px] bg-[#3a3a3a]"
+            className="rounded-l-[12px] w-6 min-h-[46px] bg-[#3a3a3a] flex justify-center items-center"
           >
             <FaCaretLeft
               color={`${!disableLeftButton ? "#F8A62B" : "#DDDDDD"}`}
@@ -80,7 +80,7 @@ const page = () => {
                 ? `/${params.cards}/${Number(params.card) + 1}`
                 : ""
             }
-            className="rounded-r-[12px] w-6 min-h-[46px] bg-[#3a3a3a]"
+            className="rounded-r-[12px] w-6 min-h-[46px] bg-[#3a3a3a] flex justify-center items-center"
           >
             <FaCaretRight
               color={`${!disableRightButton ? "#38B6FF" : "#DDDDDD"}`}
