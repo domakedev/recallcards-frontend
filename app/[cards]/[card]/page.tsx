@@ -48,10 +48,10 @@ const page = () => {
       <div className="flex flex-col justify-center px-3">
         <Image
           src={`/decks/${actualDeck?.deckSlug}/${cardName}.png`}
-          className="w-full max-w-[600px] mx-auto shadow-xl rounded-xl"
+          className="w-full max-w-[500px] mx-auto shadow-xl rounded-xl"
           alt="Carta"
-          width={290}
-          height={362.5}
+          width={1080}
+          height={1350}
         />
         <div className="mt-5 flex gap-1 mx-auto">
           <Link
