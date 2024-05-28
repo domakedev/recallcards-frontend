@@ -32,7 +32,6 @@ const page: React.FC<DeckObj> = ({ deckObj }) => {
   const params = useParams();
 
   const actualDeck = Decks.find((deck) => deck.deckSlug === params.cards);
-  console.log('🚀 ~ actualDeck:', actualDeck)
 
   const arrayDeck = Array.from(
     { length: actualDeck?.deckSize || 0 },
