@@ -19,7 +19,7 @@ const DeckPreview: React.FC<DeckPreviewProps> = ({
   return (
     <Link
       href={`/${deckSlug}`}
-      className="flex flex-col gap-2"
+      className="flex flex-col gap-2 transform transition-transform duration-200 active:scale-95 hover:scale-105"
       //send an object
     >
       <Image

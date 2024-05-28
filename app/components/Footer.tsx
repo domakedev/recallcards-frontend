@@ -16,16 +16,16 @@ const Footer = () => {
       <div className="flex justify-around items-center h-16">
         <Link
           href={"/"}
-          className="w-1/3"
+          className="w-1/3 h-full active:bg-gray-700 flex items-center justify-center"
         >
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col items-center justify-center">
             <FaHome className="text-2xl" />
             <span className="text-xs">Decks</span>
           </div>
         </Link>
         <Link
           href={`/${params.cards || ""}`}
-          className="w-1/3"
+          className="w-1/3 h-full active:bg-gray-700 flex items-center justify-center"
         >
           <div className="flex flex-col items-center">
             <FaSwatchbook className="text-2xl" />
@@ -40,7 +40,7 @@ const Footer = () => {
                 }`
               : ""
           }
-          className="w-1/3"
+          className="w-1/3 h-full active:bg-gray-700 flex items-center justify-center "
         >
           <div className="flex flex-col items-center">
             <FaLayerGroup className="text-2xl" />

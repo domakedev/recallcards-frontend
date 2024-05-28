@@ -15,11 +15,11 @@ const CardPreview: React.FC<CardViewProps> = ({ image, cardName }) => {
   return (
     <Link href={`${pathname}/${cardName}`}>
       <Image
-        className="object-cover w-32 h-40 rounded-[10px] shadow-lg"
+        className="object-cover max-w-[160px] rounded-[10px] shadow-lg transform transition-transform duration-200 active:scale-95 hover:scale-105"
         src={image}
         alt="Carta vista previa"
-        width={128}
-        height={160}
+        width={540}
+        height={675}
       />
     </Link>
   );

@@ -60,14 +60,19 @@ const page = () => {
                 ? `/${params.cards}/${Number(params.card) - 1}`
                 : ""
             }
-            className="rounded-l-[12px] w-6 min-h-[46px] bg-[#3a3a3a] flex justify-center items-center"
+            className="rounded-[12px] w-12 min-h-[60px] bg-[#3a3a3a] flex justify-center items-center transform transition-transform duration-200 active:scale-95 hover:scale-105"
           >
             <FaCaretLeft
               color={`${!disableLeftButton ? "#F8A62B" : "#DDDDDD"}`}
-              size={25}
+              size={50}
             />
           </Link>
-          <Link href={`/${params.cards}/${Math.floor(Math.random()* (actualDeck?.deckSize || 0)) + 1}`}>
+          <Link
+            href={`/${params.cards}/${
+              Math.floor(Math.random() * (actualDeck?.deckSize || 0)) + 1
+            }`}
+            className="w-full min-h-[60px] bg-[#3a3a3a] flex justify-center items-center transform transition-transform duration-200 active:scale-95 hover:scale-105 rounded-[12px]"
+          >
             <LargeButton
               text="Elegir una carta al azar"
               icon={DadosIcon}
@@ -80,11 +85,11 @@ const page = () => {
                 ? `/${params.cards}/${Number(params.card) + 1}`
                 : ""
             }
-            className="rounded-r-[12px] w-6 min-h-[46px] bg-[#3a3a3a] flex justify-center items-center"
+            className="rounded-[12px] w-12 min-h-[60px] bg-[#3a3a3a] flex justify-center items-center transform transition-transform duration-200 active:scale-95 hover:scale-105"
           >
             <FaCaretRight
               color={`${!disableRightButton ? "#38B6FF" : "#DDDDDD"}`}
-              size={25}
+              size={50}
             />
           </Link>
         </div>

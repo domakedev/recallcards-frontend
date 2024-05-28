@@ -54,6 +54,7 @@ const page = () => {
         href={`/${params.cards}/${
           Math.floor(Math.random() * (actualDeck?.deckSize || 0)) + 1
         }`}
+        className=" bg-[#3a3a3a] flex justify-center items-center transform transition-transform duration-200 active:scale-95 hover:scale-105 rounded-[12px]"
       >
         <LargeButton
           text="Elegir una carta al azar"
@@ -69,9 +70,6 @@ const page = () => {
             cardName={`${e}`}
           />
         ))}
-        {/* <CardPreview image={CardImage} />
-        <CardPreview image={CardImage} />
-        <CardPreview image={CardImage} /> */}
       </div>
     </div>
   );
