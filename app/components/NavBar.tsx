@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import React from "react";
 import Image from "next/image";
@@ -14,7 +14,11 @@ const NavBar: React.FC<NavBarProps> = ({ title, goBack = false }) => {
   return (
     <div className="mt-5 mb-[41px] px-3 flex  justify-between w-full">
       {goBack ? (
-        <button onClick={()=>{router.back()}}>
+        <button
+          onClick={() => {
+            router.back();
+          }}
+        >
           <Image
             src={BackArrowIcon}
             className="w-6 h-6"

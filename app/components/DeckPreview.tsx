@@ -1,21 +1,27 @@
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import React from "react";
 import CardsIcon from "@/assets/cards-icon.png";
 import Link from "next/link";
 
 interface DeckPreviewProps {
-  src: string;
+  src: StaticImageData;
   deckName: string;
   deckSize: number;
+  deckSlug: string;
 }
 
 const DeckPreview: React.FC<DeckPreviewProps> = ({
   src,
   deckName,
   deckSize,
+  deckSlug,
 }) => {
   return (
-    <Link href="/cards" className="flex flex-col gap-2">
+    <Link
+      href={`/${deckSlug}`}
+      className="flex flex-col gap-2"
+      //send an object
+    >
       <Image
         className="w-32 h-32 object-cover rounded-xl shadow-lg"
         src={src}
@@ -24,7 +30,7 @@ const DeckPreview: React.FC<DeckPreviewProps> = ({
         alt="Deck vista previa"
       />
       <div className="flex flex-col">
-        <h2>{deckName}</h2>
+        <h2 className="max-w-32 md:max-w-64">{deckName}</h2>
         <div className="flex items-center gap-[2px]">
           <p className="text-sm">{deckSize}</p>
           <Image
