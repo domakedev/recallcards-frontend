@@ -13,6 +13,7 @@ const LargeButton: React.FC<LargeButtonProps> = ({ text, icon, bgColor }) => {
     >
       <div className="flex gap-2 justify-center">
         <p>{text}</p>
+
         <Image
           src={icon}
           alt="Icono de botón"
