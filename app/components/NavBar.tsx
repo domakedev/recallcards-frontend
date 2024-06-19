@@ -3,7 +3,9 @@
 import React from "react";
 import Image from "next/image";
 import BackArrowIcon from "@/assets/backarrow-icon.svg";
+import { FaUserGraduate } from "react-icons/fa6";
 import { useParams, useRouter } from "next/navigation";
+import Link from "next/link";
 
 interface NavBarProps {
   title: string;
@@ -27,30 +29,36 @@ const NavBar: React.FC<NavBarProps> = ({ title, goBack = false }) => {
     <div className="mt-5 mb-[41px] px-3 flex  justify-between w-full">
       {goBack ? (
         <button
+          className="min-w-[25%] bg-yellow-300"
           onClick={() => {
-            router.push(`${goTo=="/" ? goTo : "/" + params[goTo]}`);
+            router.push(`${goTo == "/" ? goTo : "/" + params[goTo]}`);
           }}
         >
-          <Image
-            src={BackArrowIcon}
-            className="w-6 h-6"
-            // width={24}
-            // height={24}
-            alt="Volver atras"
-          />
+          <div>
+            <Image
+              src={BackArrowIcon}
+              className="min-w-6 min-h-6 "
+              // width={24}
+              // height={24}
+              alt="Volver atras"
+            />
+          </div>
         </button>
       ) : (
-        <div className="w-6 h-6"></div>
+        <div className="min-w-[25%] bg-teal-400"></div>
       )}
 
-      <h1 className="font-bold text-lg text-center">{title}</h1>
-      <div className="w-6 h-6"></div>
-      {/* <Image
-            src={BackArrowIcon}
-            width={24}
-            height={24}
-            alt='Volver atras'
-        ></Image> */}
+      <h1 className="font-bold text-lg text-center min-w-[50%] bg-blue-400">
+        {title}
+      </h1>
+
+      <Link
+        href={true ? "/auth/login" : "/auth/register"}
+        className="flex items-center justify-center gap-3 min-w-[25%] bg-red-300"
+      >
+        <p>{true ? "Iniciar Sesión" : "Registrarme"}</p>
+        <FaUserGraduate size={24} />
+      </Link>
     </div>
   );
 };

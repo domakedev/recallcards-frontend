@@ -2,6 +2,7 @@
 "use client";
 
 import { useAuthForm } from "@/app/hooks/useForm";
+import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 import { Bounce, ToastContainer, toast } from "react-toastify";
@@ -14,7 +15,7 @@ const AuthPage = () => {
   const auth = params.auth;
   const isLogin = auth === "login";
 
-  if (auth !== "login" && params.auth !== "register") {
+  if (auth !== "login" && auth !== "register") {
     router.push("/auth/login");
   }
 
@@ -77,6 +78,15 @@ const AuthPage = () => {
             >
               {isLogin ? "Inicia sesión" : "Regístrate"}
             </button>
+            <p className="mt-4">
+              {isLogin ? "¿No tienes una cuenta?" : "¿Ya tienes una cuenta?"}
+              <Link
+                href={isLogin ? "/auth/register" : "/auth/login"}
+                className="text-blue-500 hover:underline ml-3"
+              >
+                {isLogin ? "Crearme una cuenta" : "Iniciar sesión"}
+              </Link>
+            </p>
           </div>
         </form>
         <ToastContainer />
