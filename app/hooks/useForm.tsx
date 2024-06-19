@@ -27,26 +27,28 @@ export const useAuthForm = () => {
 
   const loginUser = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("🚀 ~ sendUserData ~ form:", form);
-    const result = await fetch("/api/users", {
-      method: "POST",
-      body: JSON.stringify(form),
-    });
-    const answer = await result.json();
-    answer.ok ? toast.success("Usuario logeado") : toast.error(answer.message);
+    toast.error("Metodo por implementar");
+    // console.log("🚀 ~ sendUserData ~ form:", form);
+    // const result = await fetch("/api/users", {
+    //   method: "POST",
+    //   body: JSON.stringify(form),
+    // });
+    // const answer = await result.json();
+    // answer.ok ? toast.success("Usuario logeado") : toast.error(answer.message);
   };
 
   const registerUser = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("🚀 ~ sendUserData ~ form:", form);
-    const result = await fetch("/api/users", {
-      method: "POST",
-      body: JSON.stringify(form),
-    });
-    const answer = await result.json();
-    answer.ok
-      ? toast.success("Usuario registrado")
-      : toast.error(answer.message);
+    try {
+      const result = await fetch("/api/users", {
+        method: "POST",
+        body: JSON.stringify(form),
+      });
+      const answer = await result.json();
+      answer.ok ? toast.success(answer.message) : toast.error(answer.message);
+    } catch (error) {
+      toast.error("Algo falló al registrar el usuario");
+    }
   };
 
   return { form, inputHandler, loginUser, registerUser };

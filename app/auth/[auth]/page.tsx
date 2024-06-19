@@ -22,8 +22,8 @@ const AuthPage = () => {
   const { form, inputHandler, loginUser, registerUser } = useAuthForm();
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-100 ">
-      <div className="max-w-md p-8 space-y-6 bg-white shadow-md rounded-md w-4/5">
+    <div className="flex min-h-screen items-center justify-center">
+      <div className="max-w-md p-8 space-y-6 bg-gray-100 shadow-md rounded-md w-4/5">
         <h2 className="text-2xl font-bold text-center text-gray-900">
           {isLogin ? "Inicia sesión" : "Regístrate"}
         </h2>

@@ -7,26 +7,30 @@ const prisma = new PrismaClient();
 export const POST = async (req: Request) => {
   const data: User = await req.json();
 
-  //Validar si usuario existe
-  const userExist = await prisma.users.findMany({
-    where: { email: data.email },
-  });
-  if (userExist.length > 0) {
-    return NextResponse.json({ ok: false, message: "User already exists." });
-    // throw new Error("User already exists.");
-  }
-
   try {
+    //Validar si usuario existe
+    const userExist = await prisma.users.findMany({
+      where: { email: data.email },
+    });
+    if (userExist.length > 0) {
+      return NextResponse.json(
+        { message: "Este email no esta disponible", ok: false },
+        { status: 500 }
+      );
+    }
     const result = await prisma.users.create({
       data,
     });
-    // console.log("🚀 ~ POST ~ result:", result);
-    return NextResponse.json({ ok: true, message: "User created" });
+    return NextResponse.json(
+      { ok: true, message: `Usuario: ${result.email}, creado con éxito.` },
+      { status: 201 }
+    );
   } catch (error: any | { message: string }) {
-    console.log("❌ Ups1:", error.message);
-    return NextResponse.json({ ok: false, message: "User already exists." });
-    // return NextResponse.error();
-    // throw new Error("XDDDD");
+    // console.log("❌ Ups1:", error);
+    return NextResponse.json(
+      { ok: false, message: "¡Falla de la app!" },
+      { status: 500 }
+    );
   }
 };
 
