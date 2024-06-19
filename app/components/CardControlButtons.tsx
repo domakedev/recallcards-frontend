@@ -2,11 +2,12 @@ import DadosIcon from "@/assets/dados-icon.svg";
 import { FaCaretLeft, FaCaretRight } from "react-icons/fa6";
 import LargeButton from "@/app/components/LargeButton";
 import Link from "next/link";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Decks } from "@/mock/decks";
 
 const CardControlButtons = () => {
+  const router = useRouter();
   const params = useParams();
 
   const cardName = params.card;
@@ -30,8 +31,40 @@ const CardControlButtons = () => {
     if (numberCard < Number(actualDeck?.deckSize)) {
       setDisableRightButton(false);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cardName]);
+
+  const goNext = (condition: boolean) => {
+    console.log("Next", condition);
+
+    if (condition) {
+      router.push(`/${params.cards}/${Number(params.card) + 1}`);
+    }
+  };
+  const goPrev = (condition: boolean) => {
+    console.log("Prev", condition);
+
+    if (condition) {
+      router.push(`/${params.cards}/${Number(params.card) - 1}`);
+    }
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "ArrowRight") {
+        goNext(!disableRightButton);
+      }
+      if (event.key === "ArrowLeft") {
+        goPrev(!disableLeftButton);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [disableRightButton, disableLeftButton]);
 
   return (
     <div className="mt-5 flex gap-1 mx-auto">

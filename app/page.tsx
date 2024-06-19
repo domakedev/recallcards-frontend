@@ -2,6 +2,7 @@ import React from "react";
 import DeckPreview from "./components/DeckPreview";
 import NavBar from "./components/NavBar";
 import { Decks } from "@/mock/decks";
+import { ToastContainer } from "react-toastify";
 
 const page = () => {
   return (
@@ -21,6 +22,7 @@ const page = () => {
           />
         ))}
       </div>
+      <ToastContainer />
     </div>
   );
 };

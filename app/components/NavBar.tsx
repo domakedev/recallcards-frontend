@@ -12,19 +12,13 @@ interface NavBarProps {
 const NavBar: React.FC<NavBarProps> = ({ title, goBack = false }) => {
   const router = useRouter();
   const params = useParams();
-  console.log("🚀 ~ params:", params);
 
   const claves = Object.keys(params);
-  console.log("🚀 ~ claves:", claves);
 
   let goTo: string = "";
 
   if (claves.includes("card")) {
     goTo = "cards";
-    console.log("🚀 ~ goTo1:", goTo)
-    console.log("🚀 ~ goTo2:", params)
-    console.log("🚀 ~ goTo3:", params[goTo])
-    console.log(params.goto);
   } else if (claves.includes("cards")) {
     goTo = "/";
   }

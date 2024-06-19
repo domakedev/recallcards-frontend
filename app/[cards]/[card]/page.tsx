@@ -8,9 +8,13 @@ import { useParams } from "next/navigation";
 import { Decks } from "@/mock/decks";
 import CardControlButtons from "@/app/components/CardControlButtons";
 
+//Cloudinary
+import { CldImage } from "next-cloudinary";
+
 //Skeleton
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import CloudinaryTest from "@/app/components/CloudinaryTest";
 
 const page = () => {
   const [showCard, setShowCard] = useState<boolean>(true);
@@ -50,6 +54,7 @@ const page = () => {
         title={`${actualDeck?.deckName} | ${cardName} de ${actualDeck?.deckSize}`}
         goBack
       />
+      <CloudinaryTest />
       <div className="flex flex-col justify-center px-3">
         <div className="relative w-full max-w-[500px] grow max-h-[625px] mx-auto ">
           <div
@@ -77,11 +82,18 @@ const page = () => {
               className={` rounded-xl  shadow-xl  `}
               quality={100}
             />
+            <CldImage
+              width="960"
+              height="600"
+              src="recall-cards/1_nuzyyb"
+              sizes="100vw"
+              alt="Description of my image"
+            />
           </div>
           {/* //use Skeleton to show a loading animation */}
 
           {/* Como centrar un elemento absolute */}
-          {(!showCard || !imgLoaded) ? null : (
+          {!showCard || !imgLoaded ? null : (
             <div className="">
               <div
                 className={`min-w-full min-h-[85%] bg-gray-500 absolute bottom-0 ${

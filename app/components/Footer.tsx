@@ -16,14 +16,12 @@ const Footer = () => {
   //To choose a random deck
   const randomNumber0toNum = (max: number): number => {
     const number = Math.floor(Math.random() * (max + 1));
-    console.log(number);
     return number;
   };
 
   //To choose a random card from a deck
   const randomNumber1toNum = (max: number): number => {
     const number = Math.floor(Math.random() * max) + 1;
-    console.log(number);
     return number;
   };
 
