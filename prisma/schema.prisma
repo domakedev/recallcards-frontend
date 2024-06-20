@@ -8,13 +8,47 @@ datasource db {
 }
 
 model users {
-  id       Int    @id @default(autoincrement())
-  email    String @unique @db.VarChar
-  password String @db.VarChar
+  id                       Int                        @id @default(autoincrement())
+  email                    String                     @unique @db.VarChar
+  password                 String                     @db.VarChar
+  card_difficulty_per_user card_difficulty_per_user[]
+  cards                    cards[]
+  decks                    decks[]
 }
 
 model decks {
-  id    Int    @id @default(autoincrement())
-  name  String @unique @db.VarChar
-  image String @db.VarChar
+  id        Int     @id @default(autoincrement())
+  name      String  @db.VarChar
+  image     String? @db.VarChar
+  creatorId Int?
+  cards     cards[]
+  users     users?  @relation(fields: [creatorId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model card_difficulty_per_user {
+  id               Int               @id @default(autoincrement())
+  userId           Int?
+  cardId           Int?
+  difficultyId     Int?
+  last_evaluate    DateTime?         @db.Date
+  cards            cards?            @relation(fields: [cardId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  difficulty_level difficulty_level? @relation(fields: [difficultyId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users            users?            @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model cards {
+  id                       Int                        @id @default(autoincrement())
+  question                 String?                    @db.VarChar
+  answer                   String?                    @db.VarChar
+  creatorId                Int?
+  deck                     Int?
+  card_difficulty_per_user card_difficulty_per_user[]
+  users                    users?                     @relation(fields: [creatorId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  decks                    decks?                     @relation(fields: [deck], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model difficulty_level {
+  id                       Int                        @id @default(autoincrement())
+  value                    String                     @db.VarChar
+  card_difficulty_per_user card_difficulty_per_user[]
 }
