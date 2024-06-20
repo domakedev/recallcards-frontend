@@ -47,7 +47,7 @@ export const POST = async (req: Request) => {
   } catch (error) {
     console.log("🚀 ~ POST ~ error:", error);
     return NextResponse.json(
-      { ok: false, message: "Ocurrió un error interno" },
+      { ok: false, message: "Ocurrió un error interno en API/Login" },
       { status: 500 }
     );
   }
