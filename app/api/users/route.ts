@@ -1,16 +1,27 @@
 import { User } from "@/types/User";
 import { PrismaClient } from "@prisma/client";
 import { NextResponse } from "next/server";
+import bcrypt from "bcrypt";
 
 const prisma = new PrismaClient();
 
 export const POST = async (req: Request) => {
   const data: User = await req.json();
+  //Encriptar contraseña
+  const saltRounds = 10;
+  const myPlaintextPassword = data.password;
+  const salt = await bcrypt.genSalt(saltRounds);
+  const passwordHashed = await bcrypt.hash(myPlaintextPassword, salt);
 
+  const newUser = {
+    email: data.email,
+    password: passwordHashed,
+  };
+  console.log("🚀 ~ loginUser ~ hash:", newUser);
   try {
     //Validar si usuario existe
     const userExist = await prisma.users.findMany({
-      where: { email: data.email },
+      where: { email: newUser.email },
     });
     if (userExist.length > 0) {
       return NextResponse.json(
@@ -19,7 +30,7 @@ export const POST = async (req: Request) => {
       );
     }
     const result = await prisma.users.create({
-      data,
+      data: newUser,
     });
     return NextResponse.json(
       { ok: true, message: `Usuario: ${result.email}, creado con éxito.` },
@@ -34,15 +45,16 @@ export const POST = async (req: Request) => {
   }
 };
 
-export const GET = async () => {
+export const GET = async (res: Request) => {
+  const { email, password } = await res.json();
   try {
-    const users = await prisma.users.findMany();
-    console.log("🚀 ~ GET ~ users:", users);
-    NextResponse.json(users);
+    const users = await prisma.users.findUnique({
+      where: { email, password },
+    });
+    console.log("🚀 ~ GET ~ userssssssss:", users);
   } catch (error: any | { message: string }) {
     if (error) {
-      console.log("❌Ups:", error.message);
-      NextResponse.json({ message: error.message });
+      console.log("❌Ups GET:", error);
     }
   }
 };
