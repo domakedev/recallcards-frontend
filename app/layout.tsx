@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 
 import "./globals.css";
 import Footer from "./components/Footer";
+import Providers from "@/redux/Providers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,8 +24,10 @@ export default function RootLayout({
     >
       <body className={`${inter.className} flex flex-col min-h-full`}>
         {/* <header className="min-h-[10px] bg-green-100">Header</header> */}
-        <main className="flex-grow pb-16">{children}</main>
-        {/* Create a footer that show a nice message */}
+        <Providers>
+          <main className="flex-grow pb-16">{children}</main>
+          {/* Create a footer that show a nice message */}
+        </Providers>
         <Footer />
       </body>
     </html>

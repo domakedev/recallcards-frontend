@@ -1,10 +1,16 @@
+"use client";
 import React from "react";
 import DeckPreview from "./components/DeckPreview";
 import NavBar from "./components/NavBar";
 import { Decks } from "@/mock/decks";
 import { ToastContainer } from "react-toastify";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 
 const page = () => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const dispatch = useAppDispatch();
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const state = useAppSelector((state) => state.user);
   return (
     <div>
       <NavBar
