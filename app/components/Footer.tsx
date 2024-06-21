@@ -6,7 +6,6 @@ import { FaLayerGroup } from "react-icons/fa";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { Decks } from "@/mock/decks";
-import { log } from "console";
 import { useEffect, useState } from "react";
 
 const Footer = () => {
@@ -14,26 +13,44 @@ const Footer = () => {
 
   const actualDeck = Decks.find((deck) => deck.deckSlug === params.cards);
 
-  const [randomDeckLength, setRandomDeckLength] = useState<number>(0);
+  const [randomDeckSlug, setRandomDeckSlug] = useState<string>("");
   const [randomCardNumber, setRandomCardNumber] = useState<number>(0);
+  const [resetCard, setResetCard] = useState<boolean>(false);
+
+  //To choose a random deck
+  const randomNumber0toNum = (max: number): number => {
+    const number = Math.floor(Math.random() * (max + 1));
+    return number;
+  };
+
+  //To choose a random card from a deck
+  const randomNumber1toNum = (max: number): number => {
+    const number = Math.floor(Math.random() * max) + 1;
+    return number;
+  };
 
   useEffect(() => {
-    //To choose a random deck
-    const randomNumber0toNum = (max: number): number => {
-      const number = Math.floor(Math.random() * (max + 1));
-      return number;
-    };
+    const randomDeckNumber = randomNumber0toNum(Decks.length - 1);
+    const randomDeck = Decks[randomDeckNumber];
+    const randomCardNumber = randomNumber1toNum(randomDeck.deckSize);
 
-    //To choose a random card from a deck
-    const randomNumber1toNum = (max: number): number => {
-      const number = Math.floor(Math.random() * max) + 1;
-      return number;
-    };
+    setRandomDeckSlug(randomDeck.deckSlug);
+    setRandomCardNumber(randomCardNumber);
+  }, [resetCard]);
 
-    setRandomDeckLength(randomNumber0toNum(Decks.length - 1));
+  // useEffect(() => {
+  //   const randomDeck = randomNumber0toNum(Decks.length - 1);
+  //   console.log("🚀 ~ useEffect ~ randomDeck:", randomDeck);
+  //   console.log("🚀 ~ useEffect ~ Decks[randomDeckLength]:", Decks[randomDeckLength])
 
-    setRandomCardNumber(randomNumber1toNum(Decks[randomDeckLength].deckSize));
-  }, [randomDeckLength]);
+  //   setRandomDeckLength(randomDeck);
+  //   setRandomCardNumber(randomNumber1toNum(Decks[randomDeckLength].deckSize));
+  // }, [randomDeckLength, resetCard]);
+
+  // useEffect(() => {
+  //   setRandomCardNumber(randomNumber1toNum(Decks[randomDeckLength].deckSize));
+
+  // }, [randomDeckLength]);
 
   return (
     <footer className="fixed bottom-0 w-full bg-gray-800 text-white">
@@ -48,7 +65,7 @@ const Footer = () => {
           </div>
         </Link>
         <Link
-          href={`/${params.cards || ""}`}
+          href={`/${actualDeck?.deckSlug}`}
           className="w-1/3 h-full active:bg-gray-700 flex items-center justify-center"
         >
           <div className="flex flex-col items-center">
@@ -57,8 +74,9 @@ const Footer = () => {
           </div>
         </Link>
         <Link
-          href={`/${Decks[randomDeckLength].deckSlug}/${randomCardNumber}`}
+          href={`/${randomDeckSlug}/${randomCardNumber}`}
           className="w-1/3 h-full active:bg-gray-700 flex items-center justify-center "
+          onClick={() => setResetCard((state) => !state)}
         >
           <div className="flex flex-col items-center">
             <FaLayerGroup className="text-2xl" />
