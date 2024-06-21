@@ -45,6 +45,7 @@ const page = () => {
   );
 
   const [cards, setCards] = useState<Card[]>()
+  console.log("🚀 ~ page ~ cardsssssssssssssssssss:", cards)
 
   useEffect(() => {
     const cards = async()=> await getAllCards()
@@ -90,8 +91,8 @@ const page = () => {
         {cards?.map((e,i) => (
           <CardPreview
             key={i}
-            image={e.answer.includes("http") ? e.answer : ""}
-            cardName={e.question || "No hay pregunta"}
+            image={e.answer.includes("http") || e.answer.includes("data:image") ? e.answer : ""}
+            cardName={e.question || "-"}
           />
         ))}
         {arrayDeck.map((e) => (

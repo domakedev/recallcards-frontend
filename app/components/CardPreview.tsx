@@ -12,7 +12,6 @@ interface CardViewProps {
   cardName: string;
 }
 const CardPreview: React.FC<CardViewProps> = ({ image, cardName }) => {
-  console.log("🚀 ~ image:", image)
   const pathname = usePathname();
   return (
     <Link href={`${pathname}/${cardName}`}>

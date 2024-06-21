@@ -8,18 +8,17 @@ import { useParams } from "next/navigation";
 import { Decks } from "@/mock/decks";
 import CardControlButtons from "@/app/components/CardControlButtons";
 
-//Cloudinary
-import { CldImage } from "next-cloudinary";
-
 //Skeleton
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import CloudinaryTest from "@/app/components/CloudinaryTest";
+import { getCardById } from "@/services/card.services";
+import { Card } from "@/types/Card";
 
 const page = () => {
   const [showCard, setShowCard] = useState<boolean>(true);
   const [imgLoaded, setImgLoaded] = useState<boolean>(false);
-  const [imgWidth, setImgWidth] = useState<number | null>(null);
+  const [cardDB, setCardDB] = useState<Card>();
 
   const params = useParams();
 
@@ -48,15 +47,23 @@ const page = () => {
     return () => window.removeEventListener("resize", getWidth);
   }, []);
 
+  useEffect(() => {
+    const getCard = async () => {
+      const res = await getCardById(8);
+      setCardDB(res.result);
+      console.log("🚀 ~ getCard ~ res:", res.result);
+    };
+    getCard();
+  }, []);
+
   return (
     <>
       <NavBar
         title={`${actualDeck?.deckName} | ${cardName} de ${actualDeck?.deckSize}`}
         goBack
       />
-      <CloudinaryTest />
       <div className="flex flex-col justify-center px-3">
-        <div className="relative w-full max-w-[500px] grow max-h-[625px] mx-auto ">
+        <div className="relative w-full max-w-[600px] grow max-h-[625px] mx-auto ">
           <div
             id="imgParent"
             className="min-h-max h-fit"
@@ -72,6 +79,19 @@ const page = () => {
               </div>
               // </div>
             )}
+            {cardDB?.answer.includes("http") ||
+            cardDB?.answer.includes("data:image") ? (
+              <Image
+                src={cardDB.answer}
+                alt="Carta"
+                width={1080}
+                height={1350}
+                onLoad={() => setImgLoaded(true)}
+                className={` rounded-xl  shadow-xl  `}
+                quality={100}
+                priority
+              />
+            ) : null}
             <Image
               src={`/decks/${actualDeck?.deckSlug}/${cardName}.png`}
               alt="Carta"
@@ -81,13 +101,6 @@ const page = () => {
               onLoad={() => setImgLoaded(true)}
               className={` rounded-xl  shadow-xl  `}
               quality={100}
-            />
-            <CldImage
-              width="960"
-              height="600"
-              src="recall-cards/1_nuzyyb"
-              sizes="100vw"
-              alt="Description of my image"
             />
           </div>
           {/* //use Skeleton to show a loading animation */}
@@ -117,7 +130,7 @@ const page = () => {
                     allowfullscreen
                   ></iframe>{" "} */}
                   <br />
-                  <br /> ✅Recordando la informacion <br /> ❌ sin leerla.
+                  <br /> ✅Recordando la información <br /> ❌ sin leerla.
                 </p>{" "}
                 <br />
                 <button
