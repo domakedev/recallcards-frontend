@@ -81,7 +81,6 @@ const CreateCard: React.FC = () => {
 
       //Enviar newCard al Backend
       const result = await createCard(newCardCopy);
-      console.log("🚀 ~ handleSubmit ~ result:", result);
       toast.success(result.message);
       removeImage();
       setNewCard({
@@ -98,7 +97,6 @@ const CreateCard: React.FC = () => {
     }
   };
 
-  console.log("🚀 ~ newCard:", newCard);
   return (
     <div className="flex justify-center items-center h-screen bg-gradient-to-r from-blue-500 to-teal-500">
       <form

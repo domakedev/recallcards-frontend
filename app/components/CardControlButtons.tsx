@@ -42,15 +42,11 @@ const CardControlButtons = () => {
   }, [actualDeck]);
 
   const goNext = (condition: boolean) => {
-    console.log("Next", condition);
-
     if (condition) {
       router.push(`/${params.cards}/${Number(params.card) + 1}`);
     }
   };
   const goPrev = (condition: boolean) => {
-    console.log("Prev", condition);
-
     if (condition) {
       router.push(`/${params.cards}/${Number(params.card) - 1}`);
     }

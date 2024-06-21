@@ -21,7 +21,6 @@ export const POST = async (req: Request) => {
           { status: 404 }
         );
       }
-      console.log("🚀 ~ POST ~ user:", user);
       const token = jwt.sign(
         { email },
         "e6d625f9-ac31-4ef8-b56e-c2ee34c7917f",
@@ -45,7 +44,6 @@ export const POST = async (req: Request) => {
       );
     }
   } catch (error) {
-    console.log("🚀 ~ POST ~ error:", error);
     return NextResponse.json(
       { ok: false, message: "Ocurrió un error interno en API/Login" },
       { status: 500 }

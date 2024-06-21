@@ -17,7 +17,6 @@ export const POST = async (req: Request) => {
     email: data.email,
     password: passwordHashed,
   };
-  console.log("🚀 ~ loginUser ~ hash:", newUser);
   try {
     //Validar si usuario existe
     const userExist = await prisma.users.findMany({
@@ -37,25 +36,10 @@ export const POST = async (req: Request) => {
       { status: 201 }
     );
   } catch (error: any | { message: string }) {
-    // console.log("❌ Ups1:", error);
     return NextResponse.json(
       { ok: false, message: "¡Falla de la app!" },
       { status: 500 }
     );
-  }
-};
-
-export const GET = async (res: Request) => {
-  const { email, password } = await res.json();
-  try {
-    const users = await prisma.users.findUnique({
-      where: { email, password },
-    });
-    console.log("🚀 ~ GET ~ userssssssss:", users);
-  } catch (error: any | { message: string }) {
-    if (error) {
-      console.log("❌Ups GET:", error);
-    }
   }
 };
 
@@ -73,11 +57,9 @@ export const DELETE = async (req: Request) => {
     const result = await prisma.users.delete({
       where: { email: data.email },
     });
-    console.log("🚀 ~ DELETE ~ result:", result);
     return NextResponse.json({ message: "User deleted" });
   } catch (error: any | { message: string }) {
     if (error) {
-      console.log("❌Ups:", error.message);
       NextResponse.json({ message: error.message });
     }
   }

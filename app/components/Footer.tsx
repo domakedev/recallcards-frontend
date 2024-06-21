@@ -40,8 +40,6 @@ const Footer = () => {
 
   // useEffect(() => {
   //   const randomDeck = randomNumber0toNum(Decks.length - 1);
-  //   console.log("🚀 ~ useEffect ~ randomDeck:", randomDeck);
-  //   console.log("🚀 ~ useEffect ~ Decks[randomDeckLength]:", Decks[randomDeckLength])
 
   //   setRandomDeckLength(randomDeck);
   //   setRandomCardNumber(randomNumber1toNum(Decks[randomDeckLength].deckSize));

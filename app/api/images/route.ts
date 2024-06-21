@@ -12,7 +12,6 @@ export const POST = async (req: Request) => {
     const data = await req.formData();
     const image = data.get("image");
     const deckName = data.get("deck-name");
-    console.log("🚀 ~ POST ~ image:", image);
 
     if (!image || !(image instanceof File)) {
       return NextResponse.json(
@@ -49,7 +48,6 @@ export const POST = async (req: Request) => {
       { status: 201 }
     );
   } catch (error) {
-    console.log("🚀 ~ POST ~ error:", error);
     return NextResponse.json(
       { ok: false, message: "Error al subir la imagen" },
       { status: 500 }

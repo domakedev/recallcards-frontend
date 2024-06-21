@@ -19,19 +19,12 @@ export const useAuthForm = () => {
     setForm({
       ...form,
       [e.target.name]: e.target.value,
-    });
-    console.log(
-      "🚀 ~ inputHandler ~ [e.target.name]: e.target.value:",
-      [e.target.name],
-      e.target.value
-    );
+    });    
   };
 
   const loginUser = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      console.log("🚀 ~ sendUserData ~ form:", form);
-
       const result = await fetch("/api/users/login", {
         method: "POST",
         body: JSON.stringify(form),
@@ -40,7 +33,6 @@ export const useAuthForm = () => {
         },
       });
       const answer = await result.json();
-      console.log("🚀 ~ loginUser ~ answer:", answer);
       if (answer.ok) {
         toast.success(answer.message);
       } else if (!answer.ok) {

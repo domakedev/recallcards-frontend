@@ -23,16 +23,12 @@ const page = () => {
       toast.error("Escribe un nombre coherente de mínimo 5 caracteres.");
       return;
     }
-    try {
-      setIsLoading(true);
-      const result = await createDeck(deck);
-      if (result.ok) {
-        setIsLoading(false);
-        toast.success(result.message);
-        setDeck({ name: "", image: "", creatorId: 1 });
-      }
-    } catch (error) {
-      console.log("🚀 ~ handleSubmit ~ error:", error);
+    setIsLoading(true);
+    const result = await createDeck(deck);
+    if (result.ok) {
+      setIsLoading(false);
+      toast.success(result.message);
+      setDeck({ name: "", image: "", creatorId: 1 });
     }
   };
 

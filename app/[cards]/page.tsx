@@ -30,10 +30,8 @@ import IGIMGPlaceholder from "@/assets/placeholder-ig.jpg"
 
 const page = () => {
   const params = useParams();
-  console.log("🚀 ~ page ~ params:", params);
 
   const actualDeck = Decks.find((deck) => deck.deckSlug === params.cards);
-  console.log("🚀 ~ page ~ actualDeck:", actualDeck);
 
   const deckName = unSlug(
     typeof params.cards === "string" ? params.cards : params.cards[0]
@@ -45,7 +43,6 @@ const page = () => {
   );
 
   const [cards, setCards] = useState<Card[]>()
-  console.log("🚀 ~ page ~ cardsssssssssssssssssss:", cards)
 
   useEffect(() => {
     const cards = async()=> await getAllCards()
@@ -57,13 +54,11 @@ const page = () => {
 
   // Obtener el contexto de todas las imágenes en la carpeta 'images'
   // const imagesContext = require.context('/public/decks/react-entrevista', false, /\.(png|jpe?g|svg)$/);
-  // console.log('🚀 ~ imagesContext:', imagesContext)
 
   // Obtener las rutas de todas las imágenes
   // const imagePaths = imagesContext.keys().map(imagesContext);
 
   // imagePaths ahora es un array que contiene las rutas de todas las imágenes
-  // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>",imagePaths[0].default.src, imagePaths.length);
 
 
   return (

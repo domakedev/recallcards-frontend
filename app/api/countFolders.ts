@@ -11,11 +11,8 @@ export default async function handler(
   res: NextApiResponse<Data>
 ) {
   try {
-      console.log("🚀 ~ await cloudinary.api::::::::::::::::");
     const { resources } = await cloudinary.api.root_folders();
     const datax = await cloudinary.api;
-    console.log("🚀 ~ await cloudinary.api:", datax);
-    console.log("🚀 ~ resources:", resources);
 
     const folderCount = resources.length;
 

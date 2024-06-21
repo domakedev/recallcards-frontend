@@ -19,7 +19,6 @@ const page = () => {
   const state = useAppSelector((state) => state.user);
 
   const [decks, setDecks] = useState<Deck[]>();
-  console.log("🚀 ~ page ~ decks:", decks)
 
   useEffect(() => {
     getDecks().then((data) => setDecks(data.decks));

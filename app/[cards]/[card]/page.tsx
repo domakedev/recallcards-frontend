@@ -51,7 +51,6 @@ const page = () => {
     const getCard = async () => {
       const res = await getCardById(8);
       setCardDB(res.result);
-      console.log("🚀 ~ getCard ~ res:", res.result);
     };
     getCard();
   }, []);
