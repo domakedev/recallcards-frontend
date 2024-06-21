@@ -13,6 +13,9 @@ import { getDecks } from "@/services/deck.services";
 import { Deck } from "@/types/Deck";
 import { set } from "@cloudinary/url-gen/actions/variable";
 import { unSlug } from "@/utils/unSlug";
+import { Card } from "@/types/Card";
+import { getAllCards } from "@/services/card.services";
+import IGIMGPlaceholder from "@/assets/placeholder-ig.jpg"
 
 // declare const require: {
 //   context(
@@ -41,6 +44,14 @@ const page = () => {
     (_, i) => i + 1
   );
 
+  const [cards, setCards] = useState<Card[]>()
+
+  useEffect(() => {
+    const cards = async()=> await getAllCards()
+
+    cards().then((data) => setCards(data))
+  }, [])
+
   // eslint-disable-next-line react-hooks/rules-of-hooks
 
   // Obtener el contexto de todas las imágenes en la carpeta 'images'
@@ -52,6 +63,7 @@ const page = () => {
 
   // imagePaths ahora es un array que contiene las rutas de todas las imágenes
   // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>",imagePaths[0].default.src, imagePaths.length);
+
 
   return (
     <div className="w-full flex flex-col items-center">
@@ -75,6 +87,13 @@ const page = () => {
         />
       </Link>
       <div className="flex flex-wrap gap-4 p-5 justify-center">
+        {cards?.map((e,i) => (
+          <CardPreview
+            key={i}
+            image={e.answer.includes("http") ? e.answer : ""}
+            cardName={e.question || "No hay pregunta"}
+          />
+        ))}
         {arrayDeck.map((e) => (
           <CardPreview
             key={e}
