@@ -9,24 +9,9 @@ import LargeButton from "../components/LargeButton";
 import { useParams } from "next/navigation";
 import { Decks } from "@/mock/decks";
 import Link from "next/link";
-import { getDecks } from "@/services/deck.services";
-import { Deck } from "@/types/Deck";
-import { set } from "@cloudinary/url-gen/actions/variable";
 import { unSlug } from "@/utils/unSlug";
 import { Card } from "@/types/Card";
 import { getAllCards } from "@/services/card.services";
-import IGIMGPlaceholder from "@/assets/placeholder-ig.jpg"
-
-// declare const require: {
-//   context(
-//     directory: string,
-//     useSubdirectories?: boolean,
-//     regExp?: RegExp
-//   ): {
-//     keys: () => string[];
-//     <T>(id: string): T;
-//   };
-// };
 
 const page = () => {
   const params = useParams();
@@ -42,24 +27,13 @@ const page = () => {
     (_, i) => i + 1
   );
 
-  const [cards, setCards] = useState<Card[]>()
+  const [cards, setCards] = useState<Card[]>();
 
   useEffect(() => {
-    const cards = async()=> await getAllCards()
+    const cards = async () => await getAllCards();
 
-    cards().then((data) => setCards(data))
-  }, [])
-
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-
-  // Obtener el contexto de todas las imágenes en la carpeta 'images'
-  // const imagesContext = require.context('/public/decks/react-entrevista', false, /\.(png|jpe?g|svg)$/);
-
-  // Obtener las rutas de todas las imágenes
-  // const imagePaths = imagesContext.keys().map(imagesContext);
-
-  // imagePaths ahora es un array que contiene las rutas de todas las imágenes
-
+    cards().then((data) => setCards(data));
+  }, []);
 
   return (
     <div className="w-full flex flex-col items-center">
@@ -83,10 +57,14 @@ const page = () => {
         />
       </Link>
       <div className="flex flex-wrap gap-4 p-5 justify-center">
-        {cards?.map((e,i) => (
+        {cards?.map((e, i) => (
           <CardPreview
             key={i}
-            image={e.answer.includes("http") || e.answer.includes("data:image") ? e.answer : ""}
+            image={
+              e.answer.includes("http") || e.answer.includes("data:image")
+                ? e.answer
+                : ""
+            }
             cardName={e.question || "-"}
           />
         ))}
