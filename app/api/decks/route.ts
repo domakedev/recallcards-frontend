@@ -16,7 +16,7 @@ export const POST = async (req: Request) => {
       { status: 200 }
     );
   } catch (error) {
-    // console.log("🚀 ~ POST ~ error:", error);
+    console.log("🚀 ~ POST ~ error:", error);
     return NextResponse.json(
       { ok: false, message: "Error al crear el Deck" },
       { status: 500 }

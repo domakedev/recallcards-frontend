@@ -27,9 +27,9 @@ model decks {
 
 model card_difficulty_per_user {
   id               Int               @id @default(autoincrement())
-  userId           Int?
-  cardId           Int?
-  difficultyId     Int?
+  userId           Int
+  cardId           Int
+  difficultyId     Int
   last_evaluate    DateTime?         @db.Date
   cards            cards?            @relation(fields: [cardId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   difficulty_level difficulty_level? @relation(fields: [difficultyId], references: [id], onDelete: NoAction, onUpdate: NoAction)
@@ -39,9 +39,9 @@ model card_difficulty_per_user {
 model cards {
   id                       Int                        @id @default(autoincrement())
   question                 String?                    @db.VarChar
-  answer                   String?                    @db.VarChar
-  creatorId                Int?
-  deckId                   Int?
+  answer                   String                    @db.VarChar
+  creatorId                Int
+  deckId                   Int
   card_difficulty_per_user card_difficulty_per_user[]
   users                    users?                     @relation(fields: [creatorId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   decks                    decks?                     @relation(fields: [deckId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "cards_deck_fkey")

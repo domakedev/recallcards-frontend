@@ -14,6 +14,7 @@ const CardControlButtons = () => {
 
   const [disableLeftButton, setDisableLeftButton] = useState(false);
   const [disableRightButton, setDisableRightButton] = useState(false);
+  const [randomCardNumber, setRandomCardNumber] = useState<number>(0);
 
   const actualDeck = Decks.find((deck) => deck.deckSlug === params.cards);
 
@@ -33,6 +34,12 @@ const CardControlButtons = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cardName]);
+
+  useEffect(() => {
+    setRandomCardNumber(
+      Math.floor(Math.random() * (actualDeck?.deckSize || 0)) + 1
+    );
+  }, [actualDeck]);
 
   const goNext = (condition: boolean) => {
     console.log("Next", condition);
@@ -82,9 +89,7 @@ const CardControlButtons = () => {
         />
       </Link>
       <Link
-        href={`/${params.cards}/${
-          Math.floor(Math.random() * (actualDeck?.deckSize || 0)) + 1
-        }`}
+        href={`/${params.cards}/${randomCardNumber}`}
         className="w-full min-h-[60px] bg-[#3a3a3a] flex justify-center items-center transform transition-transform duration-200 active:scale-95 hover:scale-105 rounded-[12px]"
       >
         <LargeButton
