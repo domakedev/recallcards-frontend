@@ -20,9 +20,9 @@ model decks {
   id        Int     @id @default(autoincrement())
   name      String  @db.VarChar
   image     String? @db.VarChar
-  creatorId Int?
+  creatorId Int
   cards     cards[]
-  users     users?  @relation(fields: [creatorId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users     users   @relation(fields: [creatorId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model card_difficulty_per_user {
@@ -41,10 +41,10 @@ model cards {
   question                 String?                    @db.VarChar
   answer                   String?                    @db.VarChar
   creatorId                Int?
-  deck                     Int?
+  deckId                   Int?
   card_difficulty_per_user card_difficulty_per_user[]
   users                    users?                     @relation(fields: [creatorId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  decks                    decks?                     @relation(fields: [deck], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  decks                    decks?                     @relation(fields: [deckId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "cards_deck_fkey")
 }
 
 model difficulty_level {

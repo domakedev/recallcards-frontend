@@ -2,16 +2,17 @@ import Image, { StaticImageData } from "next/image";
 import React from "react";
 import CardsIcon from "@/assets/cards-icon.png";
 import Link from "next/link";
+import DeckPlaceHolderIMG from "@/assets/placeholder-256x256.svg"
 
 interface DeckPreviewProps {
-  src: StaticImageData;
+  src: StaticImageData | string;
   deckName: string;
   deckSize: number;
   deckSlug: string;
 }
 
 const DeckPreview: React.FC<DeckPreviewProps> = ({
-  src,
+  src= DeckPlaceHolderIMG,
   deckName,
   deckSize,
   deckSlug,
@@ -24,10 +25,11 @@ const DeckPreview: React.FC<DeckPreviewProps> = ({
     >
       <Image
         className="w-32 h-32 object-cover rounded-xl shadow-lg"
-        src={src}
+        src={src === "" ? DeckPlaceHolderIMG : src}
         width={120}
         height={120}
         alt="Deck vista previa"
+        priority
       />
       <div className="flex flex-col">
         <h2 className="max-w-32 md:max-w-64">{deckName}</h2>

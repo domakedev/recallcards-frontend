@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import CardPreview from "../components/CardPreview";
 import DadosIcon from "@/assets/dados-icon.svg";
@@ -8,6 +9,10 @@ import LargeButton from "../components/LargeButton";
 import { useParams } from "next/navigation";
 import { Decks } from "@/mock/decks";
 import Link from "next/link";
+import { getDecks } from "@/services/deck.services";
+import { Deck } from "@/types/Deck";
+import { set } from "@cloudinary/url-gen/actions/variable";
+import { unSlug } from "@/utils/unSlug";
 
 // declare const require: {
 //   context(
@@ -21,15 +26,22 @@ import Link from "next/link";
 // };
 
 const page = () => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const params = useParams();
+  console.log("🚀 ~ page ~ params:", params);
 
   const actualDeck = Decks.find((deck) => deck.deckSlug === params.cards);
+  console.log("🚀 ~ page ~ actualDeck:", actualDeck);
+
+  const deckName = unSlug(
+    typeof params.cards === "string" ? params.cards : params.cards[0]
+  );
 
   const arrayDeck = Array.from(
     { length: actualDeck?.deckSize || 0 },
     (_, i) => i + 1
   );
+
+  // eslint-disable-next-line react-hooks/rules-of-hooks
 
   // Obtener el contexto de todas las imágenes en la carpeta 'images'
   // const imagesContext = require.context('/public/decks/react-entrevista', false, /\.(png|jpe?g|svg)$/);
@@ -45,7 +57,7 @@ const page = () => {
     <div className="w-full flex flex-col items-center">
       <NavBar
         title={
-          "Cartas de: " + actualDeck?.deckName ||
+          "Cartas de: " + deckName ||
           "No has seleccionado un deck o no se ha encontrado"
         }
         goBack

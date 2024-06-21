@@ -5,6 +5,9 @@ import "./globals.css";
 import Footer from "./components/Footer";
 import Providers from "@/redux/Providers";
 
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -29,6 +32,7 @@ export default function RootLayout({
           {/* Create a footer that show a nice message */}
         </Providers>
         <Footer />
+        <ToastContainer />
       </body>
     </html>
   );

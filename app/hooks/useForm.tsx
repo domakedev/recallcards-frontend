@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { Bounce, toast } from "react-toastify";
 
 export const useAuthForm = () => {
+  
   const [form, setForm] = useState<User>({
     email: "",
     password: "",

@@ -6,3 +6,10 @@ export type DeckType = {
     deckImage: StaticImageData,
     deckSize: number
 }
+
+export type Deck = {
+    name: string,
+    image?: string,
+    creatorId: number,
+    deckSize?: number,
+}

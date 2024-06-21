@@ -1,0 +1,24 @@
+@keyframes rainbowEffect {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: -100% 50%;
+    }
+}
+
+.rainbow-animation {
+    background: linear-gradient(
+        50deg,
+        red,
+        orange,
+        yellow,
+        green,
+        blue,
+        indigo,
+        violet,
+        red
+    );
+    background-size: 300% 100%;
+    animation: rainbowEffect 8s backwards infinite;
+}
