@@ -32,6 +32,6 @@ export const getDecks = async () => {
       throw new Error(data.message);
     }
   } catch (error: any) {
-    throw new Error(error);
+    throw new Error(error.message);
   }
 };

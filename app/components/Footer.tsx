@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 const Footer = () => {
   const params = useParams();
 
-  const actualDeck = Decks.find((deck) => deck.deckSlug === params.cards);
+  const actualDeck = Decks.find((deck) => deck.deckSlug === params.deck);
 
   const [randomDeckSlug, setRandomDeckSlug] = useState<string>("");
   const [randomCardNumber, setRandomCardNumber] = useState<number>(0);

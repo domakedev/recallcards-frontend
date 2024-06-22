@@ -16,10 +16,10 @@ import { getAllCards } from "@/services/card.services";
 const page = () => {
   const params = useParams();
 
-  const actualDeck = Decks.find((deck) => deck.deckSlug === params.cards);
+  const actualDeck = Decks.find((deck) => deck.deckSlug === params.deck);
 
   const deckName = unSlug(
-    typeof params.cards === "string" ? params.cards : params.cards[0]
+    typeof params.deck === "string" ? params.deck : params.deck[0]
   );
 
   const arrayDeck = Array.from(
@@ -45,7 +45,7 @@ const page = () => {
         goBack
       />
       <Link
-        href={`/${params.cards}/${
+        href={`/${params.deck}/${
           Math.floor(Math.random() * (actualDeck?.deckSize || 0)) + 1
         }`}
         className=" bg-[#3a3a3a] flex justify-center items-center transform transition-transform duration-200 active:scale-95 hover:scale-105 rounded-[12px]"

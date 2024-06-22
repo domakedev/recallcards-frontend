@@ -8,14 +8,11 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { Deck } from "@/types/Deck";
 import { getDecks } from "@/services/deck.services";
 import { nameToSlug } from "@/utils/nameToSlug";
-
-
+import { v4 as uuidv4 } from 'uuid';
 
 
 const page = () => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const dispatch = useAppDispatch();
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const state = useAppSelector((state) => state.user);
 
   const [decks, setDecks] = useState<Deck[]>();
@@ -30,14 +27,14 @@ const page = () => {
         goBack={false}
       />
       <div className="flex gap-7 flex-wrap justify-center">
-      {decks?.map((e, i) => (
-        <DeckPreview
-        key={i}
-        src={e.image || ""}
-        deckName={e.name}
-        deckSize={e.deckSize || 0}
-        deckSlug={nameToSlug(e.name)}
-      />
+        {decks?.map((e, i) => (
+          <DeckPreview
+            key={uuidv4()}
+            src={e.image || ""}
+            deckName={e.name}
+            deckSize={e.deckSize || 0}
+            deckSlug={nameToSlug(e.name)}
+          />
         ))}
         {Decks?.map((d) => (
           <DeckPreview

@@ -22,7 +22,7 @@ const page = () => {
 
   const params = useParams();
 
-  const actualDeck = Decks.find((deck) => deck.deckSlug === params.cards);
+  const actualDeck = Decks.find((deck) => deck.deckSlug === params.deck);
 
   const cardName = params.card;
 

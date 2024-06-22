@@ -20,8 +20,8 @@ const NavBar: React.FC<NavBarProps> = ({ title, goBack = false }) => {
   let goTo: string = "";
 
   if (claves.includes("card")) {
-    goTo = "cards";
-  } else if (claves.includes("cards")) {
+    goTo = "deck";
+  } else if (claves.includes("deck")) {
     goTo = "/";
   }
 
