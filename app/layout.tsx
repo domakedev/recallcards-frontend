@@ -6,7 +6,7 @@ import Footer from "./components/Footer";
 import Providers from "@/redux/Providers";
 
 import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import "react-toastify/ReactToastify.css";
 
 const inter = Inter({ subsets: ["latin"] });
 

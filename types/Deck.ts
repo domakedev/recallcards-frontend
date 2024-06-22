@@ -8,6 +8,14 @@ export type DeckType = {
 }
 
 export type Deck = {
+    id?: number,
+    name: string,
+    image?: string,
+    creatorId: number,
+    deckSize?: number,
+}
+
+export type DeckDB = {
     id: number,
     name: string,
     image?: string,

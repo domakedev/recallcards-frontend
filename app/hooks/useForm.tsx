@@ -1,11 +1,13 @@
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { setUser } from "@/redux/userSlice";
 import { User } from "@/types/User";
 import Error from "next/error";
 import { cookies } from "next/headers";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Bounce, toast } from "react-toastify";
 
-export const useAuthForm = () => {
-  
+export const useAuthForm = () => {  
   const [form, setForm] = useState<User>({
     email: "",
     password: "",
@@ -14,6 +16,10 @@ export const useAuthForm = () => {
   useEffect(() => {
     return () => {};
   }, []);
+
+  const router = useRouter()
+  const state = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
 
   const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({
@@ -34,7 +40,12 @@ export const useAuthForm = () => {
       });
       const answer = await result.json();
       if (answer.ok) {
+        console.log("🚀 ~ loginUser ~ answer:", answer)
+        //Subir a Redux
+        const {id, email} = answer.user;
+        dispatch(setUser({id, email, authenticated: true}));
         toast.success(answer.message);
+        router.push("/");
       } else if (!answer.ok) {
         toast.error(answer.message);
       }

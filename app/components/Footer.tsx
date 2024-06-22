@@ -18,7 +18,6 @@ const Footer = () => {
     (typeof params.deck === "string" ? params.deck : params.deck[0]);
 
   const [randomCard, setRandomCard] = useState<Card>();
-  console.log("🚀 ~ Footer ~ randomCard:", randomCard);
   const [resetCard, setResetCard] = useState<boolean>(false);
   const [allCards, setAllCards] = useState<Card[]>([]);
 

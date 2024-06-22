@@ -1,15 +1,44 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./styles.css";
 import { Deck } from "@/types/Deck";
 import { toast } from "react-toastify";
 import { createDeck } from "@/services/deck.services";
+import { useAppSelector } from "@/redux/hooks";
+import { useRouter } from "next/navigation";
 
 const page = () => {
-  const [deck, setDeck] = useState<Deck>({ name: "", image: "", creatorId: 1 });
+  const router = useRouter();
+  const [deck, setDeck] = useState<Deck>({
+    name: "",
+    image: "",
+    creatorId: 1,
+  });
   const [isLoading, setIsLoading] = useState(false);
+  const [title, setTitle] = useState("Crea un nuevo Deck");
+  const userState = useAppSelector((state) => state.user);
+  // const userState = {
+  //   authenticated: true,
+  //   id: 1,
+  // };
+  console.log("🚀 ~ page ~ userState:", userState);
+
+  console.log("🚀 ~ page ~ deck:", deck);
+  useEffect(() => {
+    if (!userState.authenticated) {
+      console.log(
+        "🚀 ~ page ~ userState.authenticated:",
+        userState.authenticated
+      );
+      toast.error("No puedes crear un deck si no estás logeado.");
+    }
+    if (userState.authenticated) {
+      toast.success("SIIIIIIIIII");
+      setDeck({ ...deck, creatorId: userState.id });
+    }
+  }, [userState]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -23,13 +52,32 @@ const page = () => {
       toast.error("Escribe un nombre coherente de mínimo 5 caracteres.");
       return;
     }
+    if (deck.id === 0) {
+      return;
+    }
     setIsLoading(true);
     const result = await createDeck(deck);
+    console.log("🚀 ~ handleSubmit ~ result:", result);
     if (result.ok) {
       setIsLoading(false);
-      toast.success(result.message);
+      setTitle("¡Deck creado!  ¿Uno más?");
+      toast.success(result.message || "ok");
       setDeck({ name: "", image: "", creatorId: 1 });
     }
+  };
+
+  const apoyo = () => {
+    toast("Au2");
+    toast.error("Au2");
+    toast.success("Au2");
+  };
+
+  const gritito = () => {
+    toast("Au");
+    toast.error("Au");
+    toast.success("Au");
+    apoyo();
+    console.log("🚀 ~ gritito ~ Auuuuuuuuuuuuuuuuu");
   };
 
   return (
@@ -37,7 +85,7 @@ const page = () => {
       <div className="max-w-md w-full space-y-8 p-10 bg-white rounded-xl shadow-lg z-10">
         <div className="text-center">
           <h2 className="mt-6 text-3xl font-extrabold text-gray-900">
-            Crea un nuevo Deck
+            {title}
           </h2>
           <p className="mt-2 text-sm text-gray-600">
             Crea notas de tus estudios y repasa siempre que quieras, gratis (por
@@ -45,14 +93,9 @@ const page = () => {
           </p>
         </div>
         <form
-          className="mt-8 space-y-6"
           onSubmit={handleSubmit}
+          className="mt-8 space-y-6"
         >
-          <input
-            type="hidden"
-            name="remember"
-            value="true"
-          />
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
               <label
@@ -63,12 +106,15 @@ const page = () => {
               </label>
               <input
                 type="text"
+                disabled={!userState.authenticated}
                 id="name"
                 name="name"
                 value={deck.name}
                 onChange={handleChange}
                 required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                className={`appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm ${
+                  !userState.authenticated ? "cursor-not-allowed" : ""
+                }`}
                 placeholder="Deck Name"
               />
             </div>
@@ -81,11 +127,14 @@ const page = () => {
               </label>
               <input
                 type="text"
+                disabled={!userState.authenticated}
                 id="image"
                 name="image"
                 value={deck.image}
                 onChange={handleChange}
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                className={`appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm ${
+                  !userState.authenticated ? "cursor-not-allowed" : ""
+                }`}
                 placeholder="Deck Image URL"
               />
             </div>
@@ -94,14 +143,28 @@ const page = () => {
           <div>
             <button
               type="submit"
+              disabled={!userState.authenticated}
               className={`${
                 isLoading ? "rainbow-animation" : ""
-              } group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
+              } group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ${
+                !userState.authenticated ? "cursor-not-allowed" : ""
+              }`}
             >
-              Create Deck
+              {userState.authenticated
+                ? "Create Deck"
+                : "Debes iniciar sesión para crear un deck"}
             </button>
           </div>
         </form>
+        {userState.authenticated ? null : (
+          <button
+            onClick={() => router.push("/auth/login")}
+            disabled={userState.authenticated}
+            className={`group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 my-4`}
+          >
+            Login
+          </button>
+        )}
       </div>
     </div>
   );

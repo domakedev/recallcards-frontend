@@ -11,6 +11,7 @@ export const POST = async (req: Request) => {
       where: { email },
     });
     if (user) {
+      console.log("🚀 ~ POST ~ user:", user)
       const passwordMatch = await bcrypt.compare(password, user.password);
       if (!passwordMatch) {
         return NextResponse.json(
@@ -30,8 +31,12 @@ export const POST = async (req: Request) => {
         secure: true,
         maxAge: 60 * 60 * 24 * 7,
       });
+      const userResult = {
+        id: user.id,
+        email: user.email,
+      }
       return NextResponse.json(
-        { ok: true, message: "Usuario logueado", token },
+        { ok: true, message: "Usuario logueado", user: userResult},
         { status: 200 }
       );
     } else {

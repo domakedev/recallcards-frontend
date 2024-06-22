@@ -1,4 +1,3 @@
-// pages/auth.js
 "use client";
 
 import { useAuthForm } from "@/app/hooks/useForm";

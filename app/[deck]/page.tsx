@@ -16,8 +16,10 @@ import { getCardsByDeckId } from "@/services/card.services";
 import { v4 as uuidv4 } from "uuid";
 import { Deck } from "@/types/Deck";
 import { getDecks } from "@/services/deck.services";
+import { useAppSelector } from "@/redux/hooks";
 
 const page = () => {
+  const userState = useAppSelector((state) => state.user);
   const params = useParams();
   const router = useRouter();
   const deckId =
@@ -39,7 +41,7 @@ const page = () => {
         return setDeckCards(data);
       });
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [deckId]);
 
   useEffect(() => {
@@ -70,6 +72,16 @@ const page = () => {
           bgColor="bg-[#3a3a3a]"
         />
       </Link>
+
+      {/* <button
+        onClick={() =>
+          console.log("Abrir modal o página para crear un nuevo deck.")
+        }
+        className="mt-5 bg-blue-500 text-white font-bold py-2 px-4 rounded-lg shadow-lg transform transition-transform duration-200 hover:scale-105 active:scale-95"
+      >
+        Crear Deck
+      </button> */}
+
       <div className="flex flex-wrap gap-4 p-5 justify-center">
         {deckCards?.map((e, i) => (
           <CardPreview

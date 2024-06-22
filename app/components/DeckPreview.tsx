@@ -4,7 +4,6 @@ import CardsIcon from "@/assets/cards-icon.png";
 import Link from "next/link";
 import DeckPlaceHolderIMG from "@/assets/placeholder-256x256.svg";
 
-
 interface DeckPreviewProps {
   src: StaticImageData | string;
   deckName: string;
