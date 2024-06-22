@@ -6,40 +6,54 @@ import NavBar from "../components/NavBar";
 import CardPreview from "../components/CardPreview";
 import DadosIcon from "@/assets/dados-icon.svg";
 import LargeButton from "../components/LargeButton";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { Decks } from "@/mock/decks";
 import Link from "next/link";
 import { unSlug } from "@/utils/unSlug";
-import { Card } from "@/types/Card";
 import { getAllCards } from "@/services/card.services";
+import { Card } from "@/types/Card";
+import { getCardsByDeckId } from "@/services/card.services";
+import { v4 as uuidv4 } from "uuid";
+import { Deck } from "@/types/Deck";
+import { getDecks } from "@/services/deck.services";
 
 const page = () => {
   const params = useParams();
+  const router = useRouter();
+  const deckId =
+    typeof params.deck === "string"
+      ? params.deck.split("-")[1]
+      : params.deck[0].split("-")[1];
 
-  const actualDeck = Decks.find((deck) => deck.deckSlug === params.deck);
-
-  const deckName = unSlug(
-    typeof params.deck === "string" ? params.deck : params.deck[0]
-  );
-
-  const arrayDeck = Array.from(
-    { length: actualDeck?.deckSize || 0 },
-    (_, i) => i + 1
-  );
-
-  const [cards, setCards] = useState<Card[]>();
+  const [deckCards, setDeckCards] = useState<Card[]>();
+  const [decks, setDecks] = useState<Deck[]>();
+  const [actualDeck, setActualDeck] = useState<Deck>();
 
   useEffect(() => {
-    const cards = async () => await getAllCards();
+    if (deckId === undefined) {
+      router.push("/");
+    }
+    if (deckId) {
+      getDecks().then((data) => setDecks(data.decks));
+      getCardsByDeckId(Number(deckId)).then((data) => {
+        return setDeckCards(data);
+      });
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [deckId]);
 
-    cards().then((data) => setCards(data));
-  }, []);
+  useEffect(() => {
+    if (decks && deckId) {
+      const actualDeck = decks?.find((deck) => deck.id === Number(deckId));
+      setActualDeck(actualDeck);
+    }
+  }, [decks, deckId]);
 
   return (
     <div className="w-full flex flex-col items-center">
       <NavBar
         title={
-          "Cartas de: " + deckName ||
+          "Cartas de: " + actualDeck?.name ||
           "No has seleccionado un deck o no se ha encontrado"
         }
         goBack
@@ -57,22 +71,16 @@ const page = () => {
         />
       </Link>
       <div className="flex flex-wrap gap-4 p-5 justify-center">
-        {cards?.map((e, i) => (
+        {deckCards?.map((e, i) => (
           <CardPreview
-            key={i}
+            key={uuidv4()}
             image={
               e.answer.includes("http") || e.answer.includes("data:image")
                 ? e.answer
                 : ""
             }
             cardName={e.question || "-"}
-          />
-        ))}
-        {arrayDeck.map((e) => (
-          <CardPreview
-            key={e}
-            image={`/decks/${actualDeck?.deckSlug}/${e}.png`}
-            cardName={`${e}`}
+            id={e.id}
           />
         ))}
       </div>

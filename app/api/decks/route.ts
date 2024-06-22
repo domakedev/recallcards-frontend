@@ -1,8 +1,8 @@
-import { User } from "@/types/User";
+import prisma from "@/config/db";
 import { PrismaClient } from "@prisma/client";
 import { NextResponse } from "next/server";
 
-const prisma = new PrismaClient();
+// const prisma = new PrismaClient();
 
 export const POST = async (req: Request) => {
   try {
@@ -35,5 +35,11 @@ export const GET = async () => {
       { ok: true, message: "Decks encontrados", decks, deckSize: decks.length },
       { status: 200 }
     );
-  } catch (error) {}
+  } catch (error) {
+    console.log("🚀 ~ GET ~ error:", error);
+    return NextResponse.json(
+      { ok: false, message: "Error al traer los decks" },
+      { status: 500 }
+    );
+  }
 };

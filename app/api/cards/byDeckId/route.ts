@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
+import prisma from "@/config/db";
 
-const prisma = new PrismaClient();
+// const prisma = new PrismaClient();
 
 //Get Cards by deckID
 export const POST = async (req: Request) => {
@@ -14,15 +15,16 @@ export const POST = async (req: Request) => {
     });
     if (result.length === 0) {
       return NextResponse.json(
-        { ok: false, message: "Este Deck no tiene Cards" },
+        { ok: true, message: "Este Deck no tiene Cards", cards: result },
         { status: 404 }
       );
     }
     return NextResponse.json(
-      { ok: true, message: "Card/s encontrada/s", result },
+      { ok: true, message: "Card/s encontrada/s", cards: result },
       { status: 200 }
     );
   } catch (error) {
+    console.log("🚀 ~ POST ~ error:", error)
     return NextResponse.json(
       { ok: false, message: "Error en API de CARDS BY DECK" },
       { status: 500 }

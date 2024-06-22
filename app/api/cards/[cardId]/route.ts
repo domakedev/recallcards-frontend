@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
+import prisma from "@/config/db";
 
-const prisma = new PrismaClient();
+// const prisma = new PrismaClient();
 
 //Get card by ID
 export const GET = async (
@@ -15,10 +16,20 @@ export const GET = async (
       },
     });
     if (!result) {
-      return NextResponse.json({ok: false, message: "Card no encontrada"},{status: 404})
+      return NextResponse.json(
+        { ok: false, message: "Card no encontrada" },
+        { status: 404 }
+      );
     }
-    return NextResponse.json({ ok: true, message: "Card encontrada", result}, { status: 200});
+    return NextResponse.json(
+      { ok: true, message: "Card encontrada", result },
+      { status: 200 }
+    );
   } catch (error) {
-    return NextResponse.json({ok: false, message: "Error en CARDID API"},{status: 500})
+    console.log("🚀 ~ error:", error);
+    return NextResponse.json(
+      { ok: false, message: "Error en CARDID API" },
+      { status: 500 }
+    );
   }
 };

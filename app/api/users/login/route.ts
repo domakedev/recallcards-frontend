@@ -1,11 +1,8 @@
-import { User } from "@/types/User";
-import { PrismaClient } from "@prisma/client";
 import { NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
 import bcrypt from "bcrypt";
-
-const prisma = new PrismaClient();
+import prisma from "@/config/db";
 
 export const POST = async (req: Request) => {
   try {
@@ -22,7 +19,7 @@ export const POST = async (req: Request) => {
         );
       }
       const token = jwt.sign(
-        { email },
+        { id: user.id, email },
         "e6d625f9-ac31-4ef8-b56e-c2ee34c7917f",
         {
           expiresIn: "1h",

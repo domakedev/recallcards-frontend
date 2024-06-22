@@ -11,9 +11,9 @@ import CardControlButtons from "@/app/components/CardControlButtons";
 //Skeleton
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import CloudinaryTest from "@/app/components/CloudinaryTest";
 import { getCardById } from "@/services/card.services";
 import { Card } from "@/types/Card";
+import { toast } from "react-toastify";
 
 const page = () => {
   const [showCard, setShowCard] = useState<boolean>(true);
@@ -24,9 +24,10 @@ const page = () => {
 
   const actualDeck = Decks.find((deck) => deck.deckSlug === params.deck);
 
-  const cardName = params.card;
+  const cardName =
+    typeof params.card === "string" ? params.card : params.card[0];
 
-  //function than detecta the width of an element
+  //function than detect the width of an element
   const getWidth = () => {
     const skeletonParent = document.getElementById("skeletonId");
     const imgParent = document.getElementById("imgParent");
@@ -49,20 +50,25 @@ const page = () => {
 
   useEffect(() => {
     const getCard = async () => {
-      const res = await getCardById(8);
-      setCardDB(res.result);
+      try {
+        const res = await getCardById(Number(cardName));
+        setCardDB(res.result);
+        if (!res.ok) {
+          toast.error(res.message);
+        }
+      } catch (error) {}
     };
     getCard();
-  }, []);
+  }, [cardName]);
 
   return (
     <>
       <NavBar
-        title={`${actualDeck?.deckName} | ${cardName} de ${actualDeck?.deckSize}`}
+        title={`${cardName}`}
         goBack
       />
       <div className="flex flex-col justify-center px-3">
-        <div className="relative w-full max-w-[600px] grow max-h-[625px] mx-auto ">
+        <div className="relative w-full max-w-[500px] grow max-h-[625px] mx-auto ">
           <div
             id="imgParent"
             className="min-h-max h-fit"
@@ -91,16 +97,6 @@ const page = () => {
                 priority
               />
             ) : null}
-            <Image
-              src={`/decks/${actualDeck?.deckSlug}/${cardName}.png`}
-              alt="Carta"
-              width={1080}
-              height={1350}
-              loading="lazy"
-              onLoad={() => setImgLoaded(true)}
-              className={` rounded-xl  shadow-xl  `}
-              quality={100}
-            />
           </div>
           {/* //use Skeleton to show a loading animation */}
 

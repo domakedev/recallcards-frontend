@@ -3,13 +3,11 @@
 import React, { useEffect, useState } from "react";
 import DeckPreview from "./components/DeckPreview";
 import NavBar from "./components/NavBar";
-import { Decks } from "@/mock/decks";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { Deck } from "@/types/Deck";
 import { getDecks } from "@/services/deck.services";
 import { nameToSlug } from "@/utils/nameToSlug";
-import { v4 as uuidv4 } from 'uuid';
-
+import { v4 as uuidv4 } from "uuid";
 
 const page = () => {
   const dispatch = useAppDispatch();
@@ -34,15 +32,7 @@ const page = () => {
             deckName={e.name}
             deckSize={e.deckSize || 0}
             deckSlug={nameToSlug(e.name)}
-          />
-        ))}
-        {Decks?.map((d) => (
-          <DeckPreview
-            key={d.deckName}
-            src={d.deckImage}
-            deckName={d.deckName}
-            deckSize={d.deckSize}
-            deckSlug={d.deckSlug}
+            deckId={e.id}
           />
         ))}
       </div>

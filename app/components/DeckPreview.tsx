@@ -1,27 +1,30 @@
 import Image, { StaticImageData } from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CardsIcon from "@/assets/cards-icon.png";
 import Link from "next/link";
-import DeckPlaceHolderIMG from "@/assets/placeholder-256x256.svg"
+import DeckPlaceHolderIMG from "@/assets/placeholder-256x256.svg";
+
 
 interface DeckPreviewProps {
   src: StaticImageData | string;
   deckName: string;
   deckSize: number;
   deckSlug: string;
+  deckId: number;
 }
 
 const DeckPreview: React.FC<DeckPreviewProps> = ({
-  src= DeckPlaceHolderIMG,
+  src = DeckPlaceHolderIMG,
   deckName,
   deckSize,
   deckSlug,
+  deckId,
 }) => {
+
   return (
     <Link
-      href={`/${deckSlug}`}
+      href={`/deck-${deckId}-${deckSlug}`}
       className="flex flex-col gap-2 transform transition-transform duration-200 active:scale-95 hover:scale-105"
-      //send an object
     >
       <Image
         className="w-32 h-32 object-cover rounded-xl shadow-lg"

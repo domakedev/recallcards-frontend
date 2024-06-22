@@ -15,7 +15,7 @@ export const createCard = async (card: Card) => {
     if (!data.ok) {
       throw new Error(data.message);
     }
-    return data
+    return data;
   } catch (error: any) {
     throw new Error(error.message);
   }
@@ -25,7 +25,7 @@ export const getAllCards = async () => {
   try {
     const result = await fetch(cardsURL);
     const data = await result.json();
-    return data.cards
+    return data.cards;
   } catch (error: any) {
     throw new Error(error.message);
   }
@@ -41,7 +41,11 @@ export const getCardsByDeckId = async (deckId: number) => {
       },
     });
     const data = await result.json();
-    return data
+    if (data.ok) {
+      return data.cards;
+    } else {
+      throw new Error(data.message);
+    }
   } catch (error: any) {
     throw new Error(error.message);
   }
@@ -51,9 +55,8 @@ export const getCardById = async (cardId: number) => {
   try {
     const result = await fetch(`${cardsURL}/${cardId}`);
     const data = await result.json();
-    return data
+    return data;
   } catch (error: any) {
     throw new Error(error.message);
-  
   }
 };

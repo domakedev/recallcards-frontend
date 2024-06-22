@@ -1,8 +1,8 @@
+import prisma from "@/config/db";
 import { PrismaClient } from "@prisma/client";
 import { NextResponse } from "next/server";
-import { v2 as cloudinary } from 'cloudinary'
 
-const prisma = new PrismaClient();
+// const prisma = new PrismaClient();
 
 //Create a new Card
 //@TODO: con cloudinary
@@ -24,14 +24,15 @@ export const POST = async (req: Request) => {
   }
 };
 
-//Bring all the cards 
-//@TODO: Bring only 30 cards
+//Bring all the cards
 export const GET = async () => {
   try {
-    const result = await prisma.cards.findMany();
+    const result = await prisma.cards.findMany({
+      select: { id: true, deckId: true },
+    });
     if (result.length === 0) {
       return NextResponse.json(
-        { ok: false, message: "Cards no encontradas", cards: result},
+        { ok: false, message: "Cards no encontradas", cards: result },
         { status: 200 }
       );
     }

@@ -8,6 +8,7 @@ export type DeckType = {
 }
 
 export type Deck = {
+    id: number,
     name: string,
     image?: string,
     creatorId: number,

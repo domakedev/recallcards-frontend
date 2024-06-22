@@ -10,11 +10,12 @@ interface CardViewProps {
   image: string;
   // image: StaticImageData;
   cardName: string;
+  id: number;
 }
-const CardPreview: React.FC<CardViewProps> = ({ image, cardName }) => {
+const CardPreview: React.FC<CardViewProps> = ({ image, cardName, id }) => {
   const pathname = usePathname();
   return (
-    <Link href={`${pathname}/${cardName}`}>
+    <Link href={`${pathname}/${id}`}>
       <Image
         className="object-cover max-w-[160px] rounded-[10px] shadow-lg transform transition-transform duration-200 active:scale-95 hover:scale-105"
         src={image === "" ? PlaceHolderIMG : image}
