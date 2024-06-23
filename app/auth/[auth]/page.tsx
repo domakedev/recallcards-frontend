@@ -4,8 +4,7 @@ import { useAuthForm } from "@/app/hooks/useForm";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
-import { Bounce, ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 const AuthPage = () => {
   const router = useRouter();
@@ -88,7 +87,6 @@ const AuthPage = () => {
             </p>
           </div>
         </form>
-        <ToastContainer />
       </div>
     </div>
   );

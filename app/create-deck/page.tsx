@@ -23,19 +23,12 @@ const page = () => {
   //   authenticated: true,
   //   id: 1,
   // };
-  console.log("🚀 ~ page ~ userState:", userState);
 
-  console.log("🚀 ~ page ~ deck:", deck);
   useEffect(() => {
     if (!userState.authenticated) {
-      console.log(
-        "🚀 ~ page ~ userState.authenticated:",
-        userState.authenticated
-      );
       toast.error("No puedes crear un deck si no estás logeado.");
     }
     if (userState.authenticated) {
-      toast.success("SIIIIIIIIII");
       setDeck({ ...deck, creatorId: userState.id });
     }
   }, [userState]);
@@ -57,27 +50,12 @@ const page = () => {
     }
     setIsLoading(true);
     const result = await createDeck(deck);
-    console.log("🚀 ~ handleSubmit ~ result:", result);
     if (result.ok) {
       setIsLoading(false);
-      setTitle("¡Deck creado!  ¿Uno más?");
-      toast.success(result.message || "ok");
+      setTitle("¡Creado! ¿Uno más?");
+      toast.success("Deck Creado");
       setDeck({ name: "", image: "", creatorId: 1 });
     }
-  };
-
-  const apoyo = () => {
-    toast("Au2");
-    toast.error("Au2");
-    toast.success("Au2");
-  };
-
-  const gritito = () => {
-    toast("Au");
-    toast.error("Au");
-    toast.success("Au");
-    apoyo();
-    console.log("🚀 ~ gritito ~ Auuuuuuuuuuuuuuuuu");
   };
 
   return (

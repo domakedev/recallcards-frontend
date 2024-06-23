@@ -21,6 +21,7 @@ const page = () => {
 
   useEffect(() => {
     getDecks().then((data) => setDecks(data.decks));
+    toast.success("Decks cargados con éxito");
   }, []);
   return (
     <div>
@@ -50,7 +51,11 @@ const page = () => {
         {decks?.map((e, i) => (
           <DeckPreview
             key={uuidv4()}
-            src={e.image || ""}
+            src={
+              e.image?.includes("http") || e.image?.includes("data:image")
+                ? e.image
+                : ""
+            }
             deckName={e.name}
             deckSize={e.deckSize || 0}
             deckSlug={nameToSlug(e.name)}

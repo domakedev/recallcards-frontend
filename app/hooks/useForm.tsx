@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Bounce, toast } from "react-toastify";
 
-export const useAuthForm = () => {  
+export const useAuthForm = () => {
   const [form, setForm] = useState<User>({
     email: "",
     password: "",
@@ -17,7 +17,7 @@ export const useAuthForm = () => {
     return () => {};
   }, []);
 
-  const router = useRouter()
+  const router = useRouter();
   const state = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
 
@@ -25,7 +25,7 @@ export const useAuthForm = () => {
     setForm({
       ...form,
       [e.target.name]: e.target.value,
-    });    
+    });
   };
 
   const loginUser = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -40,16 +40,18 @@ export const useAuthForm = () => {
       });
       const answer = await result.json();
       if (answer.ok) {
-        console.log("🚀 ~ loginUser ~ answer:", answer)
+        console.log("🚀 ~ loginUser ~ answer:", answer);
         //Subir a Redux
-        const {id, email} = answer.user;
-        dispatch(setUser({id, email, authenticated: true}));
+        const { id, email } = answer.user;
+        dispatch(setUser({ id, email, authenticated: true }));
         toast.success(answer.message);
         router.push("/");
       } else if (!answer.ok) {
         toast.error(answer.message);
       }
-      // answer.ok ? toast.success("Usuario logeado") : toast.error(answer.message);
+      answer.ok
+        ? toast.success("Usuario logeado")
+        : toast.error(answer.message);
     } catch (error) {
       toast.error("Algo falló al loguear al usuario");
     }
