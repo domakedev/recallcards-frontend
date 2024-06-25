@@ -4,12 +4,40 @@ import { cookies } from "next/headers";
 
 // This function can be marked `async` if using `await` inside
 export const middleware = (request: NextRequest) => {
+  let cookieSAAAAAAA = request.cookies.get('token')
+  // console.log("🚀 ~ middleware ~ cookieSAAAAAAA:", cookieSAAAAAAA)
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const cookieToken = cookies().get("token");
+  // console.log("🚀 ~ middleware ~ cookieToken:", cookieToken)
+  if (!cookieToken) {
+    // console.log("🚀 ~ middleware ~ cookieToken:", "HOLIOSIS")
+  }
+  //route condition === /create-deck
+  if ( request.nextUrl.pathname.startsWith('/create-deck')) {
+    console.log("🚀 ~ middleware ~ deck:", cookieToken)    
+    if (!cookieSAAAAAAA) {
+      console.log("🚀 ~ middleware ~ cookieSAAAAAAA:", cookieSAAAAAAA)
+      //got to dashboard
+      const url = request.nextUrl.clone()
+      url.pathname = '/auth/login'
+      return NextResponse.redirect(url)
+    }
+  }
+  if ( request.nextUrl.pathname.startsWith('/create-card')) {
+    console.log("🚀 ~ middleware ~ card:", cookieToken)   
+    if (!cookieToken) {
+      //got to dashboard
+      const url = request.nextUrl.clone()
+      url.pathname = '/auth/login'
+      return NextResponse.redirect(url)
+    }
+    
+  }
   return NextResponse.next();
 };
 
 // See "Matching Paths" below to learn more
 export const config = {
   //match only in /[cards]/[card]
-  matcher: ["/:path*"],
+  matcher: ["/create-deck", "/create-card", "/:path*"],
 };

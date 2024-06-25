@@ -19,9 +19,18 @@ const page = () => {
 
   const [decks, setDecks] = useState<DeckDB[]>();
 
+  const [isAuth, setIsAuth] = useState(false);
+
+  useEffect(() => {
+    if (userState.authenticated) {
+      setIsAuth(true);
+    } else {
+      setIsAuth(false);
+    }
+  }, [userState]);
+
   useEffect(() => {
     getDecks().then((data) => setDecks(data.decks));
-    toast.success("Decks cargados con éxito");
   }, []);
   return (
     <div>
@@ -30,7 +39,7 @@ const page = () => {
         goBack={false}
       />
       <div className="mx-auto">
-        {userState.authenticated ? (
+        {isAuth ? (
           <button
             onClick={() => {
               // toast("YEIII")
@@ -57,7 +66,7 @@ const page = () => {
                 : ""
             }
             deckName={e.name}
-            deckSize={e.deckSize || 0}
+            // deckSize={e.deckSize || 0}
             deckSlug={nameToSlug(e.name)}
             deckId={e.id}
           />

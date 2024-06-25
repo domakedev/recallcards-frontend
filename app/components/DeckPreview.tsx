@@ -7,7 +7,7 @@ import DeckPlaceHolderIMG from "@/assets/placeholder-256x256.svg";
 interface DeckPreviewProps {
   src: StaticImageData | string;
   deckName: string;
-  deckSize: number;
+  deckSize?: number;
   deckSlug: string;
   deckId: number;
 }

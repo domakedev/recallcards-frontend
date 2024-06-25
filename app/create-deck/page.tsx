@@ -101,7 +101,8 @@ const page = () => {
                 htmlFor="image"
                 className="sr-only"
               >
-                Deck Image URL
+                Deck Image URL. 
+                {/* @Todo: VALIDAR IMAGEN */}
               </label>
               <input
                 type="text"

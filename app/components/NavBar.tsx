@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import BackArrowIcon from "@/assets/backarrow-icon.svg";
 import { FaUserGraduate } from "react-icons/fa6";
@@ -19,6 +19,15 @@ const NavBar: React.FC<NavBarProps> = ({ title, goBack = false }) => {
   const userState = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   console.log("🚀 ~ userState:", userState);
+  const [isAuth, setIsAuth] = useState(false);
+
+  useEffect(() => {
+    if (userState.authenticated) {
+      setIsAuth(true);
+    } else {
+      setIsAuth(false);
+    }
+  }, [userState]);
 
   const claves = Object.keys(params);
 
@@ -56,18 +65,32 @@ const NavBar: React.FC<NavBarProps> = ({ title, goBack = false }) => {
       <h1 className="font-bold text-lg text-center min-w-[50%] bg-blue-400">
         {title}
       </h1>
-
-      <Link
-        href={true ? "/auth/login" : "/auth/register"}
-        className="flex items-center justify-center gap-3 min-w-[25%] bg-red-300"
-      >
-        {userState.authenticated ? (
-          <button onClick={() => dispatch(logout())}>{"Salir"}</button>
+      <div className="flex items-center justify-center gap-3 min-w-[25%] bg-red-300">
+        {/* <Link href={true ? "/auth/login" : "/auth/register"}>
+        </Link> */}
+        {isAuth ? (
+          <button
+            onClick={() => {
+              dispatch(logout());
+              router.push("/");
+            }}
+          >
+            <FaUserGraduate
+              size={24}
+              className="inline-block"
+            />
+            {"Salir"}
+          </button>
         ) : (
-          <p>{"Login"}</p>
+          <button onClick={() => router.push("/auth/login")}>
+            <FaUserGraduate
+              size={24}
+              className="inline-block"
+            />
+            {"Login"}
+          </button>
         )}
-        <FaUserGraduate size={24} />
-      </Link>
+      </div>
     </div>
   );
 };
