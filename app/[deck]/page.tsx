@@ -11,15 +11,19 @@ import { Decks } from "@/mock/decks";
 import Link from "next/link";
 import { unSlug } from "@/utils/unSlug";
 import { getAllCards } from "@/services/card.services";
-import { Card } from "@/types/Card";
+import { Card, CardDB } from "@/types/Card";
 import { getCardsByDeckId } from "@/services/card.services";
 import { v4 as uuidv4 } from "uuid";
 import { Deck } from "@/types/Deck";
 import { getDecks } from "@/services/deck.services";
-import { useAppSelector } from "@/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import Button from "../components/Button";
+import { setCardsIds } from "@/redux/deckSlice";
 
 const page = () => {
   const userState = useAppSelector((state) => state.user);
+  const deckState = useAppSelector((state) => state.deck);
+  const dispacth = useAppDispatch()
   const params = useParams();
   const router = useRouter();
   const deckId =
@@ -27,9 +31,17 @@ const page = () => {
       ? params.deck.split("-")[1]
       : params.deck[0].split("-")[1];
 
-  const [deckCards, setDeckCards] = useState<Card[]>();
+  const [deckCards, setDeckCards] = useState<CardDB[]>();
+  const [deckCardsIds, setDeckCardsIds] = useState<number[]>();
   const [decks, setDecks] = useState<Deck[]>();
   const [actualDeck, setActualDeck] = useState<Deck>();
+  const [isAuth, setIsAuth] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (userState) {
+      setIsAuth(userState.authenticated);
+    }
+  }, [userState]);
 
   useEffect(() => {
     if (deckId === undefined) {
@@ -51,6 +63,15 @@ const page = () => {
     }
   }, [decks, deckId]);
 
+  useEffect(() => {
+    if (deckCards && deckCards.length > 0) {
+      const idsArr = deckCards.map(card=>card.id) 
+      console.log("🚀 ~ useEffect ~ idsArr:", idsArr)
+      setDeckCardsIds(idsArr);
+      dispacth(setCardsIds(idsArr))
+    }
+  }, [deckCards]);
+
   return (
     <div className="w-full flex flex-col items-center">
       <NavBar
@@ -60,18 +81,24 @@ const page = () => {
         }
         goBack
       />
-      <Link
+      {/* @TODO:reparar botones de Carta al Azar */}
+      {/* <Link
         href={`/${params.deck}/${
           Math.floor(Math.random() * (actualDeck?.deckSize || 0)) + 1
         }`}
-        className=" bg-[#3a3a3a] flex justify-center items-center transform transition-transform duration-200 active:scale-95 hover:scale-105 rounded-[12px]"
+        className=" bg-[#3a3a3a] active:scale-95 hover:scale-105 rounded-[12px] transform transition-transform duration-200"
       >
         <LargeButton
           text="Elegir una carta al azar"
           icon={DadosIcon}
           bgColor="bg-[#3a3a3a]"
         />
-      </Link>
+      </Link> */}
+      {isAuth ? (
+        <Link href={`/create-card`}>
+          <Button>Crear Card</Button>
+        </Link>
+      ) : null}
 
       {/* <button
         onClick={() =>

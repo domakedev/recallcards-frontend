@@ -5,8 +5,10 @@ import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Decks } from "@/mock/decks";
+import { useAppSelector } from "@/redux/hooks";
 
 const CardControlButtons = () => {
+  const cardsIdsState = useAppSelector((state) => state.deck.cardsIds);
   const router = useRouter();
   const params = useParams();
 
@@ -15,6 +17,7 @@ const CardControlButtons = () => {
   const [disableLeftButton, setDisableLeftButton] = useState(false);
   const [disableRightButton, setDisableRightButton] = useState(false);
   const [randomCardNumber, setRandomCardNumber] = useState<number>(0);
+  const [cardsIds, setcardsIds] = useState<number[]>(cardsIdsState);
 
   const actualDeck = Decks.find((deck) => deck.deckSlug === params.deck);
 
@@ -37,9 +40,9 @@ const CardControlButtons = () => {
 
   useEffect(() => {
     setRandomCardNumber(
-      Math.floor(Math.random() * (actualDeck?.deckSize || 0)) + 1
+      Math.floor(Math.random() * (cardsIds.length)) 
     );
-  }, [actualDeck]);
+  }, [cardsIds]);
 
   const goNext = (condition: boolean) => {
     if (condition) {
@@ -69,12 +72,21 @@ const CardControlButtons = () => {
     };
   }, [disableRightButton, disableLeftButton]);
 
+  useEffect(() => {
+    if (cardsIds.indexOf(Number(cardName)) === 0) {
+      setDisableLeftButton(true);
+    }
+    if (cardsIds.indexOf(Number(cardName)) === cardsIds.length - 1) {
+      setDisableRightButton(true);
+    }
+  }, [cardsIds]);
+
   return (
     <div className="mt-5 flex gap-1 mx-auto">
       <Link
         href={
           !disableLeftButton
-            ? `/${params.deck}/${Number(params.card) - 1}`
+            ? `${cardsIds[cardsIds.indexOf(Number(cardName)) - 1]}`
             : ""
         }
         className="rounded-[12px] w-12 min-h-[60px] bg-[#3a3a3a] flex justify-center items-center transform transition-transform duration-200 active:scale-95 hover:scale-105"
@@ -85,7 +97,7 @@ const CardControlButtons = () => {
         />
       </Link>
       <Link
-        href={`/${params.deck}/${randomCardNumber}`}
+        href={`${cardsIds[randomCardNumber]}`}
         className="w-full min-h-[60px] bg-[#3a3a3a] flex justify-center items-center transform transition-transform duration-200 active:scale-95 hover:scale-105 rounded-[12px]"
       >
         <LargeButton
@@ -97,7 +109,7 @@ const CardControlButtons = () => {
       <Link
         href={
           !disableRightButton
-            ? `/${params.deck}/${Number(params.card) + 1}`
+            ? `${cardsIds[cardsIds.indexOf(Number(cardName)) + 1]}`
             : ""
         }
         className="rounded-[12px] w-12 min-h-[60px] bg-[#3a3a3a] flex justify-center items-center transform transition-transform duration-200 active:scale-95 hover:scale-105"

@@ -11,7 +11,6 @@ export const POST = async (req: Request) => {
       where: { email },
     });
     if (user) {
-      console.log("🚀 ~ POST ~ user:", user)
       const passwordMatch = await bcrypt.compare(password, user.password);
       if (!passwordMatch) {
         return NextResponse.json(

@@ -11,7 +11,7 @@ export const POST = async (req: Request) => {
   try {
     const data = await req.formData();
     const image = data.get("image");
-    const deckName = data.get("deck-name");
+    const deckId = data.get("deck-id");
 
     if (!image || !(image instanceof File)) {
       return NextResponse.json(
@@ -27,7 +27,7 @@ export const POST = async (req: Request) => {
     const uploadResult = await new Promise((resolve, reject) => {
       cloudinary.uploader
         .upload_stream(
-          { folder: `recall-cards/${deckName}` },
+          { folder: `recall-cards/${deckId}` },
           (error, uploadResult) => {
             if (error) {
               return reject(error);

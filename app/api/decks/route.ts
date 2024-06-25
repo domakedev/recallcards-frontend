@@ -36,7 +36,6 @@ export const GET = async () => {
       { status: 200 }
     );
   } catch (error) {
-    console.log("🚀 ~ GET ~ error:", error);
     return NextResponse.json(
       { ok: false, message: "Error al traer los decks" },
       { status: 500 }

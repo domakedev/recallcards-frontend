@@ -1,6 +1,7 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { useDispatch, TypedUseSelectorHook, useSelector } from "react-redux";
 import  userReducer  from "./userSlice";
+import  deckReducer  from "./deckSlice";
 
 //Persist
 import { persistReducer } from "redux-persist";
@@ -12,9 +13,14 @@ const authPersistConfig = {
   key: "auth",
   storage: storage,
 };
+const deckPersistConfig = {
+  key: "deck",
+  storage: storage,
+};
 
 const rootReducer = combineReducers({
   user: persistReducer(authPersistConfig, userReducer),
+  deck: persistReducer(deckPersistConfig, deckReducer),
 });
 
 export const store = configureStore({

@@ -5,13 +5,15 @@ import { FaSwatchbook } from "react-icons/fa";
 import { FaLayerGroup } from "react-icons/fa";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { Decks } from "@/mock/decks";
 import { useEffect, useState } from "react";
 import { getAllCards } from "@/services/card.services";
 import { Card } from "@/types/Card";
+import { useAppSelector } from "@/redux/hooks";
+import { DeckDB } from "@/types/Deck";
 
 const Footer = () => {
   const params = useParams();
+  const deckState = useAppSelector((state) => state.deck);
 
   const deckName =
     params.deck &&
@@ -20,6 +22,18 @@ const Footer = () => {
   const [randomCard, setRandomCard] = useState<Card>();
   const [resetCard, setResetCard] = useState<boolean>(false);
   const [allCards, setAllCards] = useState<Card[]>([]);
+  const [actualDeck, setActualDeck] = useState<DeckDB>();
+
+  useEffect(() => {
+    if (deckState) {
+      setActualDeck({
+        id: deckState.id,
+        name: deckState.deckName,
+        image: deckState.deckImage,
+        creatorId: deckState.creatorId,
+      })
+    }
+  }, [deckState]);
 
   //To choose a random deck
   const randomNumber0toNum = (max: number): number => {
@@ -46,12 +60,10 @@ const Footer = () => {
   }, []);
 
   useEffect(() => {
-    console.log("allCards");
     if (allCards?.length > 0) {
       const randomIndex = randomNumber0toNum(allCards.length - 1);
       const randomCard: Card = allCards[randomIndex];
       setRandomCard(randomCard);
-      console.log("🚀 ~ useEffect ~ randomIndex:", randomCard.id);
     }
   }, [resetCard, allCards]);
 
@@ -68,7 +80,7 @@ const Footer = () => {
           </div>
         </Link>
         <Link
-          href={`/deck-${randomCard?.deckId}`}
+          href={`/deck-${deckState.id}`}
           className="w-1/3 h-full active:bg-gray-700 flex items-center justify-center"
         >
           <div className="flex flex-col items-center">

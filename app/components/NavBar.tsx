@@ -18,7 +18,6 @@ const NavBar: React.FC<NavBarProps> = ({ title, goBack = false }) => {
   const params = useParams();
   const userState = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
-  console.log("🚀 ~ userState:", userState);
   const [isAuth, setIsAuth] = useState(false);
 
   useEffect(() => {
@@ -43,7 +42,7 @@ const NavBar: React.FC<NavBarProps> = ({ title, goBack = false }) => {
     <div className="mt-5 mb-[41px] px-3 flex  justify-between w-full">
       {goBack ? (
         <button
-          className="min-w-[25%] bg-yellow-300"
+          className="min-w-[25%] "
           onClick={() => {
             router.push(`${goTo == "/" ? goTo : "/" + params[goTo]}`);
           }}
@@ -54,18 +53,18 @@ const NavBar: React.FC<NavBarProps> = ({ title, goBack = false }) => {
               className="min-w-6 min-h-6 "
               // width={24}
               // height={24}
-              alt="Volver atras"
+              alt="Volver atrás"
             />
           </div>
         </button>
       ) : (
-        <div className="min-w-[25%] bg-teal-400"></div>
+        <div className="min-w-[25%] "></div>
       )}
 
-      <h1 className="font-bold text-lg text-center min-w-[50%] bg-blue-400">
+      <h1 className="font-bold text-lg text-center min-w-[50%] ">
         {title}
       </h1>
-      <div className="flex items-center justify-center gap-3 min-w-[25%] bg-red-300">
+      <div className="flex items-center justify-center gap-3 min-w-[25%] ">
         {/* <Link href={true ? "/auth/login" : "/auth/register"}>
         </Link> */}
         {isAuth ? (

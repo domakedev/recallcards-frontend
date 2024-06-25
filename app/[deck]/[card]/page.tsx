@@ -7,6 +7,7 @@ import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { Decks } from "@/mock/decks";
 import CardControlButtons from "@/app/components/CardControlButtons";
+import PlaceHolderIMG from "@/assets/placeholder-ig-img.svg";
 
 //Skeleton
 import Skeleton from "react-loading-skeleton";
@@ -84,19 +85,22 @@ const page = () => {
               </div>
               // </div>
             )}
-            {cardDB?.answer.includes("http") ||
-            cardDB?.answer.includes("data:image") ? (
-              <Image
-                src={cardDB.answer}
-                alt="Carta"
-                width={1080}
-                height={1350}
-                onLoad={() => setImgLoaded(true)}
-                className={` rounded-xl  shadow-xl  `}
-                quality={100}
-                priority
-              />
-            ) : null}
+
+            <Image
+              src={
+                cardDB?.answer.includes("http") ||
+                cardDB?.answer.includes("data:image")
+                  ? cardDB.answer
+                  : PlaceHolderIMG
+              }
+              alt="Carta"
+              width={1080}
+              height={1350}
+              onLoad={() => setImgLoaded(true)}
+              className={` rounded-xl  shadow-xl  `}
+              quality={100}
+              priority
+            />
           </div>
           {/* //use Skeleton to show a loading animation */}
 

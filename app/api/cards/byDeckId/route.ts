@@ -24,7 +24,6 @@ export const POST = async (req: Request) => {
       { status: 200 }
     );
   } catch (error) {
-    console.log("🚀 ~ POST ~ error:", error)
     return NextResponse.json(
       { ok: false, message: "Error en API de CARDS BY DECK" },
       { status: 500 }

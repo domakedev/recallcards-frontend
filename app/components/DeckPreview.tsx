@@ -3,6 +3,9 @@ import React, { useEffect, useState } from "react";
 import CardsIcon from "@/assets/cards-icon.png";
 import Link from "next/link";
 import DeckPlaceHolderIMG from "@/assets/placeholder-256x256.svg";
+import { toast } from "react-toastify";
+import { useAppDispatch } from "@/redux/hooks";
+import { setDeck } from "@/redux/deckSlice";
 
 interface DeckPreviewProps {
   src: StaticImageData | string;
@@ -10,6 +13,7 @@ interface DeckPreviewProps {
   deckSize?: number;
   deckSlug: string;
   deckId: number;
+  deckCreatorId: number;
 }
 
 const DeckPreview: React.FC<DeckPreviewProps> = ({
@@ -18,12 +22,27 @@ const DeckPreview: React.FC<DeckPreviewProps> = ({
   deckSize,
   deckSlug,
   deckId,
+  deckCreatorId,
 }) => {
+  const dispatch = useAppDispatch();
+
+  //Set Actual Deck
+  const setActualDEck = () => {
+    dispatch(
+      setDeck({
+        id: deckId,
+        deckName,
+        deckImage: src,
+        creatorId: deckCreatorId,
+      })
+    );
+  };
 
   return (
     <Link
       href={`/deck-${deckId}-${deckSlug}`}
       className="flex flex-col gap-2 transform transition-transform duration-200 active:scale-95 hover:scale-105"
+      onClick={setActualDEck}
     >
       <Image
         className="w-32 h-32 object-cover rounded-xl shadow-lg"

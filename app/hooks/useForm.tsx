@@ -40,7 +40,6 @@ export const useAuthForm = () => {
       });
       const answer = await result.json();
       if (answer.ok) {
-        console.log("🚀 ~ loginUser ~ answer:", answer);
         //Subir a Redux
         const { id, email } = answer.user;
         dispatch(setUser({ id, email, authenticated: true }));

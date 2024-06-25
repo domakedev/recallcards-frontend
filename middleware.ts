@@ -14,9 +14,7 @@ export const middleware = (request: NextRequest) => {
   }
   //route condition === /create-deck
   if ( request.nextUrl.pathname.startsWith('/create-deck')) {
-    console.log("🚀 ~ middleware ~ deck:", cookieToken)    
     if (!cookieSAAAAAAA) {
-      console.log("🚀 ~ middleware ~ cookieSAAAAAAA:", cookieSAAAAAAA)
       //got to dashboard
       const url = request.nextUrl.clone()
       url.pathname = '/auth/login'
@@ -24,7 +22,6 @@ export const middleware = (request: NextRequest) => {
     }
   }
   if ( request.nextUrl.pathname.startsWith('/create-card')) {
-    console.log("🚀 ~ middleware ~ card:", cookieToken)   
     if (!cookieToken) {
       //got to dashboard
       const url = request.nextUrl.clone()

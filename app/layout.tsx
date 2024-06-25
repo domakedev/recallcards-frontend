@@ -29,9 +29,10 @@ export default function RootLayout({
         <Providers>
           <main className="flex-grow pb-16">{children}</main>
           {/* Create a footer that show a nice message */}
+          <Footer />
         </Providers>
-        <Footer />
-        <ToastContainer />
+        <ToastContainer position="bottom-right"
+        />
       </body>
     </html>
   );

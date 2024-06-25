@@ -30,7 +30,21 @@ const page = () => {
   }, [userState]);
 
   useEffect(() => {
-    getDecks().then((data) => setDecks(data.decks));
+    // getDecks().then((data) => setDecks(data.decks)).catch((err) => toast.error(err.message));
+
+    const promiseDecks = async () =>{
+      const res = await getDecks()
+      setDecks(res.decks)
+      return res
+    }
+    toast.promise(
+      promiseDecks,
+      {
+        pending: 'Cargando Decks',
+        success: '¡Decks Listos! 👌',
+        error: 'No hay Decks 🤯'
+      }
+  )
   }, []);
   return (
     <div>
@@ -69,6 +83,7 @@ const page = () => {
             // deckSize={e.deckSize || 0}
             deckSlug={nameToSlug(e.name)}
             deckId={e.id}
+            deckCreatorId={e.creatorId}
           />
         ))}
       </div>

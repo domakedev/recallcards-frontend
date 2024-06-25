@@ -26,7 +26,6 @@ export const GET = async (
       { status: 200 }
     );
   } catch (error) {
-    console.log("🚀 ~ error:", error);
     return NextResponse.json(
       { ok: false, message: "Error en CARDID API" },
       { status: 500 }
