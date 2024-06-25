@@ -5,7 +5,6 @@ import NavBar from "@/app/components/NavBar";
 import Image from "next/image";
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import { Decks } from "@/mock/decks";
 import CardControlButtons from "@/app/components/CardControlButtons";
 import PlaceHolderIMG from "@/assets/placeholder-ig-img.svg";
 
@@ -23,7 +22,6 @@ const page = () => {
 
   const params = useParams();
 
-  const actualDeck = Decks.find((deck) => deck.deckSlug === params.deck);
 
   const cardName =
     typeof params.card === "string" ? params.card : params.card[0];

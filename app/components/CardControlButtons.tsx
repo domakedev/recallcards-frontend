@@ -4,7 +4,6 @@ import LargeButton from "@/app/components/LargeButton";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Decks } from "@/mock/decks";
 import { useAppSelector } from "@/redux/hooks";
 
 const CardControlButtons = () => {
@@ -19,24 +18,6 @@ const CardControlButtons = () => {
   const [randomCardNumber, setRandomCardNumber] = useState<number>(0);
   const [cardsIds, setcardsIds] = useState<number[]>(cardsIdsState);
 
-  const actualDeck = Decks.find((deck) => deck.deckSlug === params.deck);
-
-  useEffect(() => {
-    const numberCard = Number(cardName);
-    if (numberCard === 1) {
-      setDisableLeftButton(true);
-    }
-    if (numberCard > 1) {
-      setDisableLeftButton(false);
-    }
-    if (numberCard === Number(actualDeck?.deckSize)) {
-      setDisableRightButton(true);
-    }
-    if (numberCard < Number(actualDeck?.deckSize)) {
-      setDisableRightButton(false);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cardName]);
 
   useEffect(() => {
     setRandomCardNumber(
