@@ -16,6 +16,8 @@ const CardControlButtons = () => {
   const [disableLeftButton, setDisableLeftButton] = useState(false);
   const [disableRightButton, setDisableRightButton] = useState(false);
   const [randomCardNumber, setRandomCardNumber] = useState<number>(0);
+  const [prevCardNumber, setPrevCardNumber] = useState<number>();
+  const [nextCardNumber, setNextCardNumber] = useState<number>();
   const [cardsIds, setcardsIds] = useState<number[]>(cardsIdsState);
 
 
@@ -60,6 +62,11 @@ const CardControlButtons = () => {
     if (cardsIds.indexOf(Number(cardName)) === cardsIds.length - 1) {
       setDisableRightButton(true);
     }
+    //  ? `${cardsIds[cardsIds.indexOf(Number(cardName)) + 1]}`
+    setNextCardNumber(cardsIds[cardsIds.indexOf(Number(cardName)) + 1]);
+    setPrevCardNumber(cardsIds[cardsIds.indexOf(Number(cardName)) - 1]);
+    setRandomCardNumber(cardsIds[randomCardNumber])
+
   }, [cardsIds]);
 
   return (
@@ -67,7 +74,7 @@ const CardControlButtons = () => {
       <Link
         href={
           !disableLeftButton
-            ? `${cardsIds[cardsIds.indexOf(Number(cardName)) - 1]}`
+            ? `${prevCardNumber}`
             : ""
         }
         className="rounded-[12px] w-12 min-h-[60px] bg-[#3a3a3a] flex justify-center items-center transform transition-transform duration-200 active:scale-95 hover:scale-105"
@@ -78,7 +85,7 @@ const CardControlButtons = () => {
         />
       </Link>
       <Link
-        href={`${cardsIds[randomCardNumber]}`}
+        href={`${randomCardNumber}`}
         className="w-full min-h-[60px] bg-[#3a3a3a] flex justify-center items-center transform transition-transform duration-200 active:scale-95 hover:scale-105 rounded-[12px]"
       >
         <LargeButton
@@ -90,7 +97,7 @@ const CardControlButtons = () => {
       <Link
         href={
           !disableRightButton
-            ? `${cardsIds[cardsIds.indexOf(Number(cardName)) + 1]}`
+            ? `${nextCardNumber}`
             : ""
         }
         className="rounded-[12px] w-12 min-h-[60px] bg-[#3a3a3a] flex justify-center items-center transform transition-transform duration-200 active:scale-95 hover:scale-105"

@@ -71,7 +71,7 @@ const NavBar: React.FC<NavBarProps> = ({ title, goBack = false }) => {
           <button
             onClick={() => {
               dispatch(logout());
-              router.push("/");
+              // router.push("/");
             }}
           >
             <FaUserGraduate

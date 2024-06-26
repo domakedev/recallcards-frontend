@@ -44,7 +44,9 @@ export const useAuthForm = () => {
         const { id, email } = answer.user;
         dispatch(setUser({ id, email, authenticated: true }));
         toast.success(answer.message);
-        router.push("/");
+        //visit the prev link
+         router.back()
+        // router.push("/");
       } else if (!answer.ok) {
         toast.error(answer.message);
       }

@@ -15,10 +15,6 @@ const Footer = () => {
   const params = useParams();
   const deckState = useAppSelector((state) => state.deck);
 
-  const deckName =
-    params.deck &&
-    (typeof params.deck === "string" ? params.deck : params.deck[0]);
-
   const [randomCard, setRandomCard] = useState<Card>();
   const [resetCard, setResetCard] = useState<boolean>(false);
   const [allCards, setAllCards] = useState<Card[]>([]);
@@ -47,14 +43,6 @@ const Footer = () => {
     return number;
   };
 
-  // useEffect(() => {
-  //   const randomDeckNumber = randomNumber0toNum(Decks.length - 1);
-  //   const randomDeck = Decks[randomDeckNumber];
-  //   const randomCardNumber = randomNumber1toNum(randomDeck.deckSize);
-
-  //   setRandomCardNumber(randomCardNumber);
-  // }, [resetCard]);
-
   useEffect(() => {
     getAllCards().then((data) => setAllCards(data));
   }, []);
@@ -80,7 +68,7 @@ const Footer = () => {
           </div>
         </Link>
         <Link
-          href={`/deck-${deckState.id}`}
+          href={`/deck-${actualDeck?.id}`}
           className="w-1/3 h-full active:bg-gray-700 flex items-center justify-center"
         >
           <div className="flex flex-col items-center">

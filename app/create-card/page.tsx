@@ -105,7 +105,7 @@ const CreateCard: React.FC = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     if (newCard.deckId === 0 || newCard.creatorId === 0) {
-      toast.error("Primero selecciona un deck");
+      toast.error("Primero selecciona un deck | Inicia sesión");
       return;
     }
     try {
@@ -193,8 +193,7 @@ const CreateCard: React.FC = () => {
     <div className="flex flex-col items-center bg-gradient-to-r from-blue-500 to-teal-500 min-h-screen -mb-16 pb-16">
       <NavBar
         title={
-          "Cartas de: " + deckState?.name ||
-          "No has seleccionado un deck o no se ha encontrado"
+          `Cartas del usuario: "${userStateRedux.email}"`
         }
         goBack
       />

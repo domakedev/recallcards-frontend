@@ -12,16 +12,28 @@ import PlaceHolderIMG from "@/assets/placeholder-ig-img.svg";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { getCardById } from "@/services/card.services";
-import { Card } from "@/types/Card";
+import { Card, CardDB } from "@/types/Card";
 import { toast } from "react-toastify";
+import CardLevel from "@/app/components/CardLevel";
+import { useAppSelector } from "@/redux/hooks";
+import { UserDB } from "@/types/User";
+import { getCardDifficulty } from "@/services/cardDifficulty.services";
 
 const page = () => {
   const [showCard, setShowCard] = useState<boolean>(true);
   const [imgLoaded, setImgLoaded] = useState<boolean>(false);
-  const [cardDB, setCardDB] = useState<Card>();
+  const [userDB, setUserDB] = useState<UserDB>();
+  const [cardDB, setCardDB] = useState<CardDB>();
+  const [cardDifficult, setCardDifficult] = useState<1 | 2 | 3>();
+  const [cardDifficultId, setCardDifficultId] = useState<number>();
+  console.log("🚀 ~ page ~ cardDifficult:", cardDifficult);
 
   const params = useParams();
+  const userState = useAppSelector((state) => state.user);
 
+  useEffect(() => {
+    setUserDB(userState);
+  }, [userState]);
 
   const cardName =
     typeof params.card === "string" ? params.card : params.card[0];
@@ -60,13 +72,41 @@ const page = () => {
     getCard();
   }, [cardName]);
 
+  //Bring card difficulty per user
+  useEffect(() => {
+    //Llamar al servicio para traer la dificultad de la carta
+    if (cardDB && cardDB?.id && userDB) {
+      const difficultyFn = async () => {
+        const res = await getCardDifficulty({
+          userId: userDB.id,
+          cardId: cardDB.id,
+        });
+        console.log("🚀 ~ difficultyFn ~ res:", res);
+        res && setCardDifficult(res.difficultyId);
+        res && setCardDifficultId(res.id);
+      };
+      difficultyFn();
+      //Setear la dificultad de la carta
+    }
+  }, [cardDB, userDB]);
+
   return (
     <>
       <NavBar
         title={`${cardName}`}
         goBack
       />
-      <div className="flex flex-col justify-center px-3">
+      <div className="flex flex-col justify-center items-center px-3">
+        {cardDB?.id && userDB ? (
+          <CardLevel
+            cardId={cardDB.id}
+            isAuth={userDB.authenticated}
+            userId={userDB.id}
+            userEmail={userDB.email}
+            dificultadActual={cardDifficult}
+            cardDifficultId={cardDifficultId}
+          />
+        ) : null}
         <div className="relative w-full max-w-[500px] grow max-h-[625px] mx-auto ">
           <div
             id="imgParent"
