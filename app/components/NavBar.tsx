@@ -39,7 +39,7 @@ const NavBar: React.FC<NavBarProps> = ({ title, goBack = false }) => {
   }
 
   return (
-    <div className="mt-5 mb-[41px] px-3 flex  justify-between w-full">
+    <nav className="mt-5 mb-[41px] px-3 flex  justify-between w-full">
       {goBack ? (
         <button
           className="min-w-[25%] "
@@ -90,7 +90,7 @@ const NavBar: React.FC<NavBarProps> = ({ title, goBack = false }) => {
           </button>
         )}
       </div>
-    </div>
+    </nav>
   );
 };
 

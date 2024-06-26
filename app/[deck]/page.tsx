@@ -33,10 +33,12 @@ const page = () => {
   const [decks, setDecks] = useState<Deck[]>();
   const [actualDeck, setActualDeck] = useState<Deck>();
   const [isAuth, setIsAuth] = useState<boolean>(false);
+  const [userId, setUserId] = useState<number>();
 
   useEffect(() => {
     if (userState) {
       setIsAuth(userState.authenticated);
+      setUserId(userState.id);
     }
   }, [userState]);
 
@@ -63,7 +65,6 @@ const page = () => {
   useEffect(() => {
     if (deckCards && deckCards.length > 0) {
       const idsArr = deckCards.map(card=>card.id) 
-      console.log("🚀 ~ useEffect ~ idsArr:", idsArr)
       setDeckCardsIds(idsArr);
       dispacth(setCardsIds(idsArr))
     }
@@ -107,9 +108,9 @@ const page = () => {
       </button> */}
 
       <div className="flex flex-wrap gap-4 p-5 justify-center">
-        {deckCards?.map((e, i) => (
+        {deckCards?.map((e,i) => (
           <CardPreview
-            key={uuidv4()}
+            key={i}
             image={
               e.answer.includes("http") || e.answer.includes("data:image")
                 ? e.answer
@@ -117,6 +118,7 @@ const page = () => {
             }
             cardName={e.question || "-"}
             id={e.id}
+            userId={userId}
           />
         ))}
       </div>

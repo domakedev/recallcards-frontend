@@ -175,7 +175,6 @@ const CreateCard: React.FC = () => {
         setIsLoading(false);
       }
     } catch (error: any) {
-      console.log("🚀 ~ handleSubmit ~ error:", error)
       toast.error(error.message);
       // toast.error("Ocurrió un error al crear la carta");
     }

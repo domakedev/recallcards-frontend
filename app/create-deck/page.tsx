@@ -24,15 +24,12 @@ const page = () => {
   const userState = useAppSelector((state) => state.user);
   const [imageBlobUrl, setImageBlobUrl] = useState<string>("");
   const [image, setImage] = useState<File>();
-  console.log("🚀 ~ page ~ image:", image)
-
 
   // const userState = {
   //   authenticated: true,
   //   id: 1,
   // };
 
-  console.log("🚀 ~ page ~ deck:", deck)
   useEffect(() => {
     if (!userState.authenticated) {
       setIsAuth(false);
@@ -77,7 +74,6 @@ const page = () => {
 
   const fileChangeHandler = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files && e.target.files[0];
-    console.log("🚀 ~ fileChangeHandler ~ file:", file)
     if (!file) {
       return;
     }

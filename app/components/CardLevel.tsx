@@ -27,7 +27,6 @@ const NivelDificultad: React.FC<NivelDificultadProps> = ({
 
   const [level, setLevel] = useState(dificultadActual);
   const [cardDifficultyId, setcardDifficultyId] = useState<number>();
-  console.log("🚀 ~ levellllllllllllll:", level);
 
   const getColor = (nivel: number) => {
     if (nivel === level) {
@@ -48,7 +47,6 @@ const NivelDificultad: React.FC<NivelDificultadProps> = ({
   const onDificultadChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name;
     const number = Number(name) as 1 | 2 | 3;
-    console.log("🚀 ~ onDificultadChange ~ name:", name);
     setLevel(number);
     //Enviar cambio de nivel al backend
     if (cardId !== 0 && isAuth && userId && userId !== 0) {
@@ -60,24 +58,19 @@ const NivelDificultad: React.FC<NivelDificultadProps> = ({
           difficultyId: number,
         });
         //res es el registro creado completo
-        console.log("🚀 ~ onDificultadChange ~ res CREATE:", res);
         setcardDifficultyId(res.difficultyId);
         toast.success(
         `Dificultad de la card "${cardId}" creada: "${getName(number)}" del usuario ${userEmail}`
         );
       }
       //Actualiza difficulty si ya esta definido
-      console.log(
-        "🚀 ~ onDificultadChange ~ cardDifficultyId:",
-        cardDifficultyId
-      );
+     
       if ((level === 1 || level === 2 || level === 3) && cardDifficultyId) {
         const res = await updateCardDifficulty({
           id: cardDifficultyId,
           difficultyId: number,
         });
         //res es el registro actualizado completo
-        console.log("🚀 ~ onDificultadChange UPDATE ~ res:", res);
         toast.success(
           `Dificultad de la card "${cardId}" actualizada a: "${getName(number)}" del usuario ${userEmail}`
         );
@@ -109,7 +102,7 @@ const NivelDificultad: React.FC<NivelDificultadProps> = ({
   }, [cardDifficultId]);
 
   return (
-    <div className="p-4">
+    <div className="h-12">
       {isAuth ? (
         <div className="flex space-x-2">
           {niveles.map((nivel) => (

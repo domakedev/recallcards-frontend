@@ -10,7 +10,6 @@ export const getCardDifficulty = async (params: { userId: number; cardId: number
         },
         });
         const data = await result.json();
-        console.log("🚀 ~ getCardDifficulty ~ data:", data)
         return data;
     } catch (error: any) {
         throw new Error(error.message);
@@ -27,7 +26,6 @@ export const createCardDifficulty = async (params: { userId: number; cardId: num
         },
         });
         const data = await result.json();
-        console.log("🚀 ~ createCardDifficulty ~ data:", data)
         return data;
     } catch (error: any) {
         throw new Error(error.message);
@@ -44,7 +42,6 @@ export const updateCardDifficulty = async (params: { id: number; difficultyId: n
         },
         });
         const data = await result.json();
-        console.log("🚀 ~ updateCardDifficulty ~ data:", data)
         return data;
     } catch (error: any) {
         throw new Error(error.message);

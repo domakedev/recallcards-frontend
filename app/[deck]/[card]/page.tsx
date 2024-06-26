@@ -26,9 +26,9 @@ const page = () => {
   const [cardDB, setCardDB] = useState<CardDB>();
   const [cardDifficult, setCardDifficult] = useState<1 | 2 | 3>();
   const [cardDifficultId, setCardDifficultId] = useState<number>();
-  console.log("🚀 ~ page ~ cardDifficult:", cardDifficult);
 
   const params = useParams();
+  console.log("🚀 ~ page ~ params:", params);
   const userState = useAppSelector((state) => state.user);
 
   useEffect(() => {
@@ -81,7 +81,6 @@ const page = () => {
           userId: userDB.id,
           cardId: cardDB.id,
         });
-        console.log("🚀 ~ difficultyFn ~ res:", res);
         res && setCardDifficult(res.difficultyId);
         res && setCardDifficultId(res.id);
       };
@@ -106,31 +105,16 @@ const page = () => {
             dificultadActual={cardDifficult}
             cardDifficultId={cardDifficultId}
           />
-        ) : null}
+        ) : (
+          <div className="min-h-12"></div>
+        )}
         <div className="relative w-full max-w-[500px] grow max-h-[625px] mx-auto ">
           <div
             id="imgParent"
             className="min-h-max h-fit"
           >
-            {!imgLoaded && (
-              // <div className="absolute -top-[4px] w-full">
-              /* <Skeleton className="w-full h-[200px] leading-[0px]" /> */
-              <div
-                id="skeletonId"
-                className="absolute top-0 left-0 w-full"
-              >
-                <Skeleton className="w-full min-h-full skeletonClass" />
-              </div>
-              // </div>
-            )}
-
             <Image
-              src={
-                cardDB?.answer.includes("http") ||
-                cardDB?.answer.includes("data:image")
-                  ? cardDB.answer
-                  : PlaceHolderIMG
-              }
+              src={cardDB?.answer || PlaceHolderIMG}
               alt="Carta"
               width={1080}
               height={1350}
@@ -180,7 +164,7 @@ const page = () => {
             </div>
           )}
         </div>
-        <CardControlButtons />
+        {params.deck === "random" ? null : <CardControlButtons />}
       </div>
     </>
   );
