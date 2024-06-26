@@ -29,7 +29,6 @@ const CardPreview: React.FC<CardViewProps> = ({
 
   useEffect(() => {
     if (userId) {
-      console.log("🚀 ~ useEffect ~ userId:", userId);
       getCardDifficulty({ userId, cardId: id }).then((data) => {
         setCardDifficulty(data?.difficultyId);
       });

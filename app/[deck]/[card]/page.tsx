@@ -28,7 +28,6 @@ const page = () => {
   const [cardDifficultId, setCardDifficultId] = useState<number>();
 
   const params = useParams();
-  console.log("🚀 ~ page ~ params:", params);
   const userState = useAppSelector((state) => state.user);
 
   useEffect(() => {
