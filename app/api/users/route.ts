@@ -37,6 +37,7 @@ export const POST = async (req: Request) => {
       { status: 201 }
     );
   } catch (error: any | { message: string }) {
+    console.log("🚀 ~ POST ~ error:", error)
     return NextResponse.json(
       { ok: false, message: "¡Falla de la app!" },
       { status: 500 }
