@@ -100,7 +100,6 @@ const page = () => {
 
       {/* <button
         onClick={() =>
-          console.log("Abrir modal o página para crear un nuevo deck.")
         }
         className="mt-5 bg-blue-500 text-white font-bold py-2 px-4 rounded-lg shadow-lg transform transition-transform duration-200 hover:scale-105 active:scale-95"
       >
