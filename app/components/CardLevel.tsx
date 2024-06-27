@@ -62,7 +62,10 @@ const NivelDificultad: React.FC<NivelDificultadProps> = ({
         toast.success(
           `Dificultad de la card "${cardId}" creada: "${getName(
             number
-          )}" del usuario ${userEmail}`
+          )}" del usuario ${userEmail}`,
+          {
+            autoClose: 1000,
+          }
         );
       }
       //Actualiza difficulty si ya esta definido
