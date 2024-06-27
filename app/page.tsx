@@ -3,17 +3,16 @@
 import React, { useEffect, useState } from "react";
 import DeckPreview from "./components/DeckPreview";
 import NavBar from "./components/NavBar";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { Deck, DeckDB } from "@/types/Deck";
+import { useAppSelector } from "@/redux/hooks";
+import { DeckDB } from "@/types/Deck";
 import { getDecks } from "@/services/deck.services";
 import { nameToSlug } from "@/utils/nameToSlug";
 import { v4 as uuidv4 } from "uuid";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-import { set } from "@cloudinary/url-gen/actions/variable";
 
 const page = () => {
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
   const userState = useAppSelector((state) => state.user);
   const router = useRouter();
 
@@ -32,21 +31,19 @@ const page = () => {
   useEffect(() => {
     // getDecks().then((data) => setDecks(data.decks)).catch((err) => toast.error(err.message));
 
-    const promiseDecks = async () =>{
-      const res = await getDecks()
-      console.log("🚀 ~ promiseDecks ~ res:", res)
-      setDecks(res.decks)
-      return res
-    }
-    toast.promise(
-      promiseDecks,
-      {
-        pending: 'Cargando Decks',
-        success: '¡Decks Listos! 👌',
-        error: 'No hay Decks 🤯'
-      }
-  )
+    const promiseDecks = async () => {
+      const res = await getDecks();
+      console.log("🚀 ~ promiseDecks ~ res:", res);
+      setDecks(res.decks);
+      return res;
+    };
+    toast.promise(promiseDecks, {
+      pending: "Cargando Decks",
+      success: "¡Decks Listos! 👌",
+      error: "No hay Decks 🤯",
+    });
   }, []);
+
   return (
     <div>
       <NavBar

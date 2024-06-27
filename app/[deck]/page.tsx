@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import NavBar from "../components/NavBar";
 import CardPreview from "../components/CardPreview";
 import DadosIcon from "@/assets/dados-icon.svg";
@@ -17,6 +17,7 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import Button from "../components/Button";
 import { setCardsIds } from "@/redux/deckSlice";
 import { getCardsDifficultyByDeckId } from "@/services/cardDifficulty.services";
+import RenderCounter from "../components/RenderCounter";
 
 const page = () => {
   const userState = useAppSelector((state) => state.user);
@@ -28,21 +29,24 @@ const page = () => {
     typeof params.deck === "string"
       ? params.deck.split("-")[1]
       : params.deck[0].split("-")[1];
+  console.log("🚀 ~ page ~ deckId:", deckId);
 
   const [deckCards, setDeckCards] = useState<CardDB[]>();
-  const [deckCardsIds, setDeckCardsIds] = useState<number[]>();
+  // const [deckCardsIds, setDeckCardsIds] = useState<number[]>();
   const [decks, setDecks] = useState<Deck[]>();
   const [actualDeck, setActualDeck] = useState<Deck>();
   const [isAuth, setIsAuth] = useState<boolean>(false);
   const [userId, setUserId] = useState<number>();
   const [cardsDifficultiesByUserAndDeck, setcardsDifficultiesByUserAndDeck] =
-    useState<{
-      id: number;
-      userId: number;
-      cardId: number;
-      difficultyId: 1 | 2 | 3;
-      deckId: number;
-    }[]>();
+    useState<
+      {
+        id: number;
+        userId: number;
+        cardId: number;
+        difficultyId: 1 | 2 | 3;
+        deckId: number;
+      }[]
+    >();
 
   useEffect(() => {
     if (userState) {
@@ -52,53 +56,70 @@ const page = () => {
   }, [userState]);
 
   useEffect(() => {
-    if (deckId === undefined) {
+    if (deckId === undefined || !deckId) {
       router.push("/");
     }
     if (deckId) {
-      getDecks().then((data) => setDecks(data.decks));
+      // getDecks().then((data) => setDecks(data.decks));
+      getDecks().then((data) =>
+        setActualDeck(
+          data.decks?.find((deck: { id: number }) => deck.id === Number(deckId))
+        )
+      );
       getCardsByDeckId(Number(deckId)).then((data) => {
+        if (data && data.length > 0) {
+          const idsArr = data.map((data: { id: any }) => data.id);
+          // Uso a: "idsArr"  para el random card
+          // setDeckCardsIds(idsArr);
+          dispacth(setCardsIds(idsArr));
+        }
         return setDeckCards(data);
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [deckId]);
 
-  useEffect(() => {
-    if (decks && deckId) {
-      const actualDeck = decks?.find((deck) => deck.id === Number(deckId));
-      setActualDeck(actualDeck);
-    }
-  }, [decks, deckId]);
+  // useEffect(() => {
+  //   if (decks && deckId) {
+  //     const actualDeck = decks?.find((deck) => deck.id === Number(deckId));
+  //     setActualDeck(actualDeck);
+  //   }
+  // }, [decks, deckId]);
 
-  useEffect(() => {
-    if (deckCards && deckCards.length > 0) {
-      const idsArr = deckCards.map((card) => card.id);
-      setDeckCardsIds(idsArr);
-      dispacth(setCardsIds(idsArr));
-    }
-  }, [deckCards]);
+  // useEffect(() => {
+  //   if (deckCards && deckCards.length > 0) {
+  //     const idsArr = deckCards.map((card) => card.id);
+  //     // setDeckCardsIds(idsArr);
+  //     dispacth(setCardsIds(idsArr));
+  //   }
+  // }, [deckCards]);
 
   useEffect(() => {
     if (userId && deckId) {
-      console.log("🚀 ~ useEffect ~ userId && deckId:", { userId, deckId });
-
       getCardsDifficultyByDeckId({ userId, deckId: Number(deckId) }).then(
         (data) => {
-          console.log("🚀 ~ useEffect ~ data:", data);
-          setcardsDifficultiesByUserAndDeck(data)
+          setcardsDifficultiesByUserAndDeck(data);
         }
       );
     }
   }, [userId, deckId]);
 
-  const getCardDifficulty = (userId: number | undefined, cardId: number | undefined) => {
-    if (cardsDifficultiesByUserAndDeck && cardsDifficultiesByUserAndDeck?.length > 0 && userId && cardId) {
-      const card = cardsDifficultiesByUserAndDeck.find(e=>e.cardId === cardId && e.userId === userId)
-      console.log("🚀 ~ getCardDifficulty ~ card:", card)
-      return card?.difficultyId
+  const getCardDifficulty = (
+    userId: number | undefined,
+    cardId: number | undefined
+  ) => {
+    if (
+      cardsDifficultiesByUserAndDeck &&
+      cardsDifficultiesByUserAndDeck?.length > 0 &&
+      userId &&
+      cardId
+    ) {
+      const card = cardsDifficultiesByUserAndDeck.find(
+        (e) => e.cardId === cardId && e.userId === userId
+      );
+      return card?.difficultyId;
     }
-    return 
+    return;
   };
 
   return (
@@ -110,6 +131,7 @@ const page = () => {
         }
         goBack
       />
+      
       {/* @TODO:reparar botones de Carta al Azar */}
       {/* <Link
         href={`/${params.deck}/${
@@ -157,4 +179,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default React.memo(page);

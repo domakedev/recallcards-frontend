@@ -8,6 +8,7 @@ import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { logout } from "@/redux/userSlice";
+import RenderCounter from "./RenderCounter";
 
 interface NavBarProps {
   title: string;
@@ -40,6 +41,7 @@ const NavBar: React.FC<NavBarProps> = ({ title, goBack = false }) => {
 
   return (
     <nav className="mt-5 mb-[41px] px-3 flex  justify-between w-full">
+      {/* <RenderCounter /> */}
       {goBack ? (
         <button
           className="min-w-[25%] "

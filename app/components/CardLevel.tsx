@@ -26,7 +26,7 @@ const NivelDificultad: React.FC<NivelDificultadProps> = ({
   const niveles: Array<1 | 2 | 3> = [1, 2, 3];
 
   const [level, setLevel] = useState(dificultadActual);
-  const [cardDifficultyId, setcardDifficultyId] = useState<number>();
+  const [cardDifficultyId, setCardDifficultyId] = useState<number>();
 
   const getColor = (nivel: number) => {
     if (nivel === level) {
@@ -58,7 +58,7 @@ const NivelDificultad: React.FC<NivelDificultadProps> = ({
           difficultyId: number,
         });
         //res es el registro creado completo
-        setcardDifficultyId(res.difficultyId);
+        setCardDifficultyId(res.difficultyId);
         toast.success(
         `Dificultad de la card "${cardId}" creada: "${getName(number)}" del usuario ${userEmail}`
         );
@@ -98,11 +98,11 @@ const NivelDificultad: React.FC<NivelDificultadProps> = ({
   }, [dificultadActual]);
 
   useEffect(() => {
-    setcardDifficultyId(cardDifficultId);
+    setCardDifficultyId(cardDifficultId);
   }, [cardDifficultId]);
 
   return (
-    <div className="h-12">
+    <div className="mb-2">
       {isAuth ? (
         <div className="flex space-x-2">
           {niveles.map((nivel) => (
@@ -123,8 +123,8 @@ const NivelDificultad: React.FC<NivelDificultadProps> = ({
           ))}
         </div>
       ) : (
-        <p className="text-red-500 font-bold">
-          Debes iniciar sesión para registrar tu progreso
+        <p className="text-red-500 font-bold  text-center">
+          Si quieres guardar tu progreso, inicia sesión 😁🙌⌛✅
         </p>
       )}
     </div>

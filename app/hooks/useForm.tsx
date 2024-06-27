@@ -49,10 +49,7 @@ export const useAuthForm = () => {
         // router.push("/");
       } else if (!answer.ok) {
         toast.error(answer.message);
-      }
-      answer.ok
-        ? toast.success("Usuario logeado")
-        : toast.error(answer.message);
+      }      
     } catch (error) {
       toast.error("Algo falló al loguear al usuario");
     }

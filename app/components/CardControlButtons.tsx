@@ -15,9 +15,9 @@ const CardControlButtons = () => {
 
   const [disableLeftButton, setDisableLeftButton] = useState(false);
   const [disableRightButton, setDisableRightButton] = useState(false);
-  const [randomCardNumber, setRandomCardNumber] = useState<number>(0);
   const [prevCardNumber, setPrevCardNumber] = useState<number>();
   const [nextCardNumber, setNextCardNumber] = useState<number>();
+  const [randomCardNumber, setRandomCardNumber] = useState<number>(0);
   const [cardsIds, setcardsIds] = useState<number[]>(cardsIdsState);
 
   const goNext = (condition: boolean) => {
