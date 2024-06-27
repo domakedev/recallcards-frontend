@@ -61,9 +61,7 @@ const NavBar: React.FC<NavBarProps> = ({ title, goBack = false }) => {
         <div className="min-w-[25%] "></div>
       )}
 
-      <h1 className="font-bold text-lg text-center min-w-[50%] ">
-        {title}
-      </h1>
+      <h1 className="font-bold text-lg text-center min-w-[50%] ">{title}</h1>
       <div className="flex items-center justify-center gap-3 min-w-[25%] ">
         {/* <Link href={true ? "/auth/login" : "/auth/register"}>
         </Link> */}
@@ -81,12 +79,15 @@ const NavBar: React.FC<NavBarProps> = ({ title, goBack = false }) => {
             {"Salir"}
           </button>
         ) : (
-          <button onClick={() => router.push("/auth/login")}>
+          <button
+            onClick={() => router.push("/auth/login")}
+            className="text-sm"
+          >
+            {"Login"}
             <FaUserGraduate
               size={24}
-              className="inline-block"
+              className="inline-block w-4 ml-1"
             />
-            {"Login"}
           </button>
         )}
       </div>

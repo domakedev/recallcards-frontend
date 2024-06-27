@@ -34,6 +34,7 @@ const page = () => {
 
     const promiseDecks = async () =>{
       const res = await getDecks()
+      console.log("🚀 ~ promiseDecks ~ res:", res)
       setDecks(res.decks)
       return res
     }

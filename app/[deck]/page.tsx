@@ -16,11 +16,12 @@ import { getDecks } from "@/services/deck.services";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import Button from "../components/Button";
 import { setCardsIds } from "@/redux/deckSlice";
+import { getCardsDifficultyByDeckId } from "@/services/cardDifficulty.services";
 
 const page = () => {
   const userState = useAppSelector((state) => state.user);
   const deckState = useAppSelector((state) => state.deck);
-  const dispacth = useAppDispatch()
+  const dispacth = useAppDispatch();
   const params = useParams();
   const router = useRouter();
   const deckId =
@@ -34,6 +35,14 @@ const page = () => {
   const [actualDeck, setActualDeck] = useState<Deck>();
   const [isAuth, setIsAuth] = useState<boolean>(false);
   const [userId, setUserId] = useState<number>();
+  const [cardsDifficultiesByUserAndDeck, setcardsDifficultiesByUserAndDeck] =
+    useState<{
+      id: number;
+      userId: number;
+      cardId: number;
+      difficultyId: 1 | 2 | 3;
+      deckId: number;
+    }[]>();
 
   useEffect(() => {
     if (userState) {
@@ -64,11 +73,33 @@ const page = () => {
 
   useEffect(() => {
     if (deckCards && deckCards.length > 0) {
-      const idsArr = deckCards.map(card=>card.id) 
+      const idsArr = deckCards.map((card) => card.id);
       setDeckCardsIds(idsArr);
-      dispacth(setCardsIds(idsArr))
+      dispacth(setCardsIds(idsArr));
     }
   }, [deckCards]);
+
+  useEffect(() => {
+    if (userId && deckId) {
+      console.log("🚀 ~ useEffect ~ userId && deckId:", { userId, deckId });
+
+      getCardsDifficultyByDeckId({ userId, deckId: Number(deckId) }).then(
+        (data) => {
+          console.log("🚀 ~ useEffect ~ data:", data);
+          setcardsDifficultiesByUserAndDeck(data)
+        }
+      );
+    }
+  }, [userId, deckId]);
+
+  const getCardDifficulty = (userId: number | undefined, cardId: number | undefined) => {
+    if (cardsDifficultiesByUserAndDeck && cardsDifficultiesByUserAndDeck?.length > 0 && userId && cardId) {
+      const card = cardsDifficultiesByUserAndDeck.find(e=>e.cardId === cardId && e.userId === userId)
+      console.log("🚀 ~ getCardDifficulty ~ card:", card)
+      return card?.difficultyId
+    }
+    return 
+  };
 
   return (
     <div className="w-full flex flex-col items-center">
@@ -107,7 +138,7 @@ const page = () => {
       </button> */}
 
       <div className="flex flex-wrap gap-4 p-5 justify-center">
-        {deckCards?.map((e,i) => (
+        {deckCards?.map((e, i) => (
           <CardPreview
             key={i}
             image={
@@ -118,6 +149,7 @@ const page = () => {
             cardName={e.question || "-"}
             id={e.id}
             userId={userId}
+            difficultyId={getCardDifficulty(userId, e.id)}
           />
         ))}
       </div>

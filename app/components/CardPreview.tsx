@@ -13,12 +13,14 @@ interface CardViewProps {
   cardName: string;
   id: number;
   userId?: number;
+  difficultyId?: 1 | 2 | 3;
 }
 const CardPreview: React.FC<CardViewProps> = ({
   image,
   cardName,
   id,
   userId,
+  difficultyId,
 }) => {
   const [cardDifficulty, setCardDifficulty] = useState<1 | 2 | 3>();
   //useRef render Counter
@@ -28,13 +30,20 @@ const CardPreview: React.FC<CardViewProps> = ({
   // });
 
   useEffect(() => {
-    if (userId) {
-      getCardDifficulty({ userId, cardId: id }).then((data) => {
-        setCardDifficulty(data?.difficultyId);
-      });
+    if (difficultyId) {
+      setCardDifficulty(difficultyId);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userId]);
+  }, [difficultyId]);
+
+  // useEffect(() => {
+  //   if (userId) {
+  //   getCardDifficulty({ userId, cardId: id }).then((data) => {
+  //     setCardDifficulty(data?.difficultyId);
+  //   });
+  //   }
+    
+     // eslint-disable-next-line react-hooks/exhaustive-deps    
+  // }, [userId]);
 
   const pathname = usePathname();
 

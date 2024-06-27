@@ -132,14 +132,12 @@ const page = () => {
                 className={`min-w-full min-h-[85%] bg-gray-500 absolute bottom-0 ${
                   showCard ? "blur brightness-100" : ""
                 }`}
-              >
-                .
-              </div>
-              <div className="p-4 w-3/4 h-auto bg-white ring-1 ring-black rounded-md absolute m-auto left-0 right-0 top-0 bottom-0 text-center self-center">
+              ></div>
+              <div className="p-4 w-11/12 text-sm  bg-white ring-1 ring-black rounded-md absolute m-auto left-0 right-0 top-0 bottom-0 text-center self-center">
                 <p className="font-bold">¿Ya recordaste este contenido?</p>
                 <br />
                 <p className="italic">
-                  Active Recall es la técnica con la cual nunca olvidarás nada.
+                Active Recall es una de las mejores técnicas de estudio, actívala:
                   {/* <iframe
                     className="aspect-video mx-auto rounded-lg my-4"
                     src="https://www.youtube.com/embed/QD-zwXc3dtQ?si=RHDV6-8hMhRpG4iE"
@@ -157,7 +155,7 @@ const page = () => {
                   onClick={() => setShowCard((prev) => !prev)}
                   className="bg-[#3a3a3a] text-white rounded-lg px-4 py-2 mt-2"
                 >
-                  ¡Lo tengo claro!...¿🤔?
+                  ¡Verificar respuesta🤔!
                 </button>
               </div>
             </div>

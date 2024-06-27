@@ -1,6 +1,7 @@
 import prisma from "@/config/db";
 import { NextResponse } from "next/server";
 
+//Bring one card_difficulty_per_user
 export const POST = async (req: Request) => {
   const data = await req.json();
   try {

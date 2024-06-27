@@ -47,3 +47,19 @@ export const updateCardDifficulty = async (params: { id: number; difficultyId: n
         throw new Error(error.message);
     }
 }
+
+export const getCardsDifficultyByDeckId = async (params: { userId: number; deckId: number }) => {
+    try {
+        const result = await fetch(`${cardsURL}/byDeckId`, {
+        method: "POST",
+        body: JSON.stringify(params),
+        headers: {
+            "Content-Type": "application/json",
+        },
+        });
+        const data = await result.json();
+        return data;
+    } catch (error: any) {
+        throw new Error(error.message);
+    }
+}

@@ -23,6 +23,7 @@ export const POST = async (req: Request) => {
 export const GET = async () => {
   try {
     const decks = await prisma.decks.findMany();
+    console.log("🚀 ~ GET ~ decks:", decks)
     if (decks.length === 0) {
       return NextResponse.json(
         { ok: false, message: "No se encontraron decks" },
@@ -34,6 +35,7 @@ export const GET = async () => {
       { status: 200 }
     );
   } catch (error) {
+    console.log("🚀 ~ GET ~ error:", error)
     return NextResponse.json(
       { ok: false, message: "Error al traer los decks" },
       { status: 500 }
