@@ -124,13 +124,16 @@ const page = () => {
   return (
     <div className="w-full flex flex-col items-center">
       <NavBar
-        title={
-          "Cartas de: " + actualDeck?.name ||
-          "No has seleccionado un deck o no se ha encontrado"
-        }
+        title={`
+          ${
+            actualDeck?.name
+              ? "Cards del Deck: " + actualDeck.name
+              : "No has seleccionado un deck o no se ha encontrado"
+          }
+        `}
         goBack
       />
-      
+
       {/* @TODO:reparar botones de Carta al Azar */}
       {/* <Link
         href={`/${params.deck}/${
@@ -144,7 +147,7 @@ const page = () => {
           bgColor="bg-[#3a3a3a]"
         />
       </Link> */}
-      {isAuth ? (
+      {isAuth && userId === actualDeck?.creatorId ? (
         <Link href={`/create-card`}>
           <Button>Crear Card</Button>
         </Link>

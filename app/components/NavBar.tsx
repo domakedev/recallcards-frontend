@@ -9,6 +9,7 @@ import Link from "next/link";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { logout } from "@/redux/userSlice";
 import RenderCounter from "./RenderCounter";
+import { User, UserDB } from "@/types/User";
 
 interface NavBarProps {
   title: string;
@@ -20,12 +21,16 @@ const NavBar: React.FC<NavBarProps> = ({ title, goBack = false }) => {
   const userState = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const [isAuth, setIsAuth] = useState(false);
+  const [authUser, setAuthUser] = useState<UserDB>();
 
   useEffect(() => {
     if (userState.authenticated) {
       setIsAuth(true);
     } else {
       setIsAuth(false);
+    }
+    if (userState) {
+      setAuthUser(userState);
     }
   }, [userState]);
 
@@ -68,28 +73,31 @@ const NavBar: React.FC<NavBarProps> = ({ title, goBack = false }) => {
         {/* <Link href={true ? "/auth/login" : "/auth/register"}>
         </Link> */}
         {isAuth ? (
-          <button
-            onClick={() => {
-              dispatch(logout());
-              // router.push("/");
-            }}
-          >
-            <FaUserGraduate
-              size={24}
-              className="inline-block"
-            />
-            {"Salir"}
-          </button>
+          <>
+            <span className="text-sm hidden md:block">{authUser?.email}</span>
+            <button
+              onClick={() => {
+                dispatch(logout());
+                // router.push("/");
+              }}
+            >
+              <FaUserGraduate
+                size={24}
+                className="inline-block mx-1 w-4 "
+              />
+              {"Salir"}
+            </button>
+          </>
         ) : (
           <button
             onClick={() => router.push("/auth/login")}
             className="text-sm"
           >
-            {"Login"}
             <FaUserGraduate
               size={24}
-              className="inline-block w-4 ml-1"
+              className="inline-block w-4 mx-1"
             />
+            {"Login"}
           </button>
         )}
       </div>

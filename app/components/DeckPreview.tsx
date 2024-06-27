@@ -1,6 +1,6 @@
 import Image, { StaticImageData } from "next/image";
 import React, { useEffect, useState } from "react";
-import CardsIcon from "@/assets/cards-icon.png";
+import CardsIcon from "@/assets/cards-icon.svg";
 import Link from "next/link";
 import DeckPlaceHolderIMG from "@/assets/placeholder-256x256.svg";
 import { toast } from "react-toastify";
@@ -41,7 +41,7 @@ const DeckPreview: React.FC<DeckPreviewProps> = ({
   return (
     <Link
       href={`/deck-${deckId}-${deckSlug}`}
-      className="flex flex-col gap-2 transform transition-transform duration-200 active:scale-95 hover:scale-105"
+      className="flex flex-col gap-2 transform transition-transform duration-200 active:scale-95 hover:scale-105 "
       onClick={setActualDEck}
     >
       <Image
@@ -52,16 +52,23 @@ const DeckPreview: React.FC<DeckPreviewProps> = ({
         alt="Deck vista previa"
         priority
       />
-      <div className="flex flex-col">
-        <h2 className="max-w-32 md:max-w-64">{deckName}</h2>
-        <div className="flex items-center gap-[2px]">
-          <p className="text-sm">{deckSize}</p>
+      <div className="flex justify-start items-start text-md max-w-32 md:max-w-64 ">
+        <div className="min-w-5 mr-1">
           <Image
-            className="w-[13.92px] h-[12.67]"
+            className="w-[20px] mt-1"
             src={CardsIcon}
             alt="Icono de varias cartas"
           />
         </div>
+        <h2 className="  max-w-28">{deckName}</h2>
+        {/* <div className="flex items-center gap-[2px]"> */}
+        {/* <p className="text-sm">{deckSize}</p> */}
+        {/* <Image
+            className="w-[13.92px] h-[12.67]"
+            src={CardsIcon}
+            alt="Icono de varias cartas"
+          /> */}
+        {/* </div> */}
       </div>
     </Link>
   );
