@@ -33,7 +33,6 @@ const page = () => {
 
     const promiseDecks = async () => {
       const res = await getDecks();
-      console.log("🚀 ~ promiseDecks ~ res:", res);
       setDecks(res.decks);
       return res;
     };
@@ -41,6 +40,8 @@ const page = () => {
       pending: "Cargando Decks",
       success: "¡Decks Listos! 👌",
       error: "No hay Decks 🤯",
+    },{
+      autoClose: 1000
     });
   }, []);
 

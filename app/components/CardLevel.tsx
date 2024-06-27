@@ -21,7 +21,7 @@ const NivelDificultad: React.FC<NivelDificultadProps> = ({
   userId,
   dificultadActual,
   cardDifficultId,
-  userEmail
+  userEmail,
 }) => {
   const niveles: Array<1 | 2 | 3> = [1, 2, 3];
 
@@ -60,11 +60,13 @@ const NivelDificultad: React.FC<NivelDificultadProps> = ({
         //res es el registro creado completo
         setCardDifficultyId(res.difficultyId);
         toast.success(
-        `Dificultad de la card "${cardId}" creada: "${getName(number)}" del usuario ${userEmail}`
+          `Dificultad de la card "${cardId}" creada: "${getName(
+            number
+          )}" del usuario ${userEmail}`
         );
       }
       //Actualiza difficulty si ya esta definido
-     
+
       if ((level === 1 || level === 2 || level === 3) && cardDifficultyId) {
         const res = await updateCardDifficulty({
           id: cardDifficultyId,
@@ -72,7 +74,12 @@ const NivelDificultad: React.FC<NivelDificultadProps> = ({
         });
         //res es el registro actualizado completo
         toast.success(
-          `Dificultad de la card "${cardId}" actualizada a: "${getName(number)}" del usuario ${userEmail}`
+          `Dificultad de la card "${cardId}" actualizada a: "${getName(
+            number
+          )}" del usuario ${userEmail}`,
+          {
+            autoClose: 1000,
+          }
         );
       }
     }

@@ -39,7 +39,6 @@ export const GET = async () => {
       { status: 200 }
     );
   } catch (error) {
-    console.log("🚀 ~ GET ~ error:", error)
     return NextResponse.json(
       { ok: false, message: "Ocurrio un error en la API de Cards" },
       { status: 500 }

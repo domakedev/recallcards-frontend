@@ -29,7 +29,6 @@ const page = () => {
     typeof params.deck === "string"
       ? params.deck.split("-")[1]
       : params.deck[0].split("-")[1];
-  console.log("🚀 ~ page ~ deckId:", deckId);
 
   const [deckCards, setDeckCards] = useState<CardDB[]>();
   // const [deckCardsIds, setDeckCardsIds] = useState<number[]>();

@@ -48,7 +48,6 @@ export const POST = async (req: Request) => {
       { status: 201 }
     );
   } catch (error) {
-    console.log("🚀 ~ POST ~ error:", error)
     return NextResponse.json(
       { ok: false, message: "Error al subir la imagen" },
       { status: 500 }

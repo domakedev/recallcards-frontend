@@ -43,12 +43,17 @@ export const useAuthForm = () => {
         //Subir a Redux
         const { id, email } = answer.user;
         dispatch(setUser({ id, email, authenticated: true }));
-        toast.success(answer.message);
+        toast.success(answer.message,{
+          autoClose: 1000,
+        });
         //visit the prev link
          router.back()
         // router.push("/");
       } else if (!answer.ok) {
-        toast.error(answer.message);
+        toast.error(answer.message,{
+          autoClose: 1000,
+          
+        });
       }      
     } catch (error) {
       toast.error("Algo falló al loguear al usuario");

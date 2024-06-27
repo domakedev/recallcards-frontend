@@ -42,7 +42,6 @@ export const POST = async (req: Request) => {
       data.deckId
     )}
     `;
-    console.log("🚀 ~ POST ~ result:", result);
     return NextResponse.json(result);
   } catch (error) {
     return NextResponse.json(error);

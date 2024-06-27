@@ -32,6 +32,7 @@ const CreateCard: React.FC = () => {
   const [thereIsDeck, setThereIsDeck] = useState<boolean>(false);
   const [imageUrl, setImageUrl] = useState<string>("");
   const [imageBlobUrl, setImageBlobUrl] = useState<string>("");
+  const [userId, setUserId] = useState<number>();
   const [deckState, setDeckState] = useState<DeckDB>();
 
   //Store
@@ -63,6 +64,8 @@ const CreateCard: React.FC = () => {
     if (!userStateRedux.authenticated) {
       toast.error("Primero inicia sesión");
       setThereIsDeck(false);
+    } else {
+      setUserId(userStateRedux.id);
     }
   }, [userStateRedux]);
 
@@ -191,9 +194,7 @@ const CreateCard: React.FC = () => {
   return (
     <div className="flex flex-col items-center bg-gradient-to-r from-blue-500 to-teal-500 min-h-screen -mb-16 pb-16">
       <NavBar
-        title={
-          `Cartas del usuario: "${userStateRedux.email}"`
-        }
+        title={`${userStateRedux.id!==deckState?.creatorId ? "No tienes permisos para crear cartas en este deck":"🌲⛅🌲"}`}
         goBack
       />
       <form
@@ -262,9 +263,10 @@ const CreateCard: React.FC = () => {
         <div className="flex items-center justify-between">
           <button
             type="submit"
-            disabled={!thereIsDeck}
+            // disabled={!thereIsDeck || userId!==deckState?.creatorId}
+            disabled={userId !== deckState?.creatorId || !thereIsDeck}
             className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transform transition duration-150 ease-in-out ${
-              thereIsDeck
+              userId === deckState?.creatorId && thereIsDeck
                 ? ""
                 : "bg-gray-500 hover:bg-gray-500 cursor-not-allowed"
             }`}
