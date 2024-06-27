@@ -1,8 +1,6 @@
 import prisma from "@/config/db";
-import { PrismaClient } from "@prisma/client";
 import { NextResponse } from "next/server";
 
-// const prisma = new PrismaClient();
 
 //Create a new Card
 //@TODO: con cloudinary

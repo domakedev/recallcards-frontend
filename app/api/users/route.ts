@@ -1,10 +1,8 @@
 import { User } from "@/types/User";
-import { PrismaClient } from "@prisma/client";
 import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 import prisma from "@/config/db";
 
-// const prisma = new PrismaClient();
 
 export const POST = async (req: Request) => {
   const data: User = await req.json();

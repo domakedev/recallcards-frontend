@@ -1,8 +1,6 @@
 import { NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
 import prisma from "@/config/db";
 
-// const prisma = new PrismaClient();
 
 //Get card by ID
 export const GET = async (
