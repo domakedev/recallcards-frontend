@@ -10,6 +10,7 @@ import { getAllCards } from "@/services/card.services";
 import { Card } from "@/types/Card";
 import { useAppSelector } from "@/redux/hooks";
 import { DeckDB } from "@/types/Deck";
+import { nameToSlug } from "@/utils/nameToSlug";
 
 const Footer = () => {
   const params = useParams();
@@ -68,7 +69,7 @@ const Footer = () => {
           </div>
         </Link>
         <Link
-          href={`/deck-${actualDeck?.id}`}
+          href={`/deck-${actualDeck?.id}-${nameToSlug(actualDeck?.name||"")}`}
           className="w-1/3 h-full active:bg-gray-700 flex items-center justify-center"
         >
           <div className="flex flex-col items-center">

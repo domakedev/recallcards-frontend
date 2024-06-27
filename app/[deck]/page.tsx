@@ -11,13 +11,14 @@ import Link from "next/link";
 import { CardDB } from "@/types/Card";
 import { getCardsByDeckId } from "@/services/card.services";
 import { v4 as uuidv4 } from "uuid";
-import { Deck } from "@/types/Deck";
+import { Deck, DeckDB } from "@/types/Deck";
 import { getDecks } from "@/services/deck.services";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import Button from "../components/Button";
 import { setCardsIds } from "@/redux/deckSlice";
 import { getCardsDifficultyByDeckId } from "@/services/cardDifficulty.services";
 import RenderCounter from "../components/RenderCounter";
+import { nameToSlug } from "@/utils/nameToSlug";
 
 const page = () => {
   const userState = useAppSelector((state) => state.user);
@@ -120,14 +121,17 @@ const page = () => {
     }
     return;
   };
-
   return (
     <div className="w-full flex flex-col items-center">
       <NavBar
         title={`
           ${
             actualDeck?.name
-              ? "Cards del Deck: " + actualDeck.name
+              ? "Cards del Deck: " +
+                actualDeck.name +
+                "(" +
+                deckCards?.length +
+                ")"
               : "No has seleccionado un deck o no se ha encontrado"
           }
         `}
@@ -135,18 +139,18 @@ const page = () => {
       />
 
       {/* @TODO:reparar botones de Carta al Azar */}
-      {/* <Link
-        href={`/${params.deck}/${
-          Math.floor(Math.random() * (actualDeck?.deckSize || 0)) + 1
-        }`}
-        className=" bg-[#3a3a3a] active:scale-95 hover:scale-105 rounded-[12px] transform transition-transform duration-200"
-      >
-        <LargeButton
-          text="Elegir una carta al azar"
-          icon={DadosIcon}
-          bgColor="bg-[#3a3a3a]"
-        />
-      </Link> */}
+      {deckCards && actualDeck ? (
+        <Link
+          href={`/deck-${actualDeck.id}-${nameToSlug(actualDeck.name)}/${deckCards[Math.floor(Math.random() * deckCards.length)].id}`}
+          className=" bg-[#3a3a3a] active:scale-95 hover:scale-105 rounded-[12px] transform transition-transform duration-200"
+        >
+          <LargeButton
+            text="Elegir una carta al azar"
+            icon={DadosIcon}
+            bgColor="bg-[#3a3a3a]"
+          />
+        </Link>
+      ) : null}
       {isAuth && userId === actualDeck?.creatorId ? (
         <Link href={`/create-card`}>
           <Button>Crear Card</Button>
