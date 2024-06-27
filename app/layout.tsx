@@ -21,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="es"
       className="h-full"
     >
       <body className={`${inter.className} flex flex-col min-h-full`}>
