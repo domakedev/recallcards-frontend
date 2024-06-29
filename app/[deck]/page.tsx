@@ -120,10 +120,13 @@ const page = () => {
   const swiperRef = useRef<SwiperType | null>(null);
 
   const goToSlide = () => {
-    const random = deckCards?.length
-      ? deckCards[Math.floor(Math.random() * deckCards.length)].id
-      : 0;
     if (swiperRef.current) {
+    const random = deckCards?.length
+      ? Math.floor(Math.random() * deckCards.length)
+      : 0;
+      console.log("🚀 ~ goToSlide ~ random:", random)
+
+      console.log("🚀 ~ goToSlide ~ swiperRef.current:", swiperRef.current)
       swiperRef.current.slideTo(random);
     }
   };
