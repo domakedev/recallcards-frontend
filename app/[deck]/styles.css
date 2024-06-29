@@ -1,6 +1,12 @@
 .swiper {
-  /* width: 270px; */
-  @apply w-full sm:w-4/5 max-w-[450px];
+  width: 240px;
+  /* height: 320px; */
+  /* width: calc(100vw - 10px); */
+  @apply w-10/12 max-w-[500px];
+}
+
+.swiper-3d {
+  perspective: 600px;
 }
 
 .swiper-slide {
@@ -11,8 +17,8 @@
   font-size: 22px;
   font-weight: bold;
   color: #fff;
-  /* width: 300px; */
-  @apply bg-gray-800
+  width: 300px;
+  @apply bg-gray-800;
 }
 /* 
 .swiper-slide:nth-child(1n) {

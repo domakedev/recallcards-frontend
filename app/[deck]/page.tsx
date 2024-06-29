@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import NavBar from "../components/NavBar";
 import CardPreview from "../components/CardPreview";
 import DadosIcon from "@/assets/dados-icon.svg";
@@ -20,7 +20,7 @@ import { nameToSlug } from "@/utils/nameToSlug";
 
 //Swiper
 // Import Swiper React components
-import { Swiper, SwiperSlide } from "swiper/react";
+import { SwiperSlide, Swiper } from "swiper/react";
 
 // Import Swiper styles
 import "swiper/css";
@@ -30,8 +30,8 @@ import "./styles.css";
 // import required modules
 import { EffectCards } from "swiper/modules";
 import SlidingCard from "../components/SlidingCards";
-import { Pagination } from 'swiper/modules';
-
+import { Pagination } from "swiper/modules";
+import type { Swiper as SwiperType } from "swiper";
 
 const page = () => {
   const userState = useAppSelector((state) => state.user);
@@ -64,7 +64,7 @@ const page = () => {
       setUserId(userState.id);
     }
     if (!userState.authenticated) {
-      setcardsDifficultiesByUserAndDeck(undefined)
+      setcardsDifficultiesByUserAndDeck(undefined);
     }
   }, [userState]);
 
@@ -110,7 +110,6 @@ const page = () => {
             }
             return card;
           });
-          console.log("🚀 ~ resetCards ~ resetCards:", resetCards);
           return setDeckCards(resetCards);
         }
       });
@@ -118,6 +117,16 @@ const page = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [deckId, userId, cardsDifficultiesByUserAndDeck]);
 
+  const swiperRef = useRef<SwiperType | null>(null);
+
+  const goToSlide = () => {
+    const random = deckCards?.length
+      ? deckCards[Math.floor(Math.random() * deckCards.length)].id
+      : 0;
+    if (swiperRef.current) {
+      swiperRef.current.slideTo(random);
+    }
+  };
 
   useEffect(() => {
     if (userId && deckId) {
@@ -170,20 +179,22 @@ const page = () => {
         title={`
           ${
             actualDeck?.name
-              ? "Deck: " + actualDeck.name + "(" + deckCards?.length + ")"
+              ? actualDeck.name + "(" + deckCards?.length + ")"
               : "Seleccionado un deck"
           }
         `}
         goBack
       />
 
-      <div className="flex justify-center w-[95%] sm:w-11/12 overfdlow-hidden rounded-xl my-2">
+      <div className="w-full overflow-hidden mb-2">
         <Swiper
           effect={"cards"}
           grabCursor={true}
           modules={[EffectCards]}
           className="mySwiper"
-          pagination={true}
+          onSwiper={(swiper) => {
+            swiperRef.current = swiper;
+          }}
         >
           {deckCards?.map((e, i) => (
             <SwiperSlide key={i}>
@@ -205,26 +216,37 @@ const page = () => {
         </Swiper>
       </div>
       {deckCards && actualDeck ? (
-        <Link
-          href={`/deck-${actualDeck.id}-${nameToSlug(actualDeck.name)}/${
-            deckCards[Math.floor(Math.random() * deckCards.length)].id
-          }`}
-          className=" bg-[#3a3a3a] active:scale-95 hover:scale-105 rounded-[12px] transform transition-transform duration-200"
-        >
-          <LargeButton
-            text="Elegir una carta al azar"
-            icon={DadosIcon}
-            bgColor="bg-[#3a3a3a]"
-          />
-        </Link>
+        <>
+          <div
+            className="bg-[#2a9c97] active:scale-95 hover:scale-105 rounded-[12px] transform transition-transform duration-200 mb-10"
+            onClick={() => goToSlide()}
+          >
+            <LargeButton
+              text=" Ver una carta al azar"
+              icon={DadosIcon}
+              bgColor="bg-[#2a9c97]"
+            />
+           
+          </div>
+          <Link
+            href={`/deck-${actualDeck.id}-${nameToSlug(actualDeck.name)}/${
+              deckCards[Math.floor(Math.random() * deckCards.length)].id
+            }`}
+            className=" bg-[#3a3a3a] active:scale-95 hover:scale-105 rounded-[12px] transform transition-transform duration-200"
+          >
+            <LargeButton
+              text="Ir a una carta al azar"
+              icon={DadosIcon}
+              bgColor="bg-[#3a3a3a]"
+            />
+          </Link>
+        </>
       ) : null}
       {isAuth && userId === actualDeck?.creatorId ? (
         <Link href={`/create-card`}>
           <Button>Crear Card</Button>
         </Link>
       ) : null}
-
-    
 
       <div className="flex flex-wrap gap-4 p-5 justify-center">
         {deckCards?.map((e, i) => (

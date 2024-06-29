@@ -96,7 +96,7 @@ const NivelDificultad: React.FC<NivelDificultadProps> = ({
           }
         );
       }
-      router.refresh()
+      router.refresh();
     }
   };
 
@@ -126,11 +126,11 @@ const NivelDificultad: React.FC<NivelDificultadProps> = ({
   return (
     <div className="m-3">
       {isAuth ? (
-        <div className="flex">
+        <div className="flex gap-1">
           {niveles.map((nivel) => (
             <label
               key={uuidv4()}
-              className={`py-1 px-4 mx-1 rounded ${getColor(
+              className={`text-sm md:text-xl py-1 px-4 rounded ${getColor(
                 nivel
               )}  cursor-pointer ring-1 ring-gray-500 hover:scale-105 transition-transform duration-200
                 `}
@@ -148,10 +148,15 @@ const NivelDificultad: React.FC<NivelDificultadProps> = ({
           ))}
         </div>
       ) : (
-        <p className="text-red-500 font-bold  text-center">
+        <p className="text-sm md:text-xl text-red-500 font-bold  text-center">
           Si quieres guardar tu progreso{" "}
-          <Link href="/auth/register" className="text-white block  
-          ">¡Regístrate aquí! ⌛✅</Link>
+          <Link
+            href="/auth/register"
+            className="text-white block  
+          "
+          >
+            ¡Regístrate aquí! ⌛✅
+          </Link>
         </p>
       )}
     </div>

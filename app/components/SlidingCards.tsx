@@ -23,7 +23,7 @@ const SlidingCard = ({
 }: SlidingCardProps) => {
   const pathname = usePathname();
   return (
-    <div className="flex flex-col items-center gap-1">
+    <div className="flex flex-col items-center gap-1 w-full">
       <Link
         href={`${pathname}/${id}`}
         className="relative"
@@ -33,7 +33,7 @@ const SlidingCard = ({
           alt={cardName}
           width={1080}
           height={1350}
-          className="w-full"
+          className=""
         />
       </Link>
       <CardLevel

@@ -3,7 +3,13 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import BackArrowIcon from "@/assets/backarrow-icon.svg";
-import { FaColonSign, FaPersonArrowUpFromLine, FaPersonFalling, FaPersonRunning, FaUserGraduate } from "react-icons/fa6";
+import {
+  FaColonSign,
+  FaPersonArrowUpFromLine,
+  FaPersonFalling,
+  FaPersonRunning,
+  FaUserGraduate,
+} from "react-icons/fa6";
 import { useParams, useRouter } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { logout } from "@/redux/userSlice";
@@ -44,7 +50,7 @@ const NavBar: React.FC<NavBarProps> = ({ title, goBack = false }) => {
   }
 
   return (
-    <nav className="p-5 mb-3 flex justify-between w-full bg-slate-100 shadow-md backdrop-filter backdrop-blur-lg bg-opacity-30">
+    <nav className="p-5 mb-3 flex justify-between w-full bg-slate-100 shadow-md backdrop-filter backdrop-blur-lg bg-opacity-30 sticky top-0 z-10">
       {goBack ? (
         <button
           className="min-w-[25%] "
