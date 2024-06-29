@@ -3,13 +3,12 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import BackArrowIcon from "@/assets/backarrow-icon.svg";
-import { FaUserGraduate } from "react-icons/fa6";
+import { FaColonSign, FaPersonArrowUpFromLine, FaPersonFalling, FaPersonRunning, FaUserGraduate } from "react-icons/fa6";
 import { useParams, useRouter } from "next/navigation";
-import Link from "next/link";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { logout } from "@/redux/userSlice";
-import RenderCounter from "./RenderCounter";
-import { User, UserDB } from "@/types/User";
+import { UserDB } from "@/types/User";
+import { FaArrowDown, FaArrowUp } from "react-icons/fa";
 
 interface NavBarProps {
   title: string;
@@ -45,8 +44,7 @@ const NavBar: React.FC<NavBarProps> = ({ title, goBack = false }) => {
   }
 
   return (
-    <nav className="mt-5 mb-[41px] px-3 flex  justify-between w-full">
-      {/* <RenderCounter /> */}
+    <nav className="p-5 mb-[41px] px-3 flex  justify-between w-full bg-slate-100 shadow-md backdrop-filter backdrop-blur-lg sticky z-10 top-0 bg-opacity-30">
       {goBack ? (
         <button
           className="min-w-[25%] "
@@ -70,8 +68,6 @@ const NavBar: React.FC<NavBarProps> = ({ title, goBack = false }) => {
 
       <h1 className="font-bold text-lg text-center min-w-[50%] ">{title}</h1>
       <div className="flex items-center justify-center gap-3 min-w-[25%] ">
-        {/* <Link href={true ? "/auth/login" : "/auth/register"}>
-        </Link> */}
         {isAuth ? (
           <>
             <span className="text-sm hidden md:block">{authUser?.email}</span>
@@ -81,8 +77,8 @@ const NavBar: React.FC<NavBarProps> = ({ title, goBack = false }) => {
                 // router.push("/");
               }}
             >
-              <FaUserGraduate
-                size={24}
+              <FaPersonRunning
+                size={14}
                 className="inline-block mx-1 w-4 "
               />
               {"Salir"}
@@ -93,8 +89,8 @@ const NavBar: React.FC<NavBarProps> = ({ title, goBack = false }) => {
             onClick={() => router.push("/auth/login")}
             className="text-sm"
           >
-            <FaUserGraduate
-              size={24}
+            <FaArrowUp
+              size={14}
               className="inline-block w-4 mx-1"
             />
             {"Login"}

@@ -18,7 +18,7 @@ export type Deck = {
 export type DeckDB = {
     id: number,
     name: string,
-    image?: string,
+    image?: string | null,
     creatorId: number,
     deckSize?: number,
 }

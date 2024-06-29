@@ -37,3 +37,4 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 ## Mejoras por implementar
 - Cambiar metadata de cada página
+- Hacer que funcione revalidate en page principal

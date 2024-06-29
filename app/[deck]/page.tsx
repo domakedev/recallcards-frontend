@@ -32,6 +32,7 @@ const page = () => {
       : params.deck[0].split("-")[1];
 
   const [deckCards, setDeckCards] = useState<CardDB[]>();
+  console.log("🚀 ~ page ~ deckCards:", deckCards)
   // const [deckCardsIds, setDeckCardsIds] = useState<number[]>();
   const [decks, setDecks] = useState<Deck[]>();
   const [actualDeck, setActualDeck] = useState<Deck>();
