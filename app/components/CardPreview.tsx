@@ -6,6 +6,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import PlaceHolderIMG from "@/assets/placeholder-ig-img.svg";
 import { getCardDifficulty } from "@/services/cardDifficulty.services";
+import CardLevel from '@/app/components/CardLevel';
+import { useAppSelector } from "@/redux/hooks";
 
 interface CardViewProps {
   image: string;
@@ -23,11 +25,8 @@ const CardPreview: React.FC<CardViewProps> = ({
   difficultyId,
 }) => {
   const [cardDifficulty, setCardDifficulty] = useState<1 | 2 | 3>();
-  //useRef render Counter
-  // const renderCounter = useRef(0);
-  // useEffect(() => {
-  //   renderCounter.current = renderCounter.current + 1;
-  // });
+  const userState = useAppSelector((state) => state.user);
+
 
   useEffect(() => {
     if (difficultyId) {
@@ -35,15 +34,12 @@ const CardPreview: React.FC<CardViewProps> = ({
     }
   }, [difficultyId]);
 
-  // useEffect(() => {
-  //   if (userId) {
-  //   getCardDifficulty({ userId, cardId: id }).then((data) => {
-  //     setCardDifficulty(data?.difficultyId);
-  //   });
-  //   }
-    
-     // eslint-disable-next-line react-hooks/exhaustive-deps    
-  // }, [userId]);
+  useEffect(() => {
+    if(!userState.authenticated){
+      setCardDifficulty(undefined);
+    }
+
+  }, [userState]);
 
   const pathname = usePathname();
 

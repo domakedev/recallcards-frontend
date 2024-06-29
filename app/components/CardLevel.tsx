@@ -1,32 +1,43 @@
+import { useAppSelector } from "@/redux/hooks";
 import {
   createCardDifficulty,
   updateCardDifficulty,
 } from "@/services/cardDifficulty.services";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { v4 as uuidv4 } from "uuid";
 
 type NivelDificultadProps = {
-  isAuth: boolean;
   cardId: number;
-  userId: number;
   userEmail?: string;
   dificultadActual?: 1 | 2 | 3;
   cardDifficultId?: number;
 };
 
 const NivelDificultad: React.FC<NivelDificultadProps> = ({
-  isAuth,
   cardId,
-  userId,
   dificultadActual,
   cardDifficultId,
   userEmail,
 }) => {
   const niveles: Array<1 | 2 | 3> = [1, 2, 3];
 
+  const router = useRouter();
+
   const [level, setLevel] = useState(dificultadActual);
   const [cardDifficultyId, setCardDifficultyId] = useState<number>();
+  const [isAuth, setIsAuth] = useState<boolean>(false);
+  const [userId, setUserId] = useState<number>();
+  const userState = useAppSelector((state) => state.user);
+
+  useEffect(() => {
+    if (userState) {
+      setIsAuth(userState.authenticated);
+      setUserId(userState.id);
+    }
+  }, [userState]);
 
   const getColor = (nivel: number) => {
     if (nivel === level) {
@@ -41,7 +52,7 @@ const NivelDificultad: React.FC<NivelDificultadProps> = ({
           return "";
       }
     }
-    return "bg-gray-300 text-black";
+    return "bg-white text-black";
   };
 
   const onDificultadChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -85,6 +96,7 @@ const NivelDificultad: React.FC<NivelDificultadProps> = ({
           }
         );
       }
+      router.refresh()
     }
   };
 
@@ -112,18 +124,21 @@ const NivelDificultad: React.FC<NivelDificultadProps> = ({
   }, [cardDifficultId]);
 
   return (
-    <div className="mb-2">
+    <div className="m-3">
       {isAuth ? (
-        <div className="flex space-x-2">
+        <div className="flex">
           {niveles.map((nivel) => (
             <label
               key={uuidv4()}
-              className={`p-2 mx-1 rounded ${getColor(nivel)}`}
+              className={`py-1 px-4 mx-1 rounded ${getColor(
+                nivel
+              )}  cursor-pointer ring-1 ring-gray-500 hover:scale-105 transition-transform duration-200
+                `}
               onClick={changeLevelInDB}
             >
               <input
                 type="checkbox"
-                className="mr-2"
+                className="mr-2 bg-white hidden"
                 name={String(nivel)}
                 checked={nivel === level}
                 onChange={onDificultadChange}
@@ -134,7 +149,9 @@ const NivelDificultad: React.FC<NivelDificultadProps> = ({
         </div>
       ) : (
         <p className="text-red-500 font-bold  text-center">
-          Si quieres guardar tu progreso, inicia sesión 😁🙌⌛✅
+          Si quieres guardar tu progreso{" "}
+          <Link href="/auth/register" className="text-white block  
+          ">¡Regístrate aquí! ⌛✅</Link>
         </p>
       )}
     </div>

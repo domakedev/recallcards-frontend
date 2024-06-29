@@ -149,8 +149,6 @@ const page = () => {
         {cardDB?.id && userDB ? (
           <CardLevel
             cardId={cardDB.id}
-            isAuth={userDB.authenticated}
-            userId={userDB.id}
             userEmail={userDB.email}
             dificultadActual={cardDifficult}
             cardDifficultId={cardDifficultId}

@@ -44,7 +44,7 @@ const NavBar: React.FC<NavBarProps> = ({ title, goBack = false }) => {
   }
 
   return (
-    <nav className="p-5 mb-[41px] px-3 flex  justify-between w-full bg-slate-100 shadow-md backdrop-filter backdrop-blur-lg sticky z-10 top-0 bg-opacity-30">
+    <nav className="p-5 mb-3 flex justify-between w-full bg-slate-100 shadow-md backdrop-filter backdrop-blur-lg bg-opacity-30">
       {goBack ? (
         <button
           className="min-w-[25%] "
