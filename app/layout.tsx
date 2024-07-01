@@ -29,10 +29,10 @@ export const metadata: Metadata = {
     siteName: "Repaso Activo",
     images: [
       {
-        url: "/app/icon.svg",
+        url: "/public/og-logo.png",
         alt: "Repaso Activo",
-        width: 308,
-        height: 592,
+        width: 200,
+        height: 190,
       },
     ],
   },
