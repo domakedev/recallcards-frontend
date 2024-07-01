@@ -22,6 +22,20 @@ export const metadata: Metadata = {
     "Repaso",
     "Repaso Activo",
   ],
+  openGraph: {
+    type: "website",
+    locale: "es_ES",
+    url: "https://www.repasoactivo.com",
+    siteName: "Repaso Activo",
+    images: [
+      {
+        url: "/app/icon.svg",
+        alt: "Repaso Activo",
+        width: 308,
+        height: 592,
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
