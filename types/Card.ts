@@ -8,7 +8,7 @@ export type Card = {
 
 export type CardDB = {
   id: number;
-  question?: string;
+  question?: string | null;
   answer: string;
   creatorId: number;
   deckId: number;

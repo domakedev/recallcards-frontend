@@ -126,7 +126,7 @@ const NivelDificultad: React.FC<NivelDificultadProps> = ({
   return (
     <div className="m-3">
       {isAuth ? (
-        <div className="flex gap-1">
+        <div className="flex gap-1 sm:gap-2 md:gap-3">
           {niveles.map((nivel) => (
             <label
               key={uuidv4()}

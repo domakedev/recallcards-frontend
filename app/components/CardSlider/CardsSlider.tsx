@@ -1,3 +1,4 @@
+"use client"
 //Swiper
 // Import Swiper React components
 import { SwiperSlide, Swiper } from "swiper/react";
@@ -13,25 +14,103 @@ import { EffectCards } from "swiper/modules";
 import SlidingCard from "../SlidingCards";
 import type { Swiper as SwiperType } from "swiper";
 import React, { useEffect, useRef, useState } from "react";
-import { CardDB } from "@/types/Card";
+import { CardDB, cardsDifficultiesByUserAndDeck } from "@/types/Card";
 import LargeButton from "../LargeButton";
 import DadosIcon from "@/assets/dados-icon.svg";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import {
+  getCardDifficulty,
+  getCardDifficultyId,
+  sortCards,
+} from "@/lib/card.functions";
+import { setCardsIds } from "@/redux/deckSlice";
+import { useRouter } from "next/navigation";
+import { getDecks } from "@/services/deck.services";
+import { Deck } from "@/types/Deck";
 
 interface CardsSliderProps {
-  // cards: CardDB[];
-  children: React.ReactNode;
+  cards: CardDB[];
+  // children: React.ReactNode;
+  deckId: number;
 }
 
-const CardsSlider = ({ children }: CardsSliderProps) => {
+const CardsSlider = ({ cards, deckId }: CardsSliderProps) => {
   const swiperRef = useRef<SwiperType | null>(null);
-  const numeroDeHijos = React.Children.count(children);
+  const dispacth = useAppDispatch();
+
+  // const numeroDeHijos = React.Children.count(children);
+  const userState = useAppSelector((state) => state.user);
+  const [isAuth, setIsAuth] = useState<boolean>(false);
+  const [userId, setUserId] = useState<number>();
+  const [cardsDifficultiesByUserAndDeck, setcardsDifficultiesByUserAndDeck] =
+    useState<cardsDifficultiesByUserAndDeck>();
+  const [deckCards, setDeckCards] = useState<CardDB[]>(cards);
+  const [actualDeck, setActualDeck] = useState<Deck>();
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (userState) {
+      setIsAuth(userState.authenticated);
+      setUserId(userState.id);
+    }
+    if (!userState.authenticated) {
+      setcardsDifficultiesByUserAndDeck(undefined);
+    }
+  }, [userState]);
+
+  useEffect(() => {
+    const idsArr = cards.map((cards: { id: any }) => cards.id);
+    // Uso a: "idsArr"  para el random card
+    // setDeckCardsIds(idsArr);
+    dispacth(setCardsIds(idsArr));
+    if (userId === undefined) {
+      return;
+    }
+    if (userId === 0) {
+      return setDeckCards(cards);
+    }
+    if (
+      userId !== undefined &&
+      userId !== 0 &&
+      cardsDifficultiesByUserAndDeck
+    ) {
+      const resetCards = sortCards(
+        cards,
+        userId,
+        cardsDifficultiesByUserAndDeck
+      );
+      return setDeckCards(resetCards);
+    }
+  }, [cards, cardsDifficultiesByUserAndDeck, dispacth, userId]);
+
+  useEffect(() => {
+    if (deckId === undefined || !deckId) {
+      router.push("/");
+    }
+    if (deckId) {
+      // getDecks().then((data) => setDecks(data.decks));
+      getDecks().then((data) =>
+        setActualDeck(
+          data.decks?.find((deck: { id: number }) => deck.id === Number(deckId))
+        )
+      );
+    }
+    if (userId && deckId) {
+      getCardsDifficultyByDeckId({ userId, deckId: Number(deckId) }).then(
+        (data) => {
+          setcardsDifficultiesByUserAndDeck(data);
+        }
+      );
+    }
+  }, [deckId, userId]);
 
   const goToSlide = () => {
     if (swiperRef.current) {
-      const random = Math.floor(Math.random() * numeroDeHijos);
-      // const random = numeroDeHijos?.length
-      //   ? Math.floor(Math.random() * numeroDeHijos.length)
-      //   : 0;
+      // const random = Math.floor(Math.random() * numeroDeHijos);
+      const random = cards?.length
+        ? Math.floor(Math.random() * cards.length)
+        : 0;
       swiperRef.current.slideTo(random);
     }
   };
@@ -47,9 +126,33 @@ const CardsSlider = ({ children }: CardsSliderProps) => {
           swiperRef.current = swiper;
         }}
       >
-        {children}
+        {deckCards.map((e, i) => (
+          <SwiperSlide key={i}>
+            <SlidingCard
+              key={i}
+              image={
+                e.answer.includes("http") || e.answer.includes("data:image")
+                  ? e.answer
+                  : ""
+              }
+              cardName={e.question || "-"}
+              id={e.id}
+              userId={userId}
+              difficulty={getCardDifficulty(
+                userId,
+                e.id,
+                cardsDifficultiesByUserAndDeck
+              )}
+              cardDifficultyId={getCardDifficultyId(
+                userId,
+                e.id,
+                cardsDifficultiesByUserAndDeck
+              )}
+            />
+          </SwiperSlide>
+        ))}
       </Swiper>
-      {numeroDeHijos > 1 && (
+      {cards.length > 1 && (
         <LargeButton
           text=" Ver una carta al azar"
           icon={DadosIcon}

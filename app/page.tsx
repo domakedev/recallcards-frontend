@@ -8,7 +8,6 @@ import DeckGrid from "./components/DeckGrid";
 
 const page = async () => {
   const decks = await getDecksAction();
-  console.log("🚀 ~ page ~ decks:", "✅Construido");
 
   return (
     <div>
