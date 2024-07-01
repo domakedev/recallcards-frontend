@@ -9,7 +9,7 @@ interface SlidingCardProps {
   image: string;
   cardName: string;
   userId?: number;
-  difficultyId?: 1 | 2 | 3;
+  difficulty?: 1 | 2 | 3;
   cardDifficultyId?: number;
 }
 
@@ -17,7 +17,7 @@ const SlidingCard = ({
   image,
   cardName,
   userId,
-  difficultyId,
+  difficulty,
   id,
   cardDifficultyId,
 }: SlidingCardProps) => {
@@ -37,7 +37,7 @@ const SlidingCard = ({
         />
       </Link>
       <CardLevel
-        dificultadActual={difficultyId}
+        dificultadActual={difficulty}
         cardId={id}
         cardDifficultId={cardDifficultyId}
       />

@@ -12,8 +12,13 @@ const nextConfig = {
   },
   compiler: {
     // Enables the styled-components SWC transform
-    styledComponents: true
-  }
+    styledComponents: true,
+  },
+  experimental: {
+    staleTimes: {
+      dynamic: 15,
+    },
+  },
 };
 
 export default nextConfig;

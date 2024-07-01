@@ -1,15 +1,20 @@
 import Image, { StaticImageData } from "next/image";
+import Link from "next/link";
 import React from "react";
 
 interface LargeButtonProps {
   text: string;
   icon: StaticImageData;
   bgColor: string;
+  href?: string;
+  onClick?: () => void;
 }
-const LargeButton: React.FC<LargeButtonProps> = ({ text, icon, bgColor }) => {
+const LargeButton: React.FC<LargeButtonProps> = ({ text, icon, bgColor, href="", onClick }) => {
   return (
-    <button
-      className={`w-full px-4 max-w-[289px] h-[46px] top-0 ${bgColor} rounded-[12px] text-white text-sm font-bold`}
+    <Link
+      href={href}
+      className={`px-4 py-3 ${bgColor} text-white text-sm font-bold active:scale-95 hover:scale-105 rounded-lg transform transition-transform duration-200`}
+      onClick={onClick}
     >
       <div className="flex gap-2 justify-center">
         <p>{text}</p>
@@ -21,7 +26,7 @@ const LargeButton: React.FC<LargeButtonProps> = ({ text, icon, bgColor }) => {
           height={20}
         />
       </div>
-    </button>
+    </Link>
   );
 };
 
