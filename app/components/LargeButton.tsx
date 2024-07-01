@@ -13,7 +13,7 @@ const LargeButton: React.FC<LargeButtonProps> = ({ text, icon, bgColor, href="",
   return (
     <Link
       href={href}
-      className={`px-4 py-3 ${bgColor} text-white text-sm font-bold active:scale-95 hover:scale-105 rounded-lg transform transition-transform duration-200`}
+      className={`px-4 py-3 ${bgColor} text-white text-sm font-bold active:scale-95 hover:scale-105 rounded-lg transform transition-transform duration-200 items-center justify-center flex gap-2 mx-auto`}
       onClick={onClick}
     >
       <div className="flex gap-2 justify-center">

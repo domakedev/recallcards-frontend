@@ -65,8 +65,13 @@ const CardControlButtons = () => {
 
   useEffect(() => {
     setRandomCardNumber(cardsIds[randomCardNumberito(cardsIds)]);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const randomHandler = () => {
+    const random = cardsIds[randomCardNumberito(cardsIds)];
+    setRandomCardNumber(random);
+  };
 
   return (
     <div className="mt-5 flex gap-1 mx-auto">
@@ -79,16 +84,14 @@ const CardControlButtons = () => {
           size={50}
         />
       </Link>
-      <Link
+
+      <LargeButton
         href={`${randomCardNumber}`}
-        className="w-full min-h-[60px] bg-[#3a3a3a] flex justify-center items-center transform transition-transform duration-200 active:scale-95 hover:scale-105 rounded-[12px]"
-      >
-        <LargeButton
-          text="Elegir una carta al azar"
-          icon={DadosIcon}
-          bgColor="bg-[#3a3a3a]"
-        />
-      </Link>
+        text="Elegir una carta al azar"
+        icon={DadosIcon}
+        bgColor="bg-[#3a3a3a]"
+        onClick={() => randomHandler()}
+      />
       <Link
         href={!disableRightButton ? `${nextCardNumber}` : ""}
         className="rounded-[12px] w-12 min-h-[60px] bg-[#3a3a3a] flex justify-center items-center transform transition-transform duration-200 active:scale-95 hover:scale-105"
