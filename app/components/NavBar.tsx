@@ -15,6 +15,7 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { logout } from "@/redux/userSlice";
 import { UserDB } from "@/types/User";
 import { FaArrowDown, FaArrowUp } from "react-icons/fa";
+import AccessRequest from "@/app/components/AccessRequest";
 
 interface NavBarProps {
   title: string;
@@ -26,6 +27,7 @@ const NavBar: React.FC<NavBarProps> = ({ title, goBack = false }) => {
   const userState = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const [isAuth, setIsAuth] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [authUser, setAuthUser] = useState<UserDB>();
 
   useEffect(() => {
@@ -36,6 +38,7 @@ const NavBar: React.FC<NavBarProps> = ({ title, goBack = false }) => {
     }
     if (userState) {
       setAuthUser(userState);
+      setIsAdmin(userState.roles.includes("admin"));
     }
   }, [userState]);
 
@@ -50,26 +53,31 @@ const NavBar: React.FC<NavBarProps> = ({ title, goBack = false }) => {
   }
 
   return (
-    <nav className="p-5 mb-3 flex justify-between w-full bg-slate-100 shadow-md backdrop-filter backdrop-blur-lg bg-opacity-30 sticky top-0 z-10">
+    <nav className="p-5 mb-3 flex items-center justify-between w-full bg-slate-100 shadow-md backdrop-filter backdrop-blur-lg bg-opacity-30 sticky top-0 z-10">
       {goBack ? (
-        <button
-          className="min-w-[25%] "
-          onClick={() => {
-            router.push(`${goTo == "/" ? goTo : "/" + params[goTo]}`);
-          }}
-        >
-          <div>
-            <Image
-              src={BackArrowIcon}
-              className="min-w-6 min-h-6 "
-              // width={24}
-              // height={24}
-              alt="Volver atrás"
-            />
-          </div>
-        </button>
+        <>
+          <button
+            className="min-w-[25%] "
+            onClick={() => {
+              router.push(`${goTo == "/" ? goTo : "/" + params[goTo]}`);
+            }}
+          >
+            <div>
+              <Image
+                src={BackArrowIcon}
+                className="min-w-6 min-h-6 "
+                // width={24}
+                // height={24}
+                alt="Volver atrás"
+              />
+            </div>
+          </button>
+        </>
       ) : (
-        <div className="min-w-[25%] "></div>
+        <>
+          {isAdmin && <div className="min-w-[25%] "></div>}
+          {!isAdmin && <AccessRequest />}
+        </>
       )}
 
       <h1 className="font-bold text-lg text-center min-w-[50%] ">{title}</h1>

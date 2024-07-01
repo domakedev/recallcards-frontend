@@ -15,6 +15,7 @@ const page = async () => {
         title="Decks"
         goBack={false}
       />
+      
       <div className="mx-auto">
         <CreateButton
           showCondition={"userAuth"}
