@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     siteName: "Repaso Activo",
     images: [
       {
-        url: "/public/og-logo.png",
+        url: "https://res.cloudinary.com/domakedev/image/upload/v1719383366/recall-cards/zglncq4eeyysekjn245p.png",
         alt: "Repaso Activo",
         width: 200,
         height: 190,
