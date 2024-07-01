@@ -11,15 +11,17 @@ interface CreateButtonProps {
 const CreateButton = ({ showCondition, route }: CreateButtonProps) => {
   const router = useRouter();
   const [isAuth, setIsAuth] = useState<boolean>(false);
+  const [isAdmin, setIsAdmin] = useState<boolean>(false);
   const userState = useAppSelector((state) => state.user);
 
   useEffect(() => {
     if (userState) {
       setIsAuth(userState.authenticated);
+      setIsAdmin(userState.roles.includes("admin"));
     }
   }, [userState]);
 
-  if (showCondition === "userAuth" && !isAuth) {
+  if (showCondition === "userAuth" && !isAuth || !isAdmin) {
     return null;
   }
 

@@ -41,8 +41,8 @@ export const useAuthForm = () => {
       const answer = await result.json();
       if (answer.ok) {
         //Subir a Redux
-        const { id, email } = answer.user;
-        dispatch(setUser({ id, email, authenticated: true }));
+        const { id, email, roles } = answer.user;
+        dispatch(setUser({ id, email, authenticated: true, roles }));
         toast.success(answer.message,{
           autoClose: 1000,
         });

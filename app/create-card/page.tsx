@@ -34,6 +34,7 @@ const CreateCard: React.FC = () => {
   const [imageBlobUrl, setImageBlobUrl] = useState<string>("");
   const [userId, setUserId] = useState<number>();
   const [deckState, setDeckState] = useState<DeckDB>();
+  const [isAdmin, setIsAdmin] = useState<boolean>(false);
 
   //Store
   const userStateRedux = useAppSelector((state) => state.user);
@@ -66,6 +67,7 @@ const CreateCard: React.FC = () => {
       setThereIsDeck(false);
     } else {
       setUserId(userStateRedux.id);
+      setIsAdmin(userStateRedux.roles.includes("admin"));
     }
   }, [userStateRedux]);
 
@@ -264,7 +266,7 @@ const CreateCard: React.FC = () => {
           <button
             type="submit"
             // disabled={!thereIsDeck || userId!==deckState?.creatorId}
-            disabled={userId !== deckState?.creatorId || !thereIsDeck}
+            disabled={userId !== deckState?.creatorId || !thereIsDeck || !isAdmin}
             className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transform transition duration-150 ease-in-out ${
               userId === deckState?.creatorId && thereIsDeck
                 ? ""

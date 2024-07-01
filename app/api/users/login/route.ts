@@ -34,6 +34,7 @@ export const POST = async (req: Request) => {
       const userResult = {
         id: user.id,
         email: user.email,
+        roles: user.roles,
       }
       return NextResponse.json(
         { ok: true, message: "Usuario logueado", user: userResult},

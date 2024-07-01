@@ -82,13 +82,13 @@ const CardsGrid = ({ cards, deckId }: CardsGridProps) => {
 
   return (
     <>
-      {deckCards && actualDeck && (
+      {deckCards && deckCards.length > 0 && actualDeck && (
         <LargeButton
           text={"Ir a una carta al azar"}
           icon={DadosIcon}
           bgColor={"bg-[#3a3a3a]"}
           href={`/deck-${actualDeck.id}-${nameToSlug(actualDeck.name)}/${
-            cards[Math.floor(Math.random() * cards.length)].id
+            deckCards[Math.floor(Math.random() * deckCards.length)].id
           }`}
         ></LargeButton>
       )}

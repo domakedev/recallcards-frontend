@@ -24,6 +24,8 @@ const page = () => {
   const userState = useAppSelector((state) => state.user);
   const [imageBlobUrl, setImageBlobUrl] = useState<string>("");
   const [image, setImage] = useState<File>();
+  const [isAdmin, setIsAdmin] = useState<boolean>(false);
+
 
   // const userState = {
   //   authenticated: true,
@@ -35,9 +37,10 @@ const page = () => {
       setIsAuth(false);
       toast.error("No puedes crear un deck si no estás logeado.");
     }
-    if (userState.authenticated) {
+    if (userState.authenticated && userState.roles.includes("admin")) {
       setDeck({ ...deck, creatorId: userState.id });
       setIsAuth(true);
+      setIsAdmin(userState.roles.includes("admin"));
     }
   }, [userState]);
 
@@ -176,7 +179,7 @@ const page = () => {
             >
               {isAuth
                 ? isLoading ? "Creando Deck ":"Crear Deck"
-                : "Debes iniciar sesión para crear un deck"}
+                : "Debes iniciar sesión y ser administrador para crear un Deck"}
             </button>
           </div>
         </form>

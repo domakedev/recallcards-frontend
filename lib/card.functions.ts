@@ -79,7 +79,6 @@ export const sortCards = (
     if (card != null) {
       delete card["cardDifficulty"];
     } else {
-      console.log("El objeto 'card' es undefined o null.");
     }
     return card;
   });
