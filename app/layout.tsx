@@ -10,9 +10,9 @@ import Providers from "@/redux/Providers";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Recall Cards",
+  title: "Repaso Activo",
   description: "¡Apunta, guarda y repasa tus anotaciones de estudios!",
-  keywords: ["Active Recall", "Cards", "Anotaciones", "Estudios", "Flashcards", "Apuntes"]
+  keywords: ["Active Recall", "Cards", "Anotaciones", "Estudios", "Flashcards", "Apuntes", "Repaso", "Repaso Activo"]
 };
 
 export default function RootLayout({
