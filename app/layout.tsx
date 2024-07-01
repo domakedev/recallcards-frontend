@@ -12,7 +12,16 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Repaso Activo",
   description: "¡Apunta, guarda y repasa tus anotaciones de estudios!",
-  keywords: ["Active Recall", "Cards", "Anotaciones", "Estudios", "Flashcards", "Apuntes", "Repaso", "Repaso Activo"]
+  keywords: [
+    "Active Recall",
+    "Cards",
+    "Anotaciones",
+    "Estudios",
+    "Flashcards",
+    "Apuntes",
+    "Repaso",
+    "Repaso Activo",
+  ],
 };
 
 export default function RootLayout({
@@ -32,8 +41,7 @@ export default function RootLayout({
           {/* Create a footer that show a nice message */}
           <Footer />
         </Providers>
-        <ToastContainer position="bottom-right"
-        />
+        <ToastContainer position="bottom-right" />
       </body>
     </html>
   );
