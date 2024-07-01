@@ -27,9 +27,10 @@ export const metadata: Metadata = {
     locale: "es_ES",
     url: "https://www.repasoactivo.com",
     siteName: "Repaso Activo",
+    description: "¡Apunta, guarda y repasa tus anotaciones de estudios!",
     images: [
       {
-        url: "https://res.cloudinary.com/domakedev/image/upload/v1719383366/recall-cards/zglncq4eeyysekjn245p.png",
+        url: "https://res.cloudinary.com/domakedev/image/upload/v1719383366/recall-cards/zglncq4eeyysekjn245p.png",        
         alt: "Repaso Activo",
         width: 200,
         height: 190,
