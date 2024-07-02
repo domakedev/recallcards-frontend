@@ -60,3 +60,17 @@ export const getCardById = async (cardId: number) => {
     throw new Error(error.message);
   }
 };
+
+export const deleteCardById = async (cardId: number) => {
+  try {
+    //First Delete card_difficulty_per_user
+    // const delete = await 
+    const result = await fetch(`${cardsURL}/${cardId}`, {
+      method: "DELETE",
+    });
+    const data = await result.json();
+    return data;
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
+}

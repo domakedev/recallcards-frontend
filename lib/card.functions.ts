@@ -115,3 +115,11 @@ export const sortCards = (
 //     }
 //     return card;
 //   });
+
+export function extractPublicId(secureUrl: string) {
+  const index = secureUrl.indexOf("recall-cards");
+  const urlParts = secureUrl.slice(index);
+  const indexExtention = urlParts.indexOf(".");
+  const withoutExtention = urlParts.slice(0, indexExtention);
+  return withoutExtention;
+}

@@ -18,6 +18,9 @@ import CardLevel from "@/app/components/CardLevel";
 import { useAppSelector } from "@/redux/hooks";
 import { UserDB } from "@/types/User";
 import { getCardDifficulty } from "@/services/cardDifficulty.services";
+import DeleteButton from "@/app/components/Button/DeleteCardButton";
+import DeleteCardButton from "@/app/components/Button/DeleteCardButton";
+import { DeckDB } from '../../../types/Deck';
 
 const page = () => {
   const router = useRouter();
@@ -215,6 +218,13 @@ const page = () => {
           )}
         </div>
         {params.deck === "random" ? null : <CardControlButtons />}
+        {userDB?.id === 0 || !cardDB?.id || userDB?.id !== cardDB.creatorId? null : (
+          <DeleteCardButton
+            userId={userDB.id}
+            cardId={cardDB.id}
+            cardImage={cardDB.answer}
+          />
+        )}
       </div>
     </>
   );

@@ -15,3 +15,12 @@ cloudinary.config({
 //     })
 //     .end(byteArrayBuffer);
 // });
+
+export function cloudinaryDestroyImage (publicId: string) {
+  cloudinary.uploader
+  .destroy(publicId)
+  .then(result => {
+      console.log("🚀 ~ cloudinaryDestroyImage ~ result:", result)
+      return result.result === "ok" ? true : false
+  })
+}

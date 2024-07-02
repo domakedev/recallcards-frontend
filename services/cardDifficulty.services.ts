@@ -63,3 +63,19 @@ export const getCardsDifficultyByDeckId = async (params: { userId: number; deckI
         throw new Error(error.message);
     }
 }
+
+export const deleteCardDifficultyPerUser = async (params: { userId: number; cardId: number }) => {
+    try {
+        const result = await fetch(`${cardsURL}/delete`, {
+        method: "POST",
+        body: JSON.stringify(params),
+        headers: {
+            "Content-Type": "application/json",
+        },
+        });
+        const data = await result.json();
+        return data;
+    } catch (error: any) {
+        throw new Error(error.message);
+    }
+}
