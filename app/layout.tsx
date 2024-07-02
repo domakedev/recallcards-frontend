@@ -61,6 +61,7 @@ export default function RootLayout({
         content="ca-pub-1587638098879183"
       />
       <GoogleAnalytics />
+
       <body className={`${inter.className} flex flex-col min-h-full`}>
         {/* <header className="min-h-[10px] bg-green-100">Header</header> */}
         <Providers>
