@@ -145,7 +145,7 @@ const page = () => {
   return (
     <>
       <NavBar
-        title={`${cardName}`}
+        title={`${cardDB?.question || cardName}`}
         goBack
       />
       {userDB?.id === 0 ||
