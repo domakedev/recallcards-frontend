@@ -6,21 +6,22 @@ import CardsSlider from "../components/CardSlider/CardsSlider";
 import CardsGrid from "../components/CardsGrid";
 import CreateDeckButton from "../components/Button/CreateDeckButton";
 import prisma from "@/config/db";
+import DeleteDeckButton from "../components/Button/DeleteDeckButton";
 
 const page = async ({ params }: { params: { deck: string } }) => {
   const deckId = params.deck.split("-")[1];
 
-   //x
-   if (deckId === undefined || !deckId) {
+  //x
+  if (deckId === undefined || !deckId) {
     redirect("/");
   }
 
   //Funcion para traer el deck actual por id en prisma
-   const deckById = await prisma.decks.findUnique({
+  const deckById = await prisma.decks.findUnique({
     where: {
       id: +deckId,
     },
-   })
+  });
 
   //Funcion para traer las cartas del deck con prisma
   const deckCards = await prisma.cards.findMany({
@@ -30,13 +31,12 @@ const page = async ({ params }: { params: { deck: string } }) => {
   });
   //Funcion para traer las dificultades de las cartas del deck
 
- 
   return (
     <div className="w-full flex flex-col items-center">
       <NavBar
         title={`
           ${
-            deckById?.name && deckCards?.length
+            deckById?.name
               ? deckById.name + "(" + deckCards?.length + ")"
               : "Selecciona un deck"
           }
@@ -49,12 +49,13 @@ const page = async ({ params }: { params: { deck: string } }) => {
         deckId={+deckId}
       ></CardsSlider>
 
-     <CreateDeckButton/>
+      <CreateDeckButton />
 
       <CardsGrid
         cards={deckCards}
         deckId={+deckId}
       />
+      <DeleteDeckButton />
     </div>
   );
 };

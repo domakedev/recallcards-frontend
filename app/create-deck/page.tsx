@@ -70,7 +70,10 @@ const page = () => {
     if (result.ok) {
       setIsLoading(false);
       setTitle("¡Creado! ¿Uno más?");
-      toast.success("Deck Creado");
+      toast.success("Deck Creado",{
+        //speed
+        autoClose: 1000,
+      });
       setDeck({ name: "", image: "", creatorId: 0 });
     }
   };

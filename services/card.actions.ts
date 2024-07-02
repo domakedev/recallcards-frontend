@@ -12,7 +12,7 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-export const deleteCardHandler = async (
+export const deleteCardAction = async (
   userId: number,
   cardId: number,
   cardImage: string

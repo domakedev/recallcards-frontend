@@ -1,4 +1,4 @@
-import { deleteCardHandler } from "@/services/card.actions";
+import { deleteCardAction } from "@/services/card.actions";
 import { useRouter } from "next/navigation";
 import { AiOutlineDelete } from "react-icons/ai";
 import { toast } from "react-toastify";
@@ -17,7 +17,7 @@ const DeleteCardButton = ({
   const router = useRouter();
   const deleteCard = async () => {
     try {
-      const result = await deleteCardHandler(userId, cardId, cardImage);
+      const result = await deleteCardAction(userId, cardId, cardImage);
       toast.success(result);
       router.push("/");
     } catch (error) {
