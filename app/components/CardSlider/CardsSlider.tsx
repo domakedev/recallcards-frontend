@@ -42,6 +42,7 @@ const CardsSlider = ({ cards, deckId }: CardsSliderProps) => {
   const userState = useAppSelector((state) => state.user);
   const [isAuth, setIsAuth] = useState<boolean>(false);
   const [userId, setUserId] = useState<number>();
+  const [userEmail, setUserEmail] = useState<string>();
   const [cardsDifficultiesByUserAndDeck, setcardsDifficultiesByUserAndDeck] =
     useState<cardsDifficultiesByUserAndDeck>();
   const [deckCards, setDeckCards] = useState<CardDB[]>(cards);
@@ -53,6 +54,7 @@ const CardsSlider = ({ cards, deckId }: CardsSliderProps) => {
     if (userState) {
       setIsAuth(userState.authenticated);
       setUserId(userState.id);
+      setUserEmail(userState.email);
     }
     if (!userState.authenticated) {
       setcardsDifficultiesByUserAndDeck(undefined);
@@ -148,6 +150,7 @@ const CardsSlider = ({ cards, deckId }: CardsSliderProps) => {
                 e.id,
                 cardsDifficultiesByUserAndDeck
               )}
+              userEmail={userEmail}
             />
           </SwiperSlide>
         ))}

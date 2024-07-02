@@ -9,6 +9,7 @@ interface SlidingCardProps {
   image: string;
   cardName: string;
   userId?: number;
+  userEmail?: string;
   difficulty?: 1 | 2 | 3;
   cardDifficultyId?: number;
 }
@@ -17,6 +18,7 @@ const SlidingCard = ({
   image,
   cardName,
   userId,
+  userEmail,
   difficulty,
   id,
   cardDifficultyId,
@@ -40,6 +42,7 @@ const SlidingCard = ({
         dificultadActual={difficulty}
         cardId={id}
         cardDifficultId={cardDifficultyId}
+        userEmail={userEmail}
       />
     </div>
   );
