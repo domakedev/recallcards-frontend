@@ -12,7 +12,7 @@ const page = async () => {
   return (
     <div>
       <NavBar
-        title="Decks"
+        title="Repaso Activo"
         goBack={false}
       />
       

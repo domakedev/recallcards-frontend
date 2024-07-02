@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import Logo from "@/app/icon.svg";
 import BackArrowIcon from "@/assets/backarrow-icon.svg";
 import {
   FaColonSign,
@@ -16,6 +17,7 @@ import { logout } from "@/redux/userSlice";
 import { UserDB } from "@/types/User";
 import { FaArrowDown, FaArrowUp } from "react-icons/fa";
 import AccessRequest from "@/app/components/AccessRequest";
+import Link from "next/link";
 
 interface NavBarProps {
   title: string;
@@ -74,7 +76,17 @@ const NavBar: React.FC<NavBarProps> = ({ title, goBack = false }) => {
           </button>
         </>
       ) : (
-         <div className="min-w-[25%] "></div>
+        <div
+         className="min-w-[25%] "
+         >
+          <Image
+            src={Logo}
+            className="min-w-6 min-h-6 "
+            width={40}
+            height={40}
+            alt="Inicio"
+          />
+        </div>
       )}
 
       <h1 className="font-bold text-lg text-center min-w-[50%] ">{title}</h1>
