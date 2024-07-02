@@ -196,7 +196,11 @@ const CreateCard: React.FC = () => {
   return (
     <div className="flex flex-col items-center bg-gradient-to-r from-blue-500 to-teal-500 min-h-screen -mb-16 pb-16">
       <NavBar
-        title={`${userStateRedux.id!==deckState?.creatorId ? "No tienes permisos para crear cartas en este deck":"🌲⛅🌲"}`}
+        title={`${
+          userStateRedux.id !== deckState?.creatorId
+            ? "No tienes permisos para crear cartas en este deck"
+            : "🌲⛅🌲"
+        }`}
         goBack
       />
       <form
@@ -210,7 +214,7 @@ const CreateCard: React.FC = () => {
             htmlFor="question"
             className="block text-gray-700 text-sm font-bold mb-2"
           >
-            Titulo/Pregunta (Opcional)
+            Titulo o Pregunta (Opcional y válido para 1 sola imagen)
           </label>
           <input
             type="text"
@@ -223,9 +227,20 @@ const CreateCard: React.FC = () => {
           />
         </div>
         <div className="mb-6">
-          <label className="block text-gray-700 text-sm font-bold mb-2">
+          <label className="block text-gray-700 text-sm font-bold mb-2 flex flex-col gap-1">
             {/* Respuesta puede ser: texto o imagen(url o archivo) */}
-            Respuesta: imagen(es)
+            <span>Respuesta: Sube la(s) imagen(es) de tu apunte 🙌✅</span>
+            <blockquote className="p-4 font-light border-l-4 bg-neutral-100 text-neutral-600 border-neutral-500 quote">
+              *De preferencia tamaño 1035x1080px (post de Instagram vertical en
+              <a
+                href="https://www.canva.com/"
+                target="__blank"
+                className="text-blue-500 hover:text-blue-700 font-bold"
+              >
+                {" Canva"}
+              </a>
+              ), mas de eso y se verá muy grande.
+            </blockquote>
           </label>
           {/* <input
             type="text"
@@ -266,7 +281,9 @@ const CreateCard: React.FC = () => {
           <button
             type="submit"
             // disabled={!thereIsDeck || userId!==deckState?.creatorId}
-            disabled={userId !== deckState?.creatorId || !thereIsDeck || !isAdmin}
+            disabled={
+              userId !== deckState?.creatorId || !thereIsDeck || !isAdmin
+            }
             className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transform transition duration-150 ease-in-out ${
               userId === deckState?.creatorId && thereIsDeck
                 ? ""
