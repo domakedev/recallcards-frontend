@@ -45,22 +45,31 @@ const DeleteDeckButton = () => {
       });
       router.push("/");
     } catch (error: any) {
-      toast.error(error.message);
+      toast.error("Ocurrió un error al eliminar el deck");
     }
   };
   return (
-    <button
-      className={`${
-        !userDB || userDB.id === 0 || userDB.id !== deckCreatorId
-          ? "hidden"
-          : ""
-      } border border-red-500 text-red-500 hover:bg-red-500 hover:text-white px-4 py-2 rounded flex items-center gap-2 transition-colors duration-150 ease-in-out m-2`}
-      type="button"
-      disabled={!userDB || userDB.id === 0 || userDB.id !== deckCreatorId}
-      onClick={deleteDeck}
-    >
-      Eliminar Deck <AiOutlineDelete />
-    </button>
+    <>
+      {!userDB || userDB.id === 0 || userDB.id !== deckCreatorId ? null : (
+        <>
+          <button
+            className={`${
+              !userDB || userDB.id === 0 || userDB.id !== deckCreatorId
+                ? "hidden"
+                : ""
+            } border border-red-500 text-red-500 hover:bg-red-500 hover:text-white px-4 py-2 rounded flex items-center gap-2 transition-colors duration-150 ease-in-out m-2`}
+            type="button"
+            disabled={!userDB || userDB.id === 0 || userDB.id !== deckCreatorId}
+            onClick={deleteDeck}
+          >
+            Eliminar Deck <AiOutlineDelete />
+          </button>
+          <span className=" text-red-500 text-xs">
+            Advertencia: Tiene que estar vacío.
+          </span>
+        </>
+      )}
+    </>
   );
 };
 
