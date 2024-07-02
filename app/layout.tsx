@@ -4,6 +4,7 @@ import "./globals.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Footer from "./components/Footer";
+import GoogleAnalytics from "@/app/components/GoogleAnalytics";
 
 import Providers from "@/redux/Providers";
 import Script from "next/script";
@@ -59,6 +60,7 @@ export default function RootLayout({
         name="google-adsense-account"
         content="ca-pub-1587638098879183"
       />
+      <GoogleAnalytics />
       <body className={`${inter.className} flex flex-col min-h-full`}>
         {/* <header className="min-h-[10px] bg-green-100">Header</header> */}
         <Providers>
