@@ -57,7 +57,7 @@ const Footer = () => {
   }, [resetCard, allCards]);
 
   return (
-    <footer className="fixed bottom-0 w-full bg-gray-800 text-white">
+    <footer className="fixed bottom-0 w-full bg-gray-800 text-white z-20">
       <div className="flex justify-around items-center h-16">
         <Link
           href={"/"}

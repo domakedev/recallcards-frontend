@@ -23,6 +23,10 @@ const page = async ({ params }: { params: { deck: string } }) => {
     },
   });
 
+  if (!deckById) {
+    redirect("/");
+  }
+
   //Funcion para traer las cartas del deck con prisma
   const deckCards = await prisma.cards.findMany({
     where: {

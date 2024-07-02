@@ -23,12 +23,6 @@ export const deleteCardAction = async (
   }
   //test
   const publicId = extractPublicId(cardImage);
-  console.log("🚀 ~ deleteHandler ~ data:", {
-    userId,
-    cardId,
-    cardImage,
-    publicId,
-  });
 
   //1. Delete difficulty per user
   const deleteCardDifficultyPerUser =
@@ -38,10 +32,7 @@ export const deleteCardAction = async (
         cardId: cardId,
       },
     });
-  console.log(
-    "🚀 ~ deleteCardHandler ~ deleteCardDifficultyPerUser:",
-    deleteCardDifficultyPerUser
-  );
+ 
   //2. Delete card
       const deleteCard = await prisma.cards.delete({
           where: {
@@ -49,7 +40,6 @@ export const deleteCardAction = async (
           creatorId: userId,
           },
       });
-      console.log("🚀 ~ deleteCardHandler ~ deleteCard:", deleteCard)
 
     //3. Delete image from cloudinary
     const cloudDestroy = cloudinaryDestroyImage(publicId)

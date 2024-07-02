@@ -59,7 +59,7 @@ const DeleteDeckButton = () => {
       disabled={!userDB || userDB.id === 0 || userDB.id !== deckCreatorId}
       onClick={deleteDeck}
     >
-      Eliminar <AiOutlineDelete />
+      Eliminar Deck <AiOutlineDelete />
     </button>
   );
 };

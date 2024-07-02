@@ -139,7 +139,9 @@ const CreateCard: React.FC = () => {
 
         //Enviar newCard al Backend
         const result = await createCard(newCardCopy);
-        toast.success(result.message);
+        toast.success(result.message,{
+          autoClose: 1000,
+        });
         removeImage();
         setNewCard({
           answer: "",
@@ -176,7 +178,9 @@ const CreateCard: React.FC = () => {
             creatorId: 0,
           });
         }
-        toast.success("Cards creadas con éxito");
+        toast.success("Cards creadas con éxito",{
+          autoClose: 1000,
+        });
         setIsLoading(false);
       }
     } catch (error: any) {
