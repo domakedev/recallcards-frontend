@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Footer from "./components/Footer";
 
 import Providers from "@/redux/Providers";
+import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,7 +31,7 @@ export const metadata: Metadata = {
     description: "¡Apunta, guarda y repasa tus anotaciones de estudios!",
     images: [
       {
-        url: "https://res.cloudinary.com/domakedev/image/upload/v1719383366/recall-cards/zglncq4eeyysekjn245p.png",        
+        url: "https://res.cloudinary.com/domakedev/image/upload/v1719383366/recall-cards/zglncq4eeyysekjn245p.png",
         alt: "Repaso Activo",
         width: 200,
         height: 190,
@@ -49,6 +50,15 @@ export default function RootLayout({
       lang="es"
       className="h-full"
     >
+      <Script
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1587638098879183"
+        crossOrigin="anonymous"
+      ></Script>
+      <meta
+        name="google-adsense-account"
+        content="ca-pub-1587638098879183"
+      />
       <body className={`${inter.className} flex flex-col min-h-full`}>
         {/* <header className="min-h-[10px] bg-green-100">Header</header> */}
         <Providers>
