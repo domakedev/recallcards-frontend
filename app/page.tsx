@@ -16,7 +16,7 @@ const page = async () => {
         goBack={false}
       />
       
-      <div className="mx-auto">
+      <div className="flex justify-center">
         <CreateButton
           showCondition={"userAuth"}
           route={"/create-deck"}

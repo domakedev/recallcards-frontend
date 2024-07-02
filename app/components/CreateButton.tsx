@@ -1,7 +1,8 @@
-"use client"
+"use client";
 import { useAppSelector } from "@/redux/hooks";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import AccessRequest from "./AccessRequest";
 
 interface CreateButtonProps {
   showCondition: "userAuth" | "always" | "never";
@@ -21,19 +22,25 @@ const CreateButton = ({ showCondition, route }: CreateButtonProps) => {
     }
   }, [userState]);
 
-  if (showCondition === "userAuth" && !isAuth || !isAdmin) {
+  if ((showCondition === "userAuth" && !isAuth) ) {
     return null;
   }
 
   return (
-    <button
-      onClick={() => {
-        router.push(route);
-      }}
-      className="mt-5 bg-blue-500 text-white font-bold py-2 px-4 rounded-lg shadow-lg transform transition-transform duration-200 hover:scale-105 active:scale-95 block mx-auto my-5"
-    >
-      Crear Deck
-    </button>
+    <>
+      {!isAdmin ? (
+        <AccessRequest />
+      ) : (
+        <button
+          onClick={() => {
+            router.push(route);
+          }}
+          className="mt-5 bg-blue-500 text-white font-bold py-2 px-4 rounded-lg shadow-lg transform transition-transform duration-200 hover:scale-105 active:scale-95 block mx-auto my-5"
+        >
+          Crear Deck
+        </button>
+      )}
+    </>
   );
 };
 
