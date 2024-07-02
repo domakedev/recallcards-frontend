@@ -74,7 +74,7 @@ const NavBar: React.FC<NavBarProps> = ({ title, goBack = false }) => {
           </button>
         </>
       ) : (
-        <>{isAdmin && <div className="min-w-[25%] "></div>}</>
+         <div className="min-w-[25%] "></div>
       )}
 
       <h1 className="font-bold text-lg text-center min-w-[50%] ">{title}</h1>
