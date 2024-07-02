@@ -37,7 +37,7 @@ const page = () => {
       setIsAuth(false);
       toast.error("No puedes crear un deck si no estás logeado.");
     }
-    if (userState.authenticated && userState.roles.includes("admin")) {
+    if (userState.authenticated) {
       setDeck({ ...deck, creatorId: userState.id });
       setIsAuth(true);
       setIsAdmin(userState.roles.includes("admin"));
@@ -182,7 +182,7 @@ const page = () => {
             >
               {isAuth
                 ? isLoading ? "Creando Deck ":"Crear Deck"
-                : "Debes iniciar sesión y ser administrador para crear un Deck"}
+                : "Debes iniciar sesión primero."}
             </button>
           </div>
         </form>

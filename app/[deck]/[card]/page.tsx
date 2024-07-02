@@ -20,7 +20,7 @@ import { UserDB } from "@/types/User";
 import { getCardDifficulty } from "@/services/cardDifficulty.services";
 import DeleteButton from "@/app/components/Button/DeleteCardButton";
 import DeleteCardButton from "@/app/components/Button/DeleteCardButton";
-import { DeckDB } from '../../../types/Deck';
+import { DeckDB } from "../../../types/Deck";
 
 const page = () => {
   const router = useRouter();
@@ -148,6 +148,15 @@ const page = () => {
         title={`${cardName}`}
         goBack
       />
+      {userDB?.id === 0 ||
+      !cardDB?.id ||
+      userDB?.id !== cardDB.creatorId ? null : (
+        <DeleteCardButton
+          userId={userDB.id}
+          cardId={cardDB.id}
+          cardImage={cardDB.answer}
+        />
+      )}
       <div className="flex flex-col justify-center items-center px-3">
         {cardDB?.id && userDB ? (
           <CardLevel
@@ -218,13 +227,6 @@ const page = () => {
           )}
         </div>
         {params.deck === "random" ? null : <CardControlButtons />}
-        {userDB?.id === 0 || !cardDB?.id || userDB?.id !== cardDB.creatorId? null : (
-          <DeleteCardButton
-            userId={userDB.id}
-            cardId={cardDB.id}
-            cardImage={cardDB.answer}
-          />
-        )}
       </div>
     </>
   );

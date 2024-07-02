@@ -26,11 +26,11 @@ const DeleteCardButton = ({
   };
   return (
     <button
-      className="border border-red-500 text-red-500 hover:bg-red-500 hover:text-white px-4 py-2 rounded flex items-center gap-2 transition-colors duration-150 ease-in-out m-2"
+      className="border border-red-500 text-red-500 hover:bg-red-500 hover:text-white px-4 py-2 rounded flex items-center gap-2 transition-colors duration-150 ease-in-out m-2 mx-auto"
       type="button"
       onClick={deleteCard}
     >
-      Eliminar <AiOutlineDelete />
+      Eliminar Card <AiOutlineDelete />
     </button>
   );
 };

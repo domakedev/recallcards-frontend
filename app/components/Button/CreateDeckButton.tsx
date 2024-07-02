@@ -22,7 +22,8 @@ const CreateDeckButton = () => {
 
   return (
     <div>
-      {isAuth && userId === actualDeck?.creatorId && isAdmin ? (
+      {isAuth && userId === actualDeck?.creatorId ? (
+      // {isAuth && userId === actualDeck?.creatorId && isAdmin ? (
         <Button href="/create-card">Crear Card</Button>
       ) : null}
     </div>

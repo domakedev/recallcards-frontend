@@ -286,7 +286,8 @@ const CreateCard: React.FC = () => {
             type="submit"
             // disabled={!thereIsDeck || userId!==deckState?.creatorId}
             disabled={
-              userId !== deckState?.creatorId || !thereIsDeck || !isAdmin
+              userId !== deckState?.creatorId || !thereIsDeck
+              // userId !== deckState?.creatorId || !thereIsDeck || !isAdmin
             }
             className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transform transition duration-150 ease-in-out ${
               userId === deckState?.creatorId && thereIsDeck
