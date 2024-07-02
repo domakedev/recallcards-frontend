@@ -54,7 +54,7 @@ const DeleteDeckButton = () => {
         !userDB || userDB.id === 0 || userDB.id !== deckCreatorId
           ? "hidden"
           : ""
-      } border border-red-500 text-red-500 hover:bg-red-500 hover:text-white px-4 py-2 rounded flex items-center gap-2 transition-colors duration-150 ease-in-out m-2 z-50`}
+      } border border-red-500 text-red-500 hover:bg-red-500 hover:text-white px-4 py-2 rounded flex items-center gap-2 transition-colors duration-150 ease-in-out m-2`}
       type="button"
       disabled={!userDB || userDB.id === 0 || userDB.id !== deckCreatorId}
       onClick={deleteDeck}
