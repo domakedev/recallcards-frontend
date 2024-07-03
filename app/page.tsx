@@ -50,8 +50,8 @@ const ActiveRecallBanner = () => {
         </h1>
         <p className="mb-5 text-gray-200 flex flex-col items-start gap-2">
           <span>✨Esta app usa la técnica de estudio: Active Recall</span>
-          <span>✍️Puedes crear tu propias Cards</span>
-          <span> ⚡Lo que te resultó mas difícil te saldrá primero </span>
+          <span>✍️Puedes crear tu propias Cards en un Deck</span>
+          <span> ⚡Lo que te resultó mas difícil te aparecerá primero </span>
         </p>
         <div className="flex justify-start w-fit">
           <CreateButton

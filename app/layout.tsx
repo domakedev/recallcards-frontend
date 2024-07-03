@@ -34,8 +34,8 @@ export const metadata: Metadata = {
       {
         url: "https://res.cloudinary.com/domakedev/image/upload/v1720011553/recall-cards/jnla7elnujumhabiw2dz.png",
         alt: "Repaso Activo",
-        width: 200,
-        height: 190,
+        width: 1200,
+        height: 630,
       },
     ],
   },
