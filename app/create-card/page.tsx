@@ -205,6 +205,9 @@ const CreateCard: React.FC = () => {
           <label className="block text-gray-700 text-sm font-bold mb-2 flex flex-col gap-1">
             {/* Respuesta puede ser: texto o imagen(url o archivo) */}
             <span>✅ Respuesta</span>
+            <span className="text-sm font-light">
+              Puedes elegir entre Texto o Imagen
+            </span>
           </label>
           <textarea
             maxLength={400}

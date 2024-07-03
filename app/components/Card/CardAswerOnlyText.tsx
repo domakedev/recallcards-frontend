@@ -26,7 +26,7 @@ const CardAswerOnlyText = ({
           <h1 className=" text-xl font-bold text-gray-800 mb-6 self-center text-center min-w-[250px] max-w-[200px] md:max-w-[500px] break-words">
             {question}
           </h1>
-          <p className="text-xs sm:text-sm md:text-base flex-1 bg-slate-100 justify-center items-center flex shadow-inner rounded-lg p-4 md:p-8 text-gray-700 font-normal">
+          <p className="text-xs sm:text-sm md:text-base flex-1 bg-slate-100 justify-center items-center flex shadow-inner rounded-lg p-4 md:p-8 text-gray-700 font-normal  break-all">
             {answer}
           </p>
         </div>

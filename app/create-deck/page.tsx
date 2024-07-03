@@ -52,8 +52,12 @@ const page = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (deck.name.length < 5) {
-      toast.error("Escribe un nombre coherente de mínimo 5 caracteres.");
+    if (deck.name.length < 4) {
+      toast.error("Escribe un nombre de mínimo 4 caracteres.");
+      return;
+    }
+    if (deck.name.length > 20) {
+      toast.error("Escribe un nombre de máximo 20 caracteres.");
       return;
     }
     if (!image) {
