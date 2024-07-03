@@ -39,7 +39,7 @@ export default page;
 
 const ActiveRecallBanner = () => {
   return (
-    <div className="flex flex-col items-center sm:flex-row mx-auto bg-gray-800 max-h-[350px] overflow-hidden">
+    <div className="flex flex-col items-center sm:flex-row mx-auto bg-[#101728] max-h-[350px] overflow-hidden">
       <div className="w-full sm:w-1/2 md:pr-8 p-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4">
           <span className="text-green-500">¡Repasa,</span>{" "}
@@ -48,12 +48,10 @@ const ActiveRecallBanner = () => {
           <span className="text-red-500">nunca</span>{" "}
           <span className="text-white">olvides!</span>
         </h1>
-        <p className="mb-6 text-gray-200">
-          ✨Esta app usa la técnica de estudio: Active Recall <br />
-          <span>
-            ⚡Registra tu progreso y repasa las Cards mas difíciles primero
-          </span>{" "}
-          <br />
+        <p className="mb-5 text-gray-200 flex flex-col items-start gap-2">
+          <span>✨Esta app usa la técnica de estudio: Active Recall</span>
+          <span>✍️Puedes crear tu propias Cards</span>
+          <span> ⚡Lo que te resultó mas difícil te saldrá primero </span>
         </p>
         <div className="flex justify-start w-fit">
           <CreateButton

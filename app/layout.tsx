@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     description: "¡Apunta, guarda y repasa tus anotaciones de estudios!",
     images: [
       {
-        url: "https://res.cloudinary.com/domakedev/image/upload/v1719383366/recall-cards/zglncq4eeyysekjn245p.png",
+        url: "https://res.cloudinary.com/domakedev/image/upload/v1720011553/recall-cards/jnla7elnujumhabiw2dz.png",
         alt: "Repaso Activo",
         width: 200,
         height: 190,
