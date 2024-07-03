@@ -57,7 +57,7 @@ const page = async ({ params }: { params: { deck: string } }) => {
         cards={deckCards}
         deckId={+deckId}
       />
-      <div className="flex gap-3 my-5">
+      <div className="flex flex-col items-center sm:flex-row  gap-3 my-5">
         <CreateDeckButton
           href={"/create-card"}
           text={"Crear una Card"}
