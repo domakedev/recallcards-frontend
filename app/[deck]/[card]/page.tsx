@@ -29,7 +29,6 @@ const page = () => {
   const [imgLoaded, setImgLoaded] = useState<boolean>(false);
   const [userDB, setUserDB] = useState<UserDB>();
   const [cardDB, setCardDB] = useState<CardDB>();
-  console.log("🚀 ~ page ~ cardDB:", cardDB);
   const [cardDifficult, setCardDifficult] = useState<1 | 2 | 3>();
   const [cardDifficultId, setCardDifficultId] = useState<number>();
   const cardsIdsState = useAppSelector((state) => state.deck.cardsIds);

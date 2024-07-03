@@ -18,11 +18,12 @@ const DeleteCardButton = ({
   const deleteCard = async () => {
     try {
       const result = await deleteCardAction(userId, cardId, cardImage);
+      if (result?.ok === true) {
+        toast.success(result.message);
+        router.push("/");
+      }
       if (result?.ok === false) {
-        return toast.error(result.message);
-      }else{
-        // toast.success(result.message);
-        router.push("/");         
+        toast.error(result.message);
       }
     } catch (error) {
       toast.error("Error al eliminar la carta");

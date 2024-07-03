@@ -17,7 +17,6 @@ export const deleteCardAction = async (
   cardId: number,
   cardImage: string
 ) => {
-  console.log("🚀 ~ cardImage:", { userId, cardId });
   ("use server");
   if (userId === 0 || cardId === 0) {
     return { ok: false, message: "Error al eliminar la carta." };
@@ -34,7 +33,6 @@ export const deleteCardAction = async (
       }
     },
   });
-  console.log("🚀 ~ card:", card)
 
   if(card.length >= 1){
     return {ok: false, message:"La carta le es útil a alguien mas, ya no puedes eliminarla 😿"}
