@@ -17,34 +17,45 @@ export const deleteCardAction = async (
   cardId: number,
   cardImage: string
 ) => {
-  "use server";
+  console.log("🚀 ~ cardImage:", { userId, cardId });
+  ("use server");
   if (userId === 0 || cardId === 0) {
-    return;
+    return { ok: false, message: "Error al eliminar la carta." };
   }
   //test
   const publicId = extractPublicId(cardImage);
 
+  //0.Verify if the card is marked by someone else
+  const card = await prisma.card_difficulty_per_user.findMany({
+    where: {
+      cardId: cardId,
+    },
+  });
+  console.log("🚀 ~ card:", card)
+  if(card.length > 1){
+    return {ok: false, message:"La carta le es útil a alguien mas, ya no puedes eliminarla 😿"}
+  }
+
   //1. Delete difficulty per user
   const deleteCardDifficultyPerUser =
-    await prisma.card_difficulty_per_user.deleteMany({
-      where: {
-        userId: userId,
-        cardId: cardId,
-      },
-    });
- 
+  await prisma.card_difficulty_per_user.deleteMany({
+    where: {
+      cardId: cardId,
+      cards:{
+        creatorId: userId,      
+      }
+    }
+  });
+
   //2. Delete card
-      const deleteCard = await prisma.cards.delete({
-          where: {
-          id: cardId,
-          creatorId: userId,
-          },
-      });
+  const deleteCard = await prisma.cards.delete({
+    where: {
+      id: cardId,
+      creatorId: userId,
+    },
+  });
 
-    //3. Delete image from cloudinary
-    const cloudDestroy = cloudinaryDestroyImage(publicId)
-    return "Card eliminada";
+  //3. Delete image from cloudinary
+  const cloudDestroy = cloudinaryDestroyImage(publicId);
+  return {ok: true, message:"Card eliminada"}
 };
-
-
-
