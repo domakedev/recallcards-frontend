@@ -118,7 +118,7 @@ const CardsSlider = ({ cards, deckId }: CardsSliderProps) => {
   };
 
   return (
-    <div className="w-full overflow-hidden mb-2 flex flex-col items-center gap-2">
+    <div className="w-full overflow-hidden mb-2 flex flex-col items-center gap-2 my-5">
       <Swiper
         effect={"cards"}
         grabCursor={true}
