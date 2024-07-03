@@ -3,7 +3,7 @@ import { useAppSelector } from "@/redux/hooks";
 import React, { useEffect, useState } from "react";
 import Button from "../Button";
 
-const CreateDeckButton = () => {
+const CreateDeckButton = ({href, text}:{href:string, text:string}) => {
   const userState = useAppSelector((state) => state.user);
   const actualDeck = useAppSelector((state) => state.deck);
   const [isAuth, setIsAuth] = useState<boolean>(false);
@@ -24,7 +24,7 @@ const CreateDeckButton = () => {
     <div>
       {isAuth && userId === actualDeck?.creatorId ? (
       // {isAuth && userId === actualDeck?.creatorId && isAdmin ? (
-        <Button href="/create-card">Crear Card</Button>
+        <Button href={href}>{text}</Button>
       ) : null}
     </div>
   );

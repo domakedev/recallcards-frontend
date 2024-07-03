@@ -1,10 +1,9 @@
 "use client";
 import { useAppSelector } from "@/redux/hooks";
 import { createCard } from "@/services/card.services";
-import { uploadImage, uploadImages } from "@/services/image.services";
+import { uploadImages } from "@/services/image.services";
 import { Card } from "@/types/Card";
 import { DeckDB } from "@/types/Deck";
-import { set } from "@cloudinary/url-gen/actions/variable";
 import Image from "next/image";
 import React, {
   useState,
@@ -15,24 +14,19 @@ import React, {
 } from "react";
 import { toast } from "react-toastify";
 import NavBar from "../components/NavBar";
-import { CgCamera } from "react-icons/cg";
-import { FaCamera, FaImage } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 
 const CreateCard: React.FC = () => {
   const [newCard, setNewCard] = useState<Card>({
     answer: "",
     question: "",
+    // @TODO: Cambiar estos valores por los valores reales
     deckId: 0,
     creatorId: 0,
   });
-  const [image, setImage] = useState<File>();
-  const [disableTitle, setDisableTitle] = useState<boolean>(false);
-  const [disableAnswerText, setDisableAnswerText] = useState<boolean>(false);
+  const [images, setImages] = useState<FileList>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [thereIsDeck, setThereIsDeck] = useState<boolean>(false);
-  const [imageUrl, setImageUrl] = useState<string>("");
-  const [imageBlobUrl, setImageBlobUrl] = useState<string>("");
   const [userId, setUserId] = useState<number>();
   const [deckState, setDeckState] = useState<DeckDB>();
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
@@ -76,30 +70,13 @@ const CreateCard: React.FC = () => {
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
-    if (files && files.length == 1) {
-      const blob = URL.createObjectURL(files[0]);
-      setImageBlobUrl(blob);
-      setImage(files[0]);
-      setDisableAnswerText(true);
-    } else {
-      setDisableAnswerText(false);
-      setImageBlobUrl("");
-      setImage(undefined);
+    if (files && files.length > 1) {
+      setImages(files);
     }
   };
 
-  // const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-  const handleChange = (e: any) => {
-    setNewCard({ ...newCard, [e.target.name]: e.target.value });
-  };
-
   const removeImage = () => {
-    setImage(undefined);
-    setImageBlobUrl("");
-    setImageUrl("");
-    setDisableAnswerText(false);
     resetFileInput();
-    setDisableTitle(false);
   };
 
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -120,42 +97,40 @@ const CreateCard: React.FC = () => {
       let imageURL = "";
       let newCardCopy = { ...newCard };
       // Lógica para manejar el envío del formulario
-      // if (!image) {
-      //   toast.error("Debes enviar al menos 1 imagen");
-      //   return;
-      // }
+      if (!images || images.length <= 1) {
+        toast.error("Debes enviar al menos 2 imágenes");
+        return;
+      }
 
-      //Cargar imagen a Cloudinary y obtener la URL
-      if (image) {
+      //Cargar imagenes a Cloudinary y obtener la URL
+      if (images && images.length > 1) {
+        //@TODO: añadir 2do argumento: deckName
         setIsLoading(true);
-        imageURL = await uploadImage(image, String(deckState?.id));
-        //Establecer url en newCard.answer
-        newCardCopy = {
-          ...newCard,
-          answer: imageURL,
-        };
+        const imagesURLArr = await uploadImages(images, String(deckState?.id));
 
-        //Enviar newCard al Backend
-        const result = await createCard(newCardCopy);
-        toast.success(result.message, {
+        for (let i = 0; i < imagesURLArr.length; i++) {
+          const imageURL = imagesURLArr[i];
+
+          //Establecer url en newCard.answer
+          newCardCopy = {
+            ...newCard,
+            answer: imageURL,
+          };
+
+          //Enviar newCards al Backend 1 por 1
+          const result = await createCard(newCardCopy);
+          removeImage();
+          setNewCard({
+            answer: "",
+            question: "",
+            // @TODO: Cambiar estos valores por los valores reales
+            deckId: 0,
+            creatorId: 0,
+          });
+        }
+        toast.success("Cards creadas con éxito", {
           autoClose: 1000,
         });
-        removeImage();
-        setNewCard({
-          answer: "",
-          question: "",
-          deckId: 0,
-          creatorId: 0,
-        });
-        setIsLoading(false);
-      } else {
-        //Enviar newCard al Backend
-        const result = await createCard(newCard);
-        toast.success(result.message, {
-          autoClose: 1000,
-        });
-        removeImage();
-        setNewCard({ ...newCard, answer: "", question: "" });
         setIsLoading(false);
       }
     } catch (error: any) {
@@ -164,17 +139,13 @@ const CreateCard: React.FC = () => {
     }
   };
 
-  const countLetters = (text: string) => {
-    return text.length;
-  };
-
   return (
     <div className="flex flex-col items-center bg-gradient-to-r from-blue-500 to-teal-500 min-h-screen -mb-16 pb-16">
       <NavBar
         title={`${
           userStateRedux.id !== deckState?.creatorId
             ? "No tienes permisos para crear cartas en este deck"
-            : "🌲Tienes permiso⛅🌲"
+            : "🌲⛅🌲"
         }`}
         goBack={false}
       />
@@ -183,74 +154,24 @@ const CreateCard: React.FC = () => {
         className="w-full max-w-lg bg-white rounded-lg shadow-xl p-8"
       >
         <p className=" text-md text-gray-400">Deck: {deckState?.name}</p>
-        <h2 className="text-2xl font-bold text-gray-800 mb-6">Crea una Card</h2>
-        <div className="mb-4">
-          <label
-            htmlFor="question"
-            className="block text-gray-700 text-sm font-bold mb-2"
-          >
-            🤔 Título o Pregunta
+        <h2 className="text-2xl font-bold text-gray-800 mb-6">Crea Cards</h2>
+        <div className="mb-6">
+          <label className="text-gray-700 text-sm font-bold mb-2 flex flex-col gap-1">
+            {/* Respuesta puede ser: texto o imagen(url o archivo) */}
+            <span>Crearé una card por cada una de tus imágenes 🙌✅</span>
+            <blockquote className="p-4 font-light border-l-4 bg-neutral-100 text-neutral-600 border-neutral-500 quote">
+              *Tamaño aprox recomendado: 1350x1080 px o cuadrado. <br />
+              *Evita subir imágenes altas o largas.
+            </blockquote>
           </label>
           <input
-            type="text"
-            id="question"
-            name="question"
-            disabled={disableTitle}
-            value={newCard.question}
-            onChange={handleChange}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            type="file"
+            ref={fileInputRef}
+            multiple={true}
+            accept="image/jpeg, image/png"
+            onChange={handleImageChange}
+            className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
           />
-        </div>
-        <div className="mb-6">
-          <label className="block text-gray-700 text-sm font-bold mb-2 flex flex-col gap-1">
-            {/* Respuesta puede ser: texto o imagen(url o archivo) */}
-            <span>✅ Respuesta</span>
-          </label>
-          <textarea
-            maxLength={400}
-            // type="text"
-            name="answer"
-            onChange={handleChange}
-            value={newCard.answer}
-            disabled={disableAnswerText}
-            className={`relative shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-              disableAnswerText && "line-through"
-            } h-[300px]`}
-            placeholder="Escribe tu respuesta o..."
-          ></textarea>
-          <div
-            className={
-              "bg-gray-700 rounded-xl text-white w-fit mt-0 mb-2 self-end px-2 py-1 text-xs "
-            }
-          >
-            {countLetters(newCard.answer)} /400 letras
-          </div>
-          <label
-            htmlFor="file"
-            className="block w-fit mr-4 py-2 px-4 rounded border-0 text-sm font-semibold bg-blue-50 text-blue-700 hover:bg-blue-100"
-          >
-            <input
-              id="file"
-              type="file"
-              ref={fileInputRef}
-              multiple={false}
-              accept="image/jpeg, image/png"
-              onChange={handleImageChange}
-              className="hidden"
-            />{" "}
-            Sube una imagen <FaImage className="inline" /> / toma una foto.{" "}
-            <FaCamera className="inline" />
-          </label>
-
-          {imageBlobUrl && (
-            <Image
-              src={imageBlobUrl}
-              alt="Preview"
-              className="mt-4 w-full object-cover rounded"
-              width={300}
-              height={300}
-            />
-          )}
           <button
             id="deselecting"
             type="button"
@@ -274,7 +195,7 @@ const CreateCard: React.FC = () => {
                 : "bg-gray-500 hover:bg-gray-500 cursor-not-allowed"
             }`}
           >
-            {isLoading ? "Creando Card..." : "Crear"}
+            {isLoading ? "Creando Cards..." : "Crear Cards"}
           </button>
           <button
             type="button"

@@ -6,8 +6,9 @@ import React, { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import PlaceHolderIMG from "@/assets/placeholder-ig-img.svg";
 import { getCardDifficulty } from "@/services/cardDifficulty.services";
-import CardLevel from '@/app/components/CardLevel';
+import CardLevel from "@/app/components/CardLevel";
 import { useAppSelector } from "@/redux/hooks";
+import CardAswerOnlyText from "./Card/CardAswerOnlyText";
 
 interface CardViewProps {
   image: string;
@@ -27,7 +28,6 @@ const CardPreview: React.FC<CardViewProps> = ({
   const [cardDifficulty, setCardDifficulty] = useState<1 | 2 | 3>();
   const userState = useAppSelector((state) => state.user);
 
-
   useEffect(() => {
     if (difficultyId) {
       setCardDifficulty(difficultyId);
@@ -35,10 +35,9 @@ const CardPreview: React.FC<CardViewProps> = ({
   }, [difficultyId]);
 
   useEffect(() => {
-    if(!userState.authenticated){
+    if (!userState.authenticated) {
       setCardDifficulty(undefined);
     }
-
   }, [userState]);
 
   const pathname = usePathname();
@@ -63,13 +62,23 @@ const CardPreview: React.FC<CardViewProps> = ({
       {/* <p>
         Render Counter: <span>{renderCounter.current}</span>
       </p> */}
-      <Image
-        className="object-cover max-w-[160px] rounded-[10px] shadow-lg transform transition-transform duration-200 active:scale-95 hover:scale-105"
-        src={image === "" ? PlaceHolderIMG : image}
-        alt="Carta vista previa"
-        width={540}
-        height={675}
-      />
+      {image?.includes("cloudinary") ? (
+        <Image
+          className="object-cover max-w-[160px] rounded-[10px] shadow-lg transform transition-transform duration-200 active:scale-95 hover:scale-105"
+          src={image === "" ? PlaceHolderIMG : image}
+          alt="Carta vista previa"
+          width={540}
+          height={675}
+        />
+      ) : (
+        <div className="">
+          <CardAswerOnlyText
+            question={cardName}
+            answer={image}
+            preview={true}
+          ></CardAswerOnlyText>
+        </div>
+      )}
       {/* Circle in the top right corner */}
       <div
         className={`absolute top-0 right-0 w-4 h-4 ${getColor(

@@ -76,9 +76,7 @@ const NavBar: React.FC<NavBarProps> = ({ title, goBack = false }) => {
           </button>
         </>
       ) : (
-        <div
-         className="min-w-[25%] "
-         >
+        <div className="min-w-[25%] ">
           <Image
             src={Logo}
             className="min-w-6 min-h-6 "
@@ -89,7 +87,9 @@ const NavBar: React.FC<NavBarProps> = ({ title, goBack = false }) => {
         </div>
       )}
 
-      <h1 className="font-bold text-lg text-center min-w-[50%] ">{title}</h1>
+      <h1 className="font-bold text-lg text-center min-w-[50%] break-words ">
+        {title}
+      </h1>
       <div className="flex items-center justify-center gap-3 min-w-[25%] ">
         {isAuth ? (
           <>

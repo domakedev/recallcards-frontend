@@ -51,7 +51,7 @@ const DeleteDeckButton = () => {
   return (
     <>
       {!userDB || userDB.id === 0 || userDB.id !== deckCreatorId ? null : (
-        <>
+        <div className="flex flex-col items-center">
           <button
             className={`${
               !userDB || userDB.id === 0 || userDB.id !== deckCreatorId
@@ -67,7 +67,7 @@ const DeleteDeckButton = () => {
           <span className=" text-red-500 text-xs">
             Advertencia: Tiene que estar vacío.
           </span>
-        </>
+        </div>
       )}
     </>
   );

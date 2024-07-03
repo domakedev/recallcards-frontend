@@ -1,4 +1,4 @@
-"use client"
+"use client";
 //Swiper
 // Import Swiper React components
 import { SwiperSlide, Swiper } from "swiper/react";
@@ -132,11 +132,7 @@ const CardsSlider = ({ cards, deckId }: CardsSliderProps) => {
           <SwiperSlide key={i}>
             <SlidingCard
               key={i}
-              image={
-                e.answer.includes("http") || e.answer.includes("data:image")
-                  ? e.answer
-                  : ""
-              }
+              image={e.answer}
               cardName={e.question || "-"}
               id={e.id}
               userId={userId}

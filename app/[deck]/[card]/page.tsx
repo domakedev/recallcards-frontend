@@ -21,6 +21,7 @@ import { getCardDifficulty } from "@/services/cardDifficulty.services";
 import DeleteButton from "@/app/components/Button/DeleteCardButton";
 import DeleteCardButton from "@/app/components/Button/DeleteCardButton";
 import { DeckDB } from "../../../types/Deck";
+import CardAswerOnlyText from "@/app/components/Card/CardAswerOnlyText";
 
 const page = () => {
   const router = useRouter();
@@ -28,6 +29,7 @@ const page = () => {
   const [imgLoaded, setImgLoaded] = useState<boolean>(false);
   const [userDB, setUserDB] = useState<UserDB>();
   const [cardDB, setCardDB] = useState<CardDB>();
+  console.log("🚀 ~ page ~ cardDB:", cardDB);
   const [cardDifficult, setCardDifficult] = useState<1 | 2 | 3>();
   const [cardDifficultId, setCardDifficultId] = useState<number>();
   const cardsIdsState = useAppSelector((state) => state.deck.cardsIds);
@@ -143,7 +145,7 @@ const page = () => {
   };
 
   return (
-    <>
+    <div className="min-h-screen">
       <NavBar
         title={`${cardDB?.question || cardName}`}
         goBack
@@ -154,10 +156,12 @@ const page = () => {
         <DeleteCardButton
           userId={userDB.id}
           cardId={cardDB.id}
-          cardImage={cardDB.answer}
+          cardImage={
+            (cardDB?.answer.includes("cloudinary") && cardDB?.answer) || ""
+          }
         />
       )}
-      <div className="flex flex-col justify-center items-center px-3">
+      <div className="flex flex-col justify-center items-center px-3 ">
         {cardDB?.id && userDB ? (
           <CardLevel
             cardId={cardDB.id}
@@ -174,20 +178,29 @@ const page = () => {
             onTouchStart={onTouchStart}
             onTouchMove={onTouchMove}
             onTouchEnd={onTouchEnd}
-            className={` min-h-max h-fit pulse`}
+            className={`min-h-max h-fit`}
           >
-            <Image
-              src={cardDB?.answer || PlaceHolderIMG}
-              alt="Carta"
-              width={1080}
-              height={1350}
-              onLoad={() => setImgLoaded(true)}
-              className={` rounded-xl  shadow-xl ${""} `}
-              quality={100}
-              priority
-            />
+            {cardDB?.answer.includes("cloudinary") ? (
+              <Image
+                src={cardDB?.answer || PlaceHolderIMG}
+                alt="Carta"
+                width={1080}
+                height={1350}
+                onLoad={() => setImgLoaded(true)}
+                className={` rounded-xl  shadow-xl ${""} `}
+                quality={100}
+                priority
+              />
+            ) : (
+              cardDB?.question &&
+              cardDB?.answer && (
+                <CardAswerOnlyText
+                  question={cardDB.question}
+                  answer={cardDB.answer}
+                ></CardAswerOnlyText>
+              )
+            )}
           </div>
-          {/* //use Skeleton to show a loading animation */}
 
           {/* Como centrar un elemento absolute */}
           {!showCard || !imgLoaded ? null : (
@@ -228,7 +241,7 @@ const page = () => {
         </div>
         {params.deck === "random" ? null : <CardControlButtons />}
       </div>
-    </>
+    </div>
   );
 };
 

@@ -53,13 +53,21 @@ const page = async ({ params }: { params: { deck: string } }) => {
         deckId={+deckId}
       ></CardsSlider>
 
-      <CreateDeckButton />
-
       <CardsGrid
         cards={deckCards}
         deckId={+deckId}
       />
-      <DeleteDeckButton />
+      <div className="flex gap-3 my-5">
+        <CreateDeckButton
+          href={"/create-card"}
+          text={"Crear una Card"}
+        />
+        <DeleteDeckButton />
+        <CreateDeckButton
+          href={"/create-cards"}
+          text={"Crear varias Cards"}
+        />
+      </div>
     </div>
   );
 };

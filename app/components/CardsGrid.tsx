@@ -96,11 +96,7 @@ const CardsGrid = ({ cards, deckId }: CardsGridProps) => {
         {deckCards?.map((e, i) => (
           <CardPreview
             key={i}
-            image={
-              e.answer.includes("http") || e.answer.includes("data:image")
-                ? e.answer
-                : ""
-            }
+            image={e.answer}
             cardName={e.question || "-"}
             id={e.id}
             userId={userId}

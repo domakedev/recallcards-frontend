@@ -3,6 +3,7 @@ import React from "react";
 import CardLevel from "@/app/components/CardLevel";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import CardAswerOnlyText from "./Card/CardAswerOnlyText";
 
 interface SlidingCardProps {
   id: number;
@@ -28,16 +29,26 @@ const SlidingCard = ({
     <div className="flex flex-col items-center gap-1 w-full">
       <Link
         href={`${pathname}/${id}`}
-        className="relative"
+        className="relative w-full"
       >
-        <Image
-          src={image}
-          alt={cardName}
-          width={1080}
-          height={1350}
-          className=""
-        />
+        {image?.includes("cloudinary") ? (
+          <Image
+            src={image}
+            alt={cardName}
+            width={1080}
+            height={1350}
+            className=""
+          />
+        ) : (
+          <div className="w-full p-1">
+            <CardAswerOnlyText
+              question={cardName}
+              answer={image}
+            ></CardAswerOnlyText>
+          </div>
+        )}
       </Link>
+
       <CardLevel
         dificultadActual={difficulty}
         cardId={id}

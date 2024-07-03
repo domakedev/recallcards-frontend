@@ -74,7 +74,7 @@ const CardControlButtons = () => {
   };
 
   return (
-    <div className="mt-5 flex gap-1 mx-auto">
+    <div className="mt-5 flex gap-1 mx-auto fixed bottom-20">
       <Link
         href={!disableLeftButton ? `${prevCardNumber}` : ""}
         className="rounded-[12px] w-12 min-h-[60px] bg-[#3a3a3a] flex justify-center items-center transform transition-transform duration-200 active:scale-95 hover:scale-105"
