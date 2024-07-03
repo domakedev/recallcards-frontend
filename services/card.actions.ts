@@ -28,11 +28,15 @@ export const deleteCardAction = async (
   //0.Verify if the card is marked by someone else
   const card = await prisma.card_difficulty_per_user.findMany({
     where: {
-      cardId: cardId,
+      cardId,
+      userId: {
+        not: userId,
+      }
     },
   });
   console.log("🚀 ~ card:", card)
-  if(card.length > 1){
+
+  if(card.length >= 1){
     return {ok: false, message:"La carta le es útil a alguien mas, ya no puedes eliminarla 😿"}
   }
 
@@ -42,7 +46,7 @@ export const deleteCardAction = async (
     where: {
       cardId: cardId,
       cards:{
-        creatorId: userId,      
+        creatorId: userId,
       }
     }
   });

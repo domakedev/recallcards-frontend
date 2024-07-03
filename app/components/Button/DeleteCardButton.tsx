@@ -21,7 +21,7 @@ const DeleteCardButton = ({
       if (result?.ok === false) {
         return toast.error(result.message);
       }else{
-        toast.success(result.message);
+        // toast.success(result.message);
         router.push("/");         
       }
     } catch (error) {
