@@ -39,13 +39,13 @@ export default page;
 
 const ActiveRecallBanner = () => {
   return (
-    <div className="flex flex-col items-center sm:flex-row mx-auto bg-[#101728] max-h-[350px] overflow-hidden">
+    <div className="flex flex-col items-center sm:flex-row mx-auto bg-[#101728] max-h-[380px] sm:max-h-fit overflow-hidden">
       <div className="w-full sm:w-1/2 md:pr-8 p-4">
         <h1 className="text-3xl md:text-4xl font-bold mb-4">
-          <span className="text-green-500">¡Repasa,</span>{" "}
-          <span className="text-yellow-500">registra</span>{" "}
-          <span className="text-white">y</span>{" "}
-          <span className="text-red-500">nunca</span>{" "}
+          <span className="text-green-500">¡Sube</span>{" "}
+          <span className="text-yellow-500">tus apuntes,</span>{" "}
+          <span className="text-white">repasa</span>{" "}
+          <span className="text-red-500">y nunca</span>{" "}
           <span className="text-white">olvides!</span>
         </h1>
         <p className="mb-5 text-gray-200 flex flex-col items-start gap-2">
@@ -60,13 +60,13 @@ const ActiveRecallBanner = () => {
           />
         </div>
       </div>
-      <div className="w-full sm:w-1/2 ">
+      <div className="w-full sm:w-1/2 h-full">
         <Image
           src={ImageLanding}
           alt="Active Recall"
           width={700}
           height={700}
-          className=" max-h-[200px] sm:max-h-max object-cover"
+          className=" max-h-[200px] sm:max-h-max object-cover h-full"
         />
       </div>
     </div>

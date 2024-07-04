@@ -180,7 +180,7 @@ const CreateCard: React.FC = () => {
       />
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-lg bg-white rounded-lg shadow-xl p-8"
+        className="w-full max-w-lg bg-white rounded-lg shadow-xl p-8 m-5"
       >
         <p className=" text-md text-gray-400">Deck: {deckState?.name}</p>
         <h2 className="text-2xl font-bold text-gray-800 mb-6">Crea una Card</h2>
@@ -202,12 +202,10 @@ const CreateCard: React.FC = () => {
           />
         </div>
         <div className="mb-6">
-          <label className="block text-gray-700 text-sm font-bold mb-2 flex flex-col gap-1">
+          <label className="text-gray-700 text-sm font-bold mb-2 flex flex-col gap-1">
             {/* Respuesta puede ser: texto o imagen(url o archivo) */}
             <span>✅ Respuesta</span>
-            <span className="text-sm font-light">
-              Puedes elegir entre Texto o Imagen
-            </span>
+            <span className="text-sm font-light">Texto o Imagen</span>
           </label>
           <textarea
             maxLength={400}
@@ -218,19 +216,21 @@ const CreateCard: React.FC = () => {
             disabled={disableAnswerText}
             className={`relative shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
               disableAnswerText && "line-through"
-            } h-[300px]`}
-            placeholder="Escribe tu respuesta o..."
+            } h-[150px]`}
+            // placeholder="Escribe tu respuesta"
           ></textarea>
-          <div
-            className={
-              "bg-gray-700 rounded-xl text-white w-fit mt-0 mb-2 self-end px-2 py-1 text-xs "
-            }
-          >
-            {countLetters(newCard.answer)} /400 letras
+          <div className="w-full flex justify-end">
+            <div
+              className={
+                "bg-gray-700 rounded-xl text-white w-fit mt-0 mb-2 self-end px-2 py-1 text-xs "
+              }
+            >
+              {countLetters(newCard.answer)} /400 letras
+            </div>
           </div>
           <label
             htmlFor="file"
-            className="block w-fit mr-4 py-2 px-4 rounded border-0 text-sm font-semibold bg-blue-50 text-blue-700 hover:bg-blue-100"
+            className="w-fit mr-4 py-2 px-4 rounded border-0 text-sm font-semibold bg-blue-50 text-blue-700 hover:bg-blue-100 flex items-center gap-2 cursor-pointer"
           >
             <input
               id="file"
@@ -241,9 +241,27 @@ const CreateCard: React.FC = () => {
               onChange={handleImageChange}
               className="hidden"
             />{" "}
-            Sube una imagen <FaImage className="inline" /> / toma una foto.{" "}
+            <span>
+              Sube una imagen
+              <FaImage className="inline" />
+            </span>
+            <span>-</span>
+            <span>toma una foto. </span>
             <FaCamera className="inline" />
           </label>
+          <blockquote className="text-sm p-2 font-light border-l-4 my-2 bg-neutral-100 text-neutral-600 border-neutral-500 quote">
+            Para crear un buen apunte te recomiendo usar el tamaño de 1080*1350
+            px en{" "}
+            <a
+              href="https://canva.com"
+              className=" text-blue-500 font-bold"
+              target="_blank"
+              rel="noreferrer
+           "
+            >
+              Canva
+            </a>
+          </blockquote>
 
           {imageBlobUrl && (
             <Image
@@ -258,7 +276,9 @@ const CreateCard: React.FC = () => {
             id="deselecting"
             type="button"
             onClick={removeImage}
-            className=" bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4 text-sm"
+            className={`bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4 text-sm ${
+              image ? "block" : "hidden"
+            }`}
           >
             Quitar imagen
           </button>
