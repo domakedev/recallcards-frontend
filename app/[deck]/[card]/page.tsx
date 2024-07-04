@@ -186,7 +186,7 @@ const page = () => {
                 width={1080}
                 height={1350}
                 onLoad={() => setImgLoaded(true)}
-                className={` rounded-xl  shadow-xl ${""} `}
+                className={` rounded-xl  shadow-xl ${""} max-h-[625px] overflow-y-scroll w-full object-cover`}
                 quality={100}
                 priority
               />

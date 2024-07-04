@@ -37,7 +37,7 @@ const SlidingCard = ({
             alt={cardName}
             width={1080}
             height={1350}
-            className=""
+            className="max-h-[625px] w-full object-cover"
           />
         ) : (
           <div className="w-full p-1">

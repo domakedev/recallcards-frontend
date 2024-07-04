@@ -243,10 +243,10 @@ const CreateCard: React.FC = () => {
             />{" "}
             <span>
               Sube una imagen
-              <FaImage className="inline" />
             </span>
+              <FaImage className="inline" />
             <span>-</span>
-            <span>toma una foto. </span>
+            <span>toma una foto</span>
             <FaCamera className="inline" />
           </label>
           <blockquote className="text-sm p-2 font-light border-l-4 my-2 bg-neutral-100 text-neutral-600 border-neutral-500 quote">

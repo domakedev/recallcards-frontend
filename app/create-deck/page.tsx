@@ -191,13 +191,22 @@ const page = () => {
           </div>
         </form>
         {isAuth ? null : (
+          <>
           <button
             onClick={() => router.push("/auth/login")}
             disabled={isAuth}
             className={`group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 my-4`}
-          >
-            Login
+            >
+            Iniciar Sesión
           </button>
+          <button
+            onClick={() => router.push("/auth/register")}
+            disabled={isAuth}
+            className={`group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 my-4`}
+            >
+            Registrarme
+          </button>
+            </>
         )}
       </div>
     </div>
