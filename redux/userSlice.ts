@@ -13,7 +13,7 @@ interface User {
   id: number;
   email: string;
   authenticated: boolean;
-  roles: string[];
+  // roles: string[];
 }
 
 export const userSlice = createSlice({
@@ -24,7 +24,7 @@ export const userSlice = createSlice({
       state.id = action.payload.id;
       state.email = action.payload.email;
       state.authenticated = action.payload.authenticated;
-      state.roles = action.payload.roles;
+      // state.roles = action.payload.roles;
     },
     logout: (state) => {
       state.id = 0;

@@ -5,16 +5,7 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-}
-
-model users {
-  id                       Int                        @id @default(autoincrement())
-  email                    String                     @unique @db.VarChar
-  password                 String                     @db.VarChar
-  roles                    String[]
-  card_difficulty_per_user card_difficulty_per_user[]
-  cards                    cards[]
-  decks                    decks[]
+  // shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
 model decks {
@@ -23,7 +14,7 @@ model decks {
   image     String? @db.VarChar
   creatorId Int
   cards     cards[]
-  users     users   @relation(fields: [creatorId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users     User    @relation(fields: [creatorId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model card_difficulty_per_user {
@@ -34,7 +25,7 @@ model card_difficulty_per_user {
   last_evaluate    DateTime?        @db.Date
   cards            cards            @relation(fields: [cardId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   difficulty_level difficulty_level @relation(fields: [difficultyId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  users            users            @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  User             User             @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model cards {
@@ -44,7 +35,7 @@ model cards {
   creatorId                Int
   deckId                   Int
   card_difficulty_per_user card_difficulty_per_user[]
-  users                    users                      @relation(fields: [creatorId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  User                     User                       @relation(fields: [creatorId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   decks                    decks                      @relation(fields: [deckId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "cards_deck_fkey")
 }
 
@@ -52,4 +43,74 @@ model difficulty_level {
   id                       Int                        @id @default(autoincrement())
   value                    String                     @db.VarChar
   card_difficulty_per_user card_difficulty_per_user[]
+}
+
+model User {
+  id                       Int                        @id @default(autoincrement())
+  email                    String                     @unique
+  password                 String?                    @db.VarChar
+  roles                    String[]
+  createdAt                DateTime                   @default(now())
+  emailVerified            DateTime?
+  image                    String?
+  name                     String?
+  updatedAt                DateTime                   @default(now()) @updatedAt
+  accounts                 Account[]
+  Authenticator            Authenticator[]
+  sessions                 Session[]
+  card_difficulty_per_user card_difficulty_per_user[]
+  cards                    cards[]
+  decks                    decks[]
+
+  @@map("users")
+}
+
+model Account {
+  userId            Int
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([provider, providerAccountId])
+}
+
+model Session {
+  sessionToken String   @unique
+  userId       Int
+  expires      DateTime
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@id([identifier, token])
+}
+
+model Authenticator {
+  credentialID         String  @unique
+  userId               Int
+  providerAccountId    String
+  credentialPublicKey  String
+  counter              Int
+  credentialDeviceType String
+  credentialBackedUp   Boolean
+  transports           String?
+  user                 User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([userId, credentialID])
 }

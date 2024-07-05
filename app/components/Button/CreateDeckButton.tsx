@@ -1,9 +1,9 @@
-"use client"
+"use client";
 import { useAppSelector } from "@/redux/hooks";
 import React, { useEffect, useState } from "react";
 import Button from "../Button";
 
-const CreateDeckButton = ({href, text}:{href:string, text:string}) => {
+const CreateDeckButton = ({ href, text }: { href: string; text: string }) => {
   const userState = useAppSelector((state) => state.user);
   const actualDeck = useAppSelector((state) => state.deck);
   const [isAuth, setIsAuth] = useState<boolean>(false);
@@ -18,12 +18,13 @@ const CreateDeckButton = ({href, text}:{href:string, text:string}) => {
     } else {
       setIsAuth(false);
     }
+    console.log("🚀 ~ userState:", userState);
   }, [userState]);
 
   return (
     <div>
       {isAuth && userId === actualDeck?.creatorId ? (
-      // {isAuth && userId === actualDeck?.creatorId && isAdmin ? (
+        // {isAuth && userId === actualDeck?.creatorId && isAdmin ? (
         <Button href={href}>{text}</Button>
       ) : null}
     </div>

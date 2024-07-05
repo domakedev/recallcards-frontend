@@ -13,11 +13,15 @@ import {
 } from "react-icons/fa6";
 import { useParams, useRouter } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { logout } from "@/redux/userSlice";
+import { logout, setUser } from "@/redux/userSlice";
 import { UserDB } from "@/types/User";
 import { FaArrowDown, FaArrowUp } from "react-icons/fa";
 import AccessRequest from "@/app/components/AccessRequest";
 import Link from "next/link";
+import { SignIn } from "./Auth/SignIn";
+import UserAvatar from "./Auth/Avatar";
+
+import { useSession } from "next-auth/react";
 
 interface NavBarProps {
   title: string;
@@ -32,6 +36,8 @@ const NavBar: React.FC<NavBarProps> = ({ title, goBack = false }) => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [authUser, setAuthUser] = useState<UserDB>();
 
+  const { data: session, status } = useSession();
+
   useEffect(() => {
     if (userState.authenticated) {
       setIsAuth(true);
@@ -43,6 +49,21 @@ const NavBar: React.FC<NavBarProps> = ({ title, goBack = false }) => {
       setIsAdmin(userState.roles.includes("admin"));
     }
   }, [userState]);
+
+  useEffect(() => {
+    if (session?.user) {
+      const newUser: UserDB = {
+        id: Number(session.user.id),
+        email: session.user.email!,
+        authenticated: true,
+      };
+      dispatch(setUser(newUser));
+
+      setIsAuth(true);
+    } else {
+      setIsAuth(false);
+    }
+  }, [session]);
 
   const claves = Object.keys(params);
 
@@ -108,16 +129,17 @@ const NavBar: React.FC<NavBarProps> = ({ title, goBack = false }) => {
             </button>
           </>
         ) : (
-          <button
-            onClick={() => router.push("/auth/login")}
-            className="text-sm"
-          >
-            <FaArrowUp
-              size={14}
-              className="inline-block w-4 mx-1"
-            />
-            {"Login"}
-          </button>
+          // <button
+          //   onClick={() => router.push("/auth/login")}
+          //   className="text-sm"
+          // >
+          //   <FaArrowUp
+          //     size={14}
+          //     className="inline-block w-4 mx-1"
+          //   />
+          //   {"Login"}
+          // </button>
+          <SignIn />
         )}
       </div>
     </nav>
@@ -125,3 +147,6 @@ const NavBar: React.FC<NavBarProps> = ({ title, goBack = false }) => {
 };
 
 export default NavBar;
+
+
+

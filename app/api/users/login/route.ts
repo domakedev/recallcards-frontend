@@ -7,11 +7,11 @@ import prisma from "@/config/db";
 export const POST = async (req: Request) => {
   try {
     const { email, password } = await req.json();
-    const user = await prisma.users.findUnique({
+    const user = await prisma.user.findUnique({
       where: { email },
     });
     if (user) {
-      const passwordMatch = await bcrypt.compare(password, user.password);
+      const passwordMatch = await bcrypt.compare(password, user.password || "");
       if (!passwordMatch) {
         return NextResponse.json(
           { ok: false, message: "Usuario o contraseña erróneos" },
@@ -35,9 +35,9 @@ export const POST = async (req: Request) => {
         id: user.id,
         email: user.email,
         roles: user.roles,
-      }
+      };
       return NextResponse.json(
-        { ok: true, message: "Usuario logueado", user: userResult},
+        { ok: true, message: "Usuario logueado", user: userResult },
         { status: 200 }
       );
     } else {

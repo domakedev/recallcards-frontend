@@ -2,12 +2,14 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ToastContainer } from "react-toastify";
+import Navbar from "./components/Navigation/NavBarTUI";
 import "react-toastify/dist/ReactToastify.css";
 import Footer from "./components/Footer";
 import GoogleAnalytics from "@/app/components/GoogleAnalytics";
 
 import Providers from "@/redux/Providers";
 import Script from "next/script";
+import AuthProvider from "./components/AuthProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -64,11 +66,14 @@ export default function RootLayout({
 
       <body className={`${inter.className} flex flex-col min-h-full`}>
         {/* <header className="min-h-[10px] bg-green-100">Header</header> */}
-        <Providers>
-          <main className="flex-grow mb-16 pb-8">{children}</main>
-          {/* Create a footer that show a nice message */}
-          <Footer />
-        </Providers>
+        <AuthProvider>
+          <Providers>
+            <Navbar />
+            <main className="flex-grow mb-16 pb-8">{children}</main>
+            {/* Create a footer that show a nice message */}
+            <Footer />
+          </Providers>
+        </AuthProvider>
         <ToastContainer position="bottom-right" />
       </body>
     </html>

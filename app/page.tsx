@@ -7,16 +7,18 @@ import { getDecksAction } from "@/services/deck.actions";
 import DeckGrid from "./components/DeckGrid";
 import Image from "next/image";
 import ImageLanding from "@/public/images/landing-image.jpeg";
+import UserAvatar from "./components/Auth/Avatar";
+import Navbar from "./components/Navigation/NavBarTUI";
 
 const page = async () => {
   const decks = await getDecksAction();
 
   return (
     <div className="max-w-5xl mx-auto">
-      <NavBar
+      {/* <NavBar
         title="Repaso Activo"
         goBack={false}
-      />
+      /> */}
 
       <div className="flex justify-center mb-6">
         <ActiveRecallBanner />
@@ -49,9 +51,10 @@ const ActiveRecallBanner = () => {
           <span className="text-white">olvides!</span>
         </h1>
         <p className="mb-5 text-gray-200 flex flex-col items-start gap-2">
-          <span>✨Esta app usa la técnica de estudio: Active Recall</span>
-          <span>✍️Puedes crear tu propias Cards en un Deck</span>
-          <span> ⚡Lo que te resultó mas difícil te aparecerá primero </span>
+          <span>🛠️Esta app es una herramienta de estudio</span>
+          <span>✨Que usa la técnica: Active Recall, asi...</span>
+          <span>⚡Lo que marques como difícil te aparecerá primero!</span>
+          <span>✍️Puedes crear tu propias Cards ➡️ Decks</span>
         </p>
         <div className="flex justify-start w-fit">
           <CreateButton

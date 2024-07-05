@@ -37,7 +37,7 @@ const page = async ({ params }: { params: { deck: string } }) => {
 
   return (
     <div className="w-full flex flex-col items-center">
-      <NavBar
+      {/* <NavBar
         title={`
           ${
             deckById?.name
@@ -46,7 +46,7 @@ const page = async ({ params }: { params: { deck: string } }) => {
           }
         `}
         goBack
-      />
+      /> */}
 
       <CardsSlider
         cards={deckCards}

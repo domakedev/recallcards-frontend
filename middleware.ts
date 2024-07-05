@@ -4,10 +4,10 @@ import { cookies } from "next/headers";
 
 // This function can be marked `async` if using `await` inside
 export const middleware = (request: NextRequest) => {
-  let cookieSAAAAAAA = request.cookies.get('token')
+  let cookieSAAAAAAA = request.cookies.get('authjs.session-token')
   // console.log("🚀 ~ middleware ~ cookieSAAAAAAA:", cookieSAAAAAAA)
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  const cookieToken = cookies().get("token");
+  const cookieToken = cookies().get("authjs.session-token");
   // console.log("🚀 ~ middleware ~ cookieToken:", cookieToken)
   if (!cookieToken) {
     // console.log("🚀 ~ middleware ~ cookieToken:", "HOLIOSIS")

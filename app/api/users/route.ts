@@ -3,7 +3,6 @@ import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 import prisma from "@/config/db";
 
-
 export const POST = async (req: Request) => {
   const data: User = await req.json();
   //Encriptar contraseña
@@ -18,7 +17,7 @@ export const POST = async (req: Request) => {
   };
   try {
     //Validar si usuario existe
-    const userExist = await prisma.users.findMany({
+    const userExist = await prisma.user.findMany({
       where: { email: newUser.email },
     });
     if (userExist.length > 0) {
@@ -27,7 +26,7 @@ export const POST = async (req: Request) => {
         { status: 500 }
       );
     }
-    const result = await prisma.users.create({
+    const result = await prisma.user.create({
       data: newUser,
     });
     return NextResponse.json(
@@ -46,14 +45,14 @@ export const DELETE = async (req: Request) => {
   try {
     const data = await req.json();
     //Validar si usuario existe
-    const userExist = await prisma.users.findMany({
+    const userExist = await prisma.user.findMany({
       where: { email: data.email },
     });
     if (userExist.length == 0) {
       throw new Error("User doesn't exists.");
     }
 
-    const result = await prisma.users.delete({
+    const result = await prisma.user.delete({
       where: { email: data.email },
     });
     return NextResponse.json({ message: "User deleted" });

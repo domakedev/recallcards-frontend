@@ -145,10 +145,10 @@ const page = () => {
 
   return (
     <div className="min-h-screen">
-      <NavBar
+      {/* <NavBar
         title={`${cardDB?.question || cardName}`}
         goBack
-      />
+      /> */}
       {userDB?.id === 0 ||
       !cardDB?.id ||
       userDB?.id !== cardDB.creatorId ? null : (

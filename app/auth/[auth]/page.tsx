@@ -1,23 +1,45 @@
 "use client";
 
 import { useAuthForm } from "@/app/hooks/useForm";
+import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
+import { FaGoogle } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
+
 import { toast } from "react-toastify";
 
 const AuthPage = () => {
   const router = useRouter();
   const params = useParams();
+  const session = useSession();
 
   const auth = params.auth;
   const isLogin = auth === "login";
+
+  // if (session.status === "authenticated") {
+  //   router.push("/");
+  // }
 
   if (auth !== "login" && auth !== "register") {
     router.push("/auth/login");
   }
 
-  const { form, inputHandler, loginUser, registerUser } = useAuthForm();
+  const {
+    form,
+    inputHandler,
+    loginUser,
+    registerUser,
+    loginUserNextAuthCredentials,
+    registerLoading,
+  } = useAuthForm();
+
+  const signInWithGoogle = async () => {
+    await signIn("google", {
+      callbackUrl: "/",
+    });
+  };
 
   return (
     <div className="flex min-h-screen -mb-16 items-center justify-center">
@@ -32,7 +54,7 @@ const AuthPage = () => {
           </p>
         )}
         <form
-          onSubmit={isLogin ? loginUser : registerUser}
+          onSubmit={isLogin ? loginUserNextAuthCredentials : registerUser}
           className="space-y-4"
         >
           <div>
@@ -72,9 +94,19 @@ const AuthPage = () => {
           <div>
             <button
               type="submit"
-              className="w-full py-2 mt-4 font-semibold text-white bg-gray-800 rounded-md hover:bg-gray-700"
+              className={`w-full py-2 mt-4 font-semibold text-white bg-gray-800 rounded-md hover:bg-gray-700 ${
+                registerLoading && "bg-gray-500 animate-pulse"
+              }`}
             >
               {isLogin ? "Inicia sesión" : "Regístrate"}
+            </button>
+            <button
+              type="button"
+              className="w-full py-2 mt-4 font-semibold text-white bg-blue-500 rounded-md hover:bg-blue-400"
+              onClick={() => signInWithGoogle()}
+            >
+              Continuar con Google
+              <FaGoogle className="inline-block w-6 h-6 ml-2" />
             </button>
             <p className="mt-4">
               {isLogin ? "¿No tienes una cuenta?" : "¿Ya tienes una cuenta?"}
