@@ -10,7 +10,7 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 export const { handlers, signIn, signOut, auth } = NextAuth({
   pages: {
     signIn: "/auth/login",
-    newUser: "/auth/register", // If set, new users will be directed here on first sign in
+    newUser: "/", // If set, new users will be directed here on first sign in
     error: "/auth/login", // Error code passed in query string as ?error=
   },
   adapter: PrismaAdapter(prisma),
