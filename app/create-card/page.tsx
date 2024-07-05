@@ -237,7 +237,7 @@ const CreateCard: React.FC = () => {
               type="file"
               ref={fileInputRef}
               multiple={false}
-              accept="image/jpeg, image/png"
+              accept="image/*"
               onChange={handleImageChange}
               className="hidden"
             />{" "}

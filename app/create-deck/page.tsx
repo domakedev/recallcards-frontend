@@ -156,6 +156,7 @@ const page = () => {
                 <input
                   type="file"
                   name="image"
+                  accept="image/*"
                   id="image"
                   multiple={false}
                   onChange={fileChangeHandler}
