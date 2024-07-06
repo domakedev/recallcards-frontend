@@ -5,12 +5,12 @@ import { v4 as uuidv4 } from "uuid";
 import { nameToSlug } from "@/utils/nameToSlug";
 
 interface DeckPreviewProps {
-    decks: DeckDB[] | null;
+  decks: DeckDB[] | null;
 }
 
 const DeckGrid = ({ decks }: DeckPreviewProps) => {
   return (
-    <div className="flex gap-7 flex-wrap justify-center p-8">
+    <div className="flex gap-7 md:gap-10 flex-wrap justify-center p-8">
       {decks?.map((e, i) => (
         <DeckPreview
           key={uuidv4()}

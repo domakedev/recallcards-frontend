@@ -28,7 +28,7 @@ const Footer = () => {
         name: deckState.deckName,
         image: deckState.deckImage,
         creatorId: deckState.creatorId,
-      })
+      });
     }
   }, [deckState]);
 
@@ -57,24 +57,26 @@ const Footer = () => {
   }, [resetCard, allCards]);
 
   return (
-    <footer className="sticky bottom-0 w-full bg-gray-800 text-white z-20">
+    <footer className="sticky bottom-0 w-full bg-gray-800 text-white z-20 py-1">
       <div className="flex justify-around items-center h-16">
         <Link
           href={"/"}
           className="w-1/3 h-full active:bg-gray-700 flex items-center justify-center"
         >
           <div className="flex flex-col items-center justify-center">
-            <FaHome className="text-2xl" />
-            <span className="text-xs">Inicio</span>
+            <FaHome className="text-2xl my-1" />
+            <span className="text-xs md:text-sm">Inicio</span>
           </div>
         </Link>
         <Link
-          href={`/deck-${actualDeck?.id}-${nameToSlug(actualDeck?.name||"")}`}
+          href={`/deck-${actualDeck?.id}-${nameToSlug(actualDeck?.name || "")}`}
           className="w-1/3 h-full active:bg-gray-700 flex items-center justify-center"
         >
           <div className="flex flex-col items-center">
-            <FaSwatchbook className="text-2xl" />
-            <span className="text-xs">{actualDeck?.name || "Deck" }</span>
+            <FaSwatchbook className="text-2xl my-1" />
+            <span className="text-xs md:text-sm text-center text-clip ">
+              {actualDeck?.name || "Deck"}
+            </span>
           </div>
         </Link>
         <Link
@@ -83,8 +85,8 @@ const Footer = () => {
           onClick={() => setResetCard((state) => !state)}
         >
           <div className="flex flex-col items-center">
-            <FaLayerGroup className="text-2xl" />
-            <span className="text-xs">Carta al azar</span>
+            <FaLayerGroup className="text-2xl my-1" />
+            <span className="text-xs md:text-sm">Carta al azar</span>
           </div>
         </Link>
       </div>

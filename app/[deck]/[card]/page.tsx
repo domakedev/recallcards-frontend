@@ -9,7 +9,6 @@ import CardControlButtons from "@/app/components/CardControlButtons";
 import PlaceHolderIMG from "@/assets/placeholder-ig-img.svg";
 
 //Skeleton
-import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { getCardById } from "@/services/card.services";
 import { Card, CardDB } from "@/types/Card";

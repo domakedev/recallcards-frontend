@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Image, { StaticImageData } from "next/image";
 import React, { useEffect, useState } from "react";
 import CardsIcon from "@/assets/cards-icon.svg";
@@ -46,14 +46,14 @@ const DeckPreview: React.FC<DeckPreviewProps> = ({
       onClick={setActualDEck}
     >
       <Image
-        className="w-32 h-32 object-cover rounded-xl shadow-lg"
+        className="w-40 h-w-40 md:w-52 md:h-52 object-cover rounded-xl shadow-lg"
         src={src === "" ? DeckPlaceHolderIMG : src}
-        width={120}
-        height={120}
+        width={700}
+        height={700}
         alt="Deck vista previa"
         priority
       />
-      <div className="flex justify-start items-start text-md max-w-32 md:max-w-64 ">
+      <div className="flex justify-start items-start text-md max-w-40 md:max-w-64 ">
         <div className="min-w-5 mr-1">
           <Image
             className="w-[20px] mt-1"
@@ -61,7 +61,9 @@ const DeckPreview: React.FC<DeckPreviewProps> = ({
             alt="Icono de varias cartas"
           />
         </div>
-        <h2 className="  max-w-28">{deckName}</h2>
+        <h2 className=" text-sm sm:text-base sm:max-w-36 md:text-lg max-w-32 md:max-w-44 break-words">
+          {deckName}
+        </h2>
         {/* <div className="flex items-center gap-[2px]"> */}
         {/* <p className="text-sm">{deckSize}</p> */}
         {/* <Image
