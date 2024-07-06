@@ -68,7 +68,7 @@ export default async function NavBarTUI() {
                   height={40}
                 />
               </Link>
-              <p className="ml-3 sm:block text-white">repasoactivo.com</p>
+              <p className="ml-3 sm:block text-white">repasoActivo.com</p>
             </div>
             <div className="hidden sm:ml-2 sm:block">
               <div className="flex space-x-4">
