@@ -38,7 +38,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           credentials?.password as any
         );
 
-        console.log("🚀 ~ authorize ~ user:", user);
         if (!user) {
           // No user found, so this is their first attempt to login
           // meaning this is also the place you could do registration
@@ -61,7 +60,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
 
     session({ session, token, user }) {
-      console.log("🚀 ~ session ~ token.data:", token.data)
       const {password,  ...res } = token.data as any;
       session.user = res as any;
       // session.user = token.data as any;

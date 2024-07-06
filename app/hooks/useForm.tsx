@@ -1,13 +1,10 @@
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { useAppDispatch } from "@/redux/hooks";
 import { setUser } from "@/redux/userSlice";
 import { User } from "@/types/User";
 import { signIn, useSession } from "next-auth/react";
-import Error from "next/error";
-import { cookies } from "next/headers";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { Bounce, toast } from "react-toastify";
-import AuthErrorPage from "../auth/error/page";
+import { useState } from "react";
+import {  toast } from "react-toastify";
 
 export const useAuthForm = () => {
   const [form, setForm] = useState<User>({
@@ -15,36 +12,9 @@ export const useAuthForm = () => {
     password: "",
   });
   const [registerLoading, setRegisterLoading] = useState<boolean>(false);
-  const [credentialsError, seCredentialsErrort] = useState<boolean>(false);
-  const [userAuthenticated, setUserAuthenticated] = useState<boolean>(false);
 
   const router = useRouter();
-  const userState = useAppSelector((state) => {
-    console.log("🚀 ~ useAuthForm ~ state:", state.user);
-    return state.user;
-  });
   const dispatch = useAppDispatch();
-  const session = useSession();
-
-  // useEffect(() => {
-  //   if (session.status === "authenticated") {
-  //     const user = {
-  //       id: Number(session.data.user.id),
-  //       email: session.data.user.email!,
-  //       authenticated: true,
-  //     };
-  //     // setUserNextAuth(user);
-  //     setUserAuthenticated(true)
-  //     dispatch(setUser(user));
-  //   }
-  // }, [dispatch, session]);
-
-  // useEffect(() => {
-  //   if (userAuthenticated) {
-  //     setRegisterLoading(false);
-  //     window.location.replace("/");
-  //   }
-  // }, [userAuthenticated])
 
   const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({
@@ -95,7 +65,6 @@ export const useAuthForm = () => {
         redirect: false,
       });
 
-      console.log("🚀 ~ useAuthForm ~ result?.error || !result:", result);
       if (result?.error || !result) {
         toast.error("Algo falló al loguear al usuario");
         setRegisterLoading(false);
@@ -104,7 +73,6 @@ export const useAuthForm = () => {
         window.location.replace("/");
       }
     } catch (error) {
-      console.log("🚀 ~ useAuthForm ~ error:", error);
       toast.error("Algo falló al loguear al usuario");
     }
   };
@@ -114,7 +82,6 @@ export const useAuthForm = () => {
     try {
       setRegisterLoading(true);
 
-      console.log("🚀 ~ registerUser ~ form:", form);
       const result = await fetch("/api/users", {
         method: "POST",
         body: JSON.stringify(form),

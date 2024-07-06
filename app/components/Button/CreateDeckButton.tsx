@@ -18,7 +18,6 @@ const CreateDeckButton = ({ href, text }: { href: string; text: string }) => {
     } else {
       setIsAuth(false);
     }
-    console.log("🚀 ~ userState:", userState);
   }, [userState]);
 
   return (

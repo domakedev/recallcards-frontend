@@ -182,8 +182,15 @@ const CreateCard: React.FC = () => {
         onSubmit={handleSubmit}
         className="w-full max-w-lg bg-white rounded-lg shadow-xl p-8 m-5"
       >
-        <p className=" text-md text-gray-400">Deck: {deckState?.name}</p>
-        <h2 className="text-2xl font-bold text-gray-800 mb-6">Crea una Card</h2>
+        <p className=" text-md text-gray-400 mb-3">
+          📖 Sube tu apunte o crea uno. <br /> ✍️ Estúdialo y{" "}
+          <span className="font-semibold text-blue-600">
+            registra tu progreso 🟩🟨🟥 <br />
+          </span>{" "}
+          📱Y la app te mostrará los mas difíciles primero, para que los repases y
+          no los olvides ¡Nunca!⚡
+        </p>
+        <h2 className="text-2xl font-bold text-gray-800 mb-4">Crea una Card</h2>
         <div className="mb-4">
           <label
             htmlFor="question"
@@ -241,17 +248,14 @@ const CreateCard: React.FC = () => {
               onChange={handleImageChange}
               className="hidden"
             />{" "}
-            <span>
-              Sube una imagen
-            </span>
-              <FaImage className="inline" />
+            <span>Sube una imagen</span>
+            <FaImage className="inline" />
             <span>-</span>
             <span>toma una foto</span>
             <FaCamera className="inline" />
           </label>
           <blockquote className="text-sm p-2 font-light border-l-4 my-2 bg-neutral-100 text-neutral-600 border-neutral-500 quote">
-            Para crear un buen apunte te recomiendo usar el tamaño de 1080*1350
-            px en{" "}
+            Para crear un buen apunte te recomiendo usar
             <a
               href="https://canva.com"
               className=" text-blue-500 font-bold"
@@ -259,8 +263,9 @@ const CreateCard: React.FC = () => {
               rel="noreferrer
            "
             >
-              Canva
+              {" Canva, "}
             </a>
+            en el tamaño de 1080*1350 px.
           </blockquote>
 
           {imageBlobUrl && (

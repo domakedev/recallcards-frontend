@@ -23,17 +23,12 @@ import SignControlButton from "../Auth/SignControlButton";
 //   // { name: "Deck X", href: "/", current: false },
 // ];
 
-function classNames(...classes: string[]) {
-  console.log(
-    "🚀 ~ classNames ~ classes.filter(Boolean).join(' '):",
-    classes.filter(Boolean).join(" ")
-  );
+function classNames(...classes: string[]) {  
   return classes.filter(Boolean).join(" ");
 }
 
 export default async function NavBarTUI() {
   const session = await auth();
-  console.log("🚀 ~ NavBarTUI ~ session:", session);
 
   const handlerSignOut = async () => {
     "use server";

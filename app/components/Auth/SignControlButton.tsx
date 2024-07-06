@@ -10,7 +10,6 @@ import { logout, setUser } from "@/redux/userSlice";
 const SignControlButton = () => {
     const session = useSession();
     const dispatch = useAppDispatch();
-    console.log("🚀 ~ SignControlButton ~ session:", session)
 
     const logInHandler = async () => {
         signIn()
@@ -26,7 +25,6 @@ const SignControlButton = () => {
       <button
         className="block text-start w-full px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100"
         onClick={() => {
-          console.log("🚀 ~ SignControlButton ~ onClick ~ signOut");
           session.status === "authenticated" ?  logOutHandler() : logInHandler();
         }}
       >

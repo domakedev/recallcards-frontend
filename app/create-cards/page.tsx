@@ -153,7 +153,9 @@ const CreateCard: React.FC = () => {
         onSubmit={handleSubmit}
         className="w-full max-w-lg bg-white rounded-lg shadow-xl p-8"
       >
-        <p className=" text-md text-gray-400">Deck: {deckState?.name}</p>
+        <p className=" text-md text-gray-400 mb-3">
+          📖 Sube tus apuntes, estúdialos y registra tu progreso ✍️
+        </p>
         <h2 className="text-2xl font-bold text-gray-800 mb-6">Crea Cards</h2>
         <div className="mb-6">
           <label className="text-gray-700 text-sm font-bold mb-2 flex flex-col gap-1">

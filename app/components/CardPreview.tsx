@@ -64,7 +64,7 @@ const CardPreview: React.FC<CardViewProps> = ({
       </p> */}
       {image?.includes("cloudinary") ? (
         <Image
-          className="object-cover max-w-[160px] rounded-[10px] shadow-lg transform transition-transform duration-200 active:scale-95 hover:scale-105"
+          className="object-cover max-w-[160px] sm:max-w-[200px] md:max-w-[250px] rounded-[10px] shadow-lg transform transition-transform duration-200 active:scale-95 hover:scale-105"
           src={image === "" ? PlaceHolderIMG : image}
           alt="Carta vista previa"
           width={540}

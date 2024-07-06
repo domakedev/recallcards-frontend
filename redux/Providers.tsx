@@ -15,7 +15,6 @@ export default function ReduxProvider({
   const session = useSession();
   const dispatch = store.dispatch;
 
-  console.log("🚀 ~ session:", session);
   useEffect(() => {
     if (session.status === "authenticated") {
       const user = {

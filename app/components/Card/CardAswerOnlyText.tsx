@@ -16,7 +16,7 @@ const CardAswerOnlyText = ({
       {preview ? (
         <div className="bg-[#101728] p-6 rounded-xl  shadow-xl w-[160px]  border-gray-800 border-2 min-h-[200px] flex justify-center items-center">
           {/* Nice Title styles  */}
-          <h1 className=" text-xs font-bold text-gray-100 max-w-[100px] text-ellipsis    break-words    ">
+          <h1 className=" text-xs sm:text-base md:text-lg font-bold text-gray-100 max-w-[100px] text-ellipsis    break-words ">
             {question}
           </h1>
         </div>
