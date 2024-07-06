@@ -8,27 +8,29 @@ import { useAppDispatch } from "@/redux/hooks";
 import { logout, setUser } from "@/redux/userSlice";
 
 const SignControlButton = () => {
-    const session = useSession();
-    const dispatch = useAppDispatch();
+  const session = useSession();
+  const dispatch = useAppDispatch();
 
-    const logInHandler = async () => {
-        signIn()
-    }
+  const logInHandler = async () => {
+    signIn();
+  };
 
-    const logOutHandler = async () => {
-        signOut()
-        dispatch(logout())
-    }
+  const logOutHandler = async () => {
+    signOut();
+    dispatch(logout());
+  };
 
   return (
     <MenuItem>
       <button
         className="block text-start w-full px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100"
         onClick={() => {
-          session.status === "authenticated" ?  logOutHandler() : logInHandler();
+          session.status === "authenticated" ? logOutHandler() : logInHandler();
         }}
       >
-        {session.status === "authenticated" ? "Cerrar sesión" : "Iniciar sesión"}
+        {session.status === "authenticated"
+          ? "🏂Cerrar sesión"
+          : "➡️Iniciar sesión"}
       </button>
     </MenuItem>
   );
