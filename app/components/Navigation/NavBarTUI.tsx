@@ -64,13 +64,15 @@ export default async function NavBarTUI() {
           </div>
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
             <div className="flex flex-shrink-0 items-center">
-              <Image
-                alt="Your Company"
-                src={Logo}
-                className="h-8 w-auto"
-                width={40}
-                height={40}
-              />
+              <Link href="/">
+                <Image
+                  alt="Your Company"
+                  src={Logo}
+                  className="h-8 w-auto"
+                  width={40}
+                  height={40}
+                />
+              </Link>
               <p className="ml-3 sm:block text-white">Repaso Activo</p>
             </div>
             <div className="hidden sm:ml-2 sm:block">

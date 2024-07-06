@@ -169,15 +169,15 @@ const CreateCard: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center bg-gradient-to-r from-blue-500 to-teal-500 min-h-screen -mb-16 pb-16">
-      <NavBar
+    <div className="flex flex-col items-center bg-gradient-to-r from-blue-500 to-teal-500 min-h-screen -mb-32 pb-16 pt-16">
+      {/* <NavBar
         title={`${
           userStateRedux.id !== deckState?.creatorId
             ? "No tienes permisos para crear cartas en este deck"
             : "🌲Tienes permiso⛅🌲"
         }`}
         goBack={false}
-      />
+      /> */}
       <form
         onSubmit={handleSubmit}
         className="w-full max-w-lg bg-white rounded-lg shadow-xl p-8 m-5"

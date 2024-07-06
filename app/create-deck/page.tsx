@@ -26,7 +26,6 @@ const page = () => {
   const [image, setImage] = useState<File>();
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
 
-
   // const userState = {
   //   authenticated: true,
   //   id: 1,
@@ -74,7 +73,7 @@ const page = () => {
     if (result.ok) {
       setIsLoading(false);
       setTitle("¡Creado! ¿Uno más?");
-      toast.success("Deck Creado",{
+      toast.success("Deck Creado", {
         //speed
         autoClose: 1000,
       });
@@ -100,8 +99,7 @@ const page = () => {
             {title}
           </h2>
           <p className="mt-2 text-sm text-gray-600">
-            Crea notas de tus estudios y repasa siempre que quieras, gratis (por
-            ahora 😁).
+            Usa un nombre claro, dentro podrás subir tus Cards o Apuntes de ese tema, es ¡gratis!😁
           </p>
         </div>
         <form
@@ -127,7 +125,7 @@ const page = () => {
                 className={`appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm ${
                   !isAuth ? "cursor-not-allowed" : ""
                 }`}
-                placeholder="Nombre del Deck"
+                placeholder="Nombre del Deck o tema"
               />
             </div>
             <div>
@@ -186,28 +184,30 @@ const page = () => {
               }`}
             >
               {isAuth
-                ? isLoading ? "Creando Deck ":"Crear Deck"
+                ? isLoading
+                  ? "Creando Deck "
+                  : "Crear Deck"
                 : "Debes iniciar sesión primero."}
             </button>
           </div>
         </form>
         {isAuth ? null : (
           <>
-          <button
-            onClick={() => router.push("/auth/login")}
-            disabled={isAuth}
-            className={`group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 my-4`}
+            <button
+              onClick={() => router.push("/auth/login")}
+              disabled={isAuth}
+              className={`group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 my-4`}
             >
-            Iniciar Sesión
-          </button>
-          <button
-            onClick={() => router.push("/auth/register")}
-            disabled={isAuth}
-            className={`group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 my-4`}
+              Iniciar Sesión
+            </button>
+            <button
+              onClick={() => router.push("/auth/register")}
+              disabled={isAuth}
+              className={`group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 my-4`}
             >
-            Registrarme
-          </button>
-            </>
+              Registrarme
+            </button>
+          </>
         )}
       </div>
     </div>

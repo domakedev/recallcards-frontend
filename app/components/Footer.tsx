@@ -65,7 +65,7 @@ const Footer = () => {
         >
           <div className="flex flex-col items-center justify-center">
             <FaHome className="text-2xl" />
-            <span className="text-xs">Decks</span>
+            <span className="text-xs">Inicio</span>
           </div>
         </Link>
         <Link
@@ -74,7 +74,7 @@ const Footer = () => {
         >
           <div className="flex flex-col items-center">
             <FaSwatchbook className="text-2xl" />
-            <span className="text-xs">Deck</span>
+            <span className="text-xs">{actualDeck?.name || "Deck" }</span>
           </div>
         </Link>
         <Link
