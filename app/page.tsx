@@ -47,8 +47,8 @@ const ActiveRecallBanner = () => {
           <span className="text-green-500">¡Sube</span>{" "}
           <span className="text-yellow-500">tus apuntes,</span>{" "}
           <span className="text-white">repasa</span>{" "}
-          <span className="text-red-500">y nunca</span>{" "}
-          <span className="text-white">olvides!</span>
+          <span className="text-red-500">y nunca </span>{" "}
+          <span className="text-white">los olvides!</span>
         </h1>
         <p className="mb-5 text-gray-200 flex flex-col items-start gap-2">
           <span>🛠️Esta app es una herramienta de estudio</span>
