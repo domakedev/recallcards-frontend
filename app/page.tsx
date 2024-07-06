@@ -51,11 +51,11 @@ const ActiveRecallBanner = () => {
           <span className="text-white">los olvides!</span>
         </h1>
         <p className="mb-5 text-gray-200 flex flex-col items-start gap-2">
-          <span>🛠️Esta app es una herramienta de estudio</span>
-          <span>✨Que usa la técnica: Active Recall, asi...</span>
-          <span>⚡Lo que marques como difícil te aparecerá primero!</span>
+          <span>🛠️ Esta app es una herramienta de estudio</span>
+          <span>✨ Que usa la técnica: Active Recall, asi...</span>
+          <span>⚡ Lo que marques como difícil ¡te aparecerá primero!</span>
           <span>
-            ✍️Puedes crear tu propias Cards y organizarlas en ➡️ Decks
+            ✍️ Puedes crear tu propias Cards y organizarlas en ➡️ Decks
           </span>
         </p>
         <div className="flex justify-start w-fit">
