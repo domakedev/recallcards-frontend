@@ -29,7 +29,7 @@ const page = async () => {
       </div>
 
       <h1 className=" text-2xl font-semibold text-gray-800 text-center mt-16">
-        📚 Decks de la comunidad 🗺️
+        📚 Decks de la comunidad 👨‍🎓👩‍🎓
       </h1>
 
       <DeckGrid decks={decks} />
