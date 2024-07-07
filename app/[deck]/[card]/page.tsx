@@ -143,7 +143,8 @@ const page = () => {
   };
 
   return (
-    <div className="min-h-screen">
+    // <div className="min-h-screen">
+    <div className="">
       {/* <NavBar
         title={`${cardDB?.question || cardName}`}
         goBack
