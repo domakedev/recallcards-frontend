@@ -99,7 +99,7 @@ const page = () => {
             {title}
           </h2>
           <p className="mt-2 text-sm text-gray-600">
-            Usa un nombre claro, dentro podrás subir tus Cards o Apuntes de ese tema, es ¡gratis!😁
+            Usa un nombre claro para el <strong>tema</strong> de tu deck, dentro podrás subir tus apuntes, es ¡gratis!😁
           </p>
         </div>
         <form
