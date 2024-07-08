@@ -74,7 +74,7 @@ const Footer = () => {
         >
           <div className="flex flex-col items-center">
             <FaSwatchbook className="text-2xl my-1" />
-            <span className="text-xs md:text-sm text-center text-clip ">
+            <span className="text-xs md:text-sm text-center text-clip capitalize max-h-4 md:max-h-5 overflow-hidden">
               {actualDeck?.name || "Deck"}
             </span>
           </div>

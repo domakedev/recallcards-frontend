@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+@import "~highlight.js/styles/github.css"; /* Light theme */
+@import "~highlight.js/styles/github-dark.css"; /* Dark theme */
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -20,4 +23,35 @@
   .text-balance {
     text-wrap: balance;
   }
+}
+
+.hljs-light {
+  display: none;
+}
+
+.dark-mode .hljs-light {
+  display: block;
+}
+
+.dark-mode .hljs-dark {
+  display: none;
+}
+
+/* Ajustar tamaño y color del cuadro de selección de lenguajes */
+.ql-code-block-container > .ql-ui {
+  background-color: #1a202c; /* Fondo oscuro */
+  color: white; /* Texto blanco */
+  padding: 5px; /* Espaciado */
+  border: 1px solid #2d3748; /* Borde */
+  border-radius: 4px; /* Esquinas redondeadas */
+  max-width: 150px; /* Ancho máximo */
+}
+
+.ql-code-block-container > .ql-ui option {
+  background-color: #1a202c; /* Fondo oscuro */
+  color: white; /* Texto blanco */
+}
+
+.ql-code-block-container > .ql-ui option:hover {
+  background-color: #2d3748; /* Fondo al pasar el ratón */
 }

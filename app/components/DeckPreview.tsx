@@ -61,7 +61,7 @@ const DeckPreview: React.FC<DeckPreviewProps> = ({
             alt="Icono de varias cartas"
           />
         </div>
-        <h2 className=" text-sm sm:text-base sm:max-w-36 md:text-lg max-w-32 md:max-w-44 break-words">
+        <h2 className=" text-sm sm:text-base sm:max-w-36 md:text-lg max-w-32 md:max-w-44 break-words capitalize">
           {deckName}
         </h2>
         {/* <div className="flex items-center gap-[2px]"> */}

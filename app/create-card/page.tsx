@@ -18,6 +18,7 @@ import NavBar from "../components/NavBar";
 import { CgCamera } from "react-icons/cg";
 import { FaCamera, FaImage } from "react-icons/fa";
 import { useRouter } from "next/navigation";
+import QuillJsCardCreator from "../components/Card/QuillJsCardCreator";
 
 const CreateCard: React.FC = () => {
   const [newCard, setNewCard] = useState<Card>({
@@ -36,14 +37,21 @@ const CreateCard: React.FC = () => {
   const [userId, setUserId] = useState<number>();
   const [deckState, setDeckState] = useState<DeckDB>();
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
+  const [contentQuillJs, setContentQuillJs] = useState<string>("");
 
   const router = useRouter();
 
   //Store
   const userStateRedux = useAppSelector((state) => state.user);
   const deckStateRedux = useAppSelector((state) => state.deck);
+
+  console.log("🚀 ~ useEffect ~ newCard:", newCard);
+
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    setNewCard({ ...newCard, answer: contentQuillJs });
+  }, [contentQuillJs]);
+
+  useEffect(() => {
     if (deckStateRedux.id !== 0) {
       setNewCard({
         ...newCard,
@@ -111,12 +119,16 @@ const CreateCard: React.FC = () => {
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     if (newCard.deckId === 0 || newCard.creatorId === 0) {
       toast.error("Primero selecciona un deck | Inicia sesión");
       return;
     }
+    if (newCard.answer === "") {
+      toast.error("No puedes dejar la respuesta vacía");
+      return;
+    }
     try {
-      e.preventDefault();
       let imageURL = "";
       let newCardCopy = { ...newCard };
       // Lógica para manejar el envío del formulario
@@ -187,8 +199,8 @@ const CreateCard: React.FC = () => {
           <span className="font-semibold text-blue-600">
             registra tu progreso 🟩🟨🟥 <br />
           </span>{" "}
-          📱Y la app te mostrará los mas difíciles primero, para que los repases y
-          no los olvides ¡Nunca!⚡
+          📱Y la app te mostrará los mas difíciles primero, para que los repases
+          y no los olvides ¡Nunca!⚡
         </p>
         <h2 className="text-2xl font-bold text-gray-800 mb-4">Crea una Card</h2>
         <div className="mb-4">
@@ -212,9 +224,9 @@ const CreateCard: React.FC = () => {
           <label className="text-gray-700 text-sm font-bold mb-2 flex flex-col gap-1">
             {/* Respuesta puede ser: texto o imagen(url o archivo) */}
             <span>✅ Respuesta</span>
-            <span className="text-sm font-light">Texto o Imagen</span>
+            <span className="text-sm font-light">Texto o Imagen(Por ahora solo se admite 1 opción)</span>
           </label>
-          <textarea
+          {/* <textarea
             maxLength={400}
             // type="text"
             name="answer"
@@ -225,8 +237,20 @@ const CreateCard: React.FC = () => {
               disableAnswerText && "line-through"
             } h-[150px]`}
             // placeholder="Escribe tu respuesta"
-          ></textarea>
-          <div className="w-full flex justify-end">
+          ></textarea> */}
+          {!disableAnswerText && (
+            <>
+              <blockquote className="text-sm p-2 font-light border-l-4 my-2 bg-neutral-100 text-neutral-600 border-neutral-500 quote">
+                Para devs: Puedes copiar código con formato de Visual Studio
+                Code con: <code>CTRL + SHIFT + p</code>
+              </blockquote>
+              <QuillJsCardCreator
+                onChange={setContentQuillJs}
+                value={contentQuillJs}
+              />
+            </>
+          )}
+          {/* <div className="w-full flex justify-end">
             <div
               className={
                 "bg-gray-700 rounded-xl text-white w-fit mt-0 mb-2 self-end px-2 py-1 text-xs "
@@ -234,10 +258,10 @@ const CreateCard: React.FC = () => {
             >
               {countLetters(newCard.answer)} /400 letras
             </div>
-          </div>
+          </div> */}
           <label
             htmlFor="file"
-            className="w-fit mr-4 py-2 px-4 rounded border-0 text-sm font-semibold bg-blue-50 text-blue-700 hover:bg-blue-100 flex items-center gap-2 cursor-pointer"
+            className="w-fit mr-4 py-2 px-4 mt-5 rounded border-0 text-sm font-semibold bg-blue-50 text-blue-700 hover:bg-blue-100 flex items-center gap-2 cursor-pointer"
           >
             <input
               id="file"
@@ -248,7 +272,7 @@ const CreateCard: React.FC = () => {
               onChange={handleImageChange}
               className="hidden"
             />{" "}
-            <span>Sube una imagen</span>
+            <span>O sube una imagen</span>
             <FaImage className="inline" />
             <span>-</span>
             <span>toma una foto</span>
