@@ -9,7 +9,7 @@ interface ButtonProps {
 const Button = ({ children, href = "" }: ButtonProps) => {
   return (
     <Link
-      className=" m-3 bg-blue-500 text-white font-bold py-2 px-4 rounded-lg shadow-lg transform transition-transform duration-200 hover:scale-105 active:scale-95 block mx-auto"
+      className=" m-3 bg-blue-500 text-white font-bold py-2 px-4 rounded-lg shadow-lg transform transition-transform duration-200 hover:scale-105 active:scale-95 block mx-auto w-[150px] text-center"
       href={href}
     >
       {children}

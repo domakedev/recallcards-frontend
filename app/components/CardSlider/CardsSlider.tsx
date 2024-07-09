@@ -32,9 +32,10 @@ interface CardsSliderProps {
   cards: CardDB[];
   // children: React.ReactNode;
   deckId: number;
+  showRandomCard?: boolean;
 }
 
-const CardsSlider = ({ cards, deckId }: CardsSliderProps) => {
+const CardsSlider = ({ cards, deckId, showRandomCard = true }: CardsSliderProps) => {
   const swiperRef = useRef<SwiperType | null>(null);
   const dispacth = useAppDispatch();
 
@@ -151,14 +152,18 @@ const CardsSlider = ({ cards, deckId }: CardsSliderProps) => {
           </SwiperSlide>
         ))}
       </Swiper>
-      {cards.length > 1 && (
-        <LargeButton
-          text=" Ver una carta al azar"
-          icon={DadosIcon}
-          bgColor="bg-[#2a9c97]"
-          onClick={() => goToSlide()}
-        />
-      )}
+      {showRandomCard ? (
+        <>
+          {cards.length > 1 && (
+            <LargeButton
+              text=" Ver una carta al azar"
+              icon={DadosIcon}
+              bgColor="bg-[#2a9c97]"
+              onClick={() => goToSlide()}
+            />
+          )}
+        </>
+      ) : null}
     </div>
   );
 };

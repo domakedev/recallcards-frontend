@@ -9,6 +9,8 @@ import Image from "next/image";
 import ImageLanding from "@/public/images/landing-image.jpeg";
 import UserAvatar from "./components/Auth/Avatar";
 import Navbar from "./components/Navigation/NavBarTUI";
+import CardsSlider from "./components/CardSlider/CardsSlider";
+import prisma from "@/config/db";
 
 const page = async () => {
   const decks = await getDecksAction();
@@ -39,10 +41,17 @@ const page = async () => {
 
 export default page;
 
-const ActiveRecallBanner = () => {
+const ActiveRecallBanner = async () => {
+  const randomCards = await prisma.cards.findMany({
+    take: 10,
+    where: {
+      deckId: 2,
+    },
+  });
+
   return (
-    <div className="flex flex-col items-center sm:flex-row mx-auto bg-[#101728] max-h-[450px] sm:max-h-fit overflow-hidden">
-      <div className="w-full sm:w-1/2 md:pr-8 p-4">
+    <div className="flex flex-col items-center sm:flex-row mx-auto bg-[#101728]  sm:max-h-fit overflow-hidden ">
+      <div className="w-full sm:w-1/2 md:pr-8 p-4 order-2 sm:order-1">
         <h1 className="text-3xl md:text-4xl font-bold mb-4">
           <span className="text-green-500">¡Sube</span>{" "}
           <span className="text-yellow-500">tus apuntes,</span>{" "}
@@ -54,9 +63,7 @@ const ActiveRecallBanner = () => {
           <span>🛠️ Esta app es una herramienta de estudio</span>
           <span>✨ Que usa la técnica: Active Recall, asi...</span>
           <span>⚡ Lo que marques como difícil ¡te aparecerá primero!</span>
-          <span>
-            ✍️ Para crear tus cards primero crea un ➡️ Deck
-          </span>
+          <span>✍️ Para crear tus cards primero crea un ➡️ Deck</span>
         </p>
         <div className="flex justify-start w-fit">
           <CreateButton
@@ -65,14 +72,19 @@ const ActiveRecallBanner = () => {
           />
         </div>
       </div>
-      <div className="w-full sm:w-1/2 h-full">
-        <Image
+      <div className="p-1 md:p-5 w-5/6 sm:w-1/2 order-1 sm:order-2 ">
+        {/* <Image
           src={ImageLanding}
           alt="Active Recall"
           width={700}
           height={700}
           className=" max-h-[200px] sm:max-h-max object-cover h-full"
-        />
+        /> */}
+        <CardsSlider
+          cards={randomCards}
+          showRandomCard={false}
+          deckId={2}
+        ></CardsSlider>
       </div>
     </div>
   );

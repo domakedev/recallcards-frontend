@@ -45,7 +45,6 @@ const CreateCard: React.FC = () => {
   const userStateRedux = useAppSelector((state) => state.user);
   const deckStateRedux = useAppSelector((state) => state.deck);
 
-  console.log("🚀 ~ useEffect ~ newCard:", newCard.answer);
 
   useEffect(() => {
     setNewCard({ ...newCard, answer: contentQuillJs });
@@ -160,6 +159,7 @@ const CreateCard: React.FC = () => {
           creatorId: 0,
         });
         setIsLoading(false);
+        router.push(`/deck-${deckState?.id}-${deckState?.name}`);
       } else {
         //Enviar newCard al Backend
         const result = await createCard(newCard);
@@ -169,6 +169,7 @@ const CreateCard: React.FC = () => {
         removeImage();
         setNewCard({ ...newCard, answer: "", question: "" });
         setIsLoading(false);
+        router.push(`/deck-${deckState?.id}-${deckState?.name}`);
       }
     } catch (error: any) {
       toast.error(error.message);
@@ -181,7 +182,7 @@ const CreateCard: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center bg-gradient-to-r from-blue-500 to-teal-500 min-h-screen -mb-32 pb-16 pt-16">
+    <div className="flex flex-col items-center bg-gradient-to-r from-blue-500 to-teal-500 pt-4 pb-16">
       {/* <NavBar
         title={`${
           userStateRedux.id !== deckState?.creatorId
@@ -195,7 +196,7 @@ const CreateCard: React.FC = () => {
         className="w-full max-w-lg bg-white rounded-lg shadow-xl p-8 m-5"
       >
         <p className=" text-md text-gray-400 mb-3">
-          📖 Sube tu apunte o crea uno. <br /> ✍️ Estúdialo y{" "}
+          📖 Crea o sube tu apunte. <br /> ✍️ Estúdialo y{" "}
           <span className="font-semibold text-blue-600">
             registra tu progreso 🟩🟨🟥 <br />
           </span>{" "}
@@ -225,7 +226,7 @@ const CreateCard: React.FC = () => {
             {/* Respuesta puede ser: texto o imagen(url o archivo) */}
             <span>✅ Respuesta</span>
             <span className="text-sm font-light">
-              Texto o Imagen(Por ahora solo se admite 1 opción)
+              Por ahora solo se admite 1 opción: Texto o Imagen
             </span>
           </label>
           {/* <textarea
@@ -242,10 +243,10 @@ const CreateCard: React.FC = () => {
           ></textarea> */}
           {!disableAnswerText && (
             <>
-              <blockquote className="text-sm p-2 font-light border-l-4 my-2 bg-neutral-100 text-neutral-600 border-neutral-500 quote">
+              {/* <blockquote className="text-sm p-2 font-light border-l-4 my-2 bg-neutral-100 text-neutral-600 border-neutral-500 quote">
                 Para devs: Puedes copiar código con formato de Visual Studio
                 Code con: <code>CTRL + SHIFT + p</code>
-              </blockquote>
+              </blockquote> */}
               <QuillJsCardCreator
                 onChange={setContentQuillJs}
                 value={contentQuillJs}
@@ -280,18 +281,9 @@ const CreateCard: React.FC = () => {
             <span>toma una foto</span>
             <FaCamera className="inline" />
           </label>
-          <blockquote className="text-sm p-2 font-light border-l-4 my-2 bg-neutral-100 text-neutral-600 border-neutral-500 quote">
-            Para crear un buen apunte te recomiendo usar
-            <a
-              href="https://canva.com"
-              className=" text-blue-500 font-bold"
-              target="_blank"
-              rel="noreferrer
-           "
-            >
-              {" Canva, "}
-            </a>
-            en el tamaño de 1080*1350 px.
+          <blockquote className="text-sm p-2 font-light border-l-4 my-2 bg-neutral-100 text-neutral-600 border-neutral-500 quote flex items-center">
+            En imagen te recomiendo usar un formato rectangular tipo Card:{" "}
+            <span className="text-3xl">🎴</span>
           </blockquote>
 
           {imageBlobUrl && (

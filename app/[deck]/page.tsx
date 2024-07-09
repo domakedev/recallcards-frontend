@@ -1,3 +1,6 @@
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 import React from "react";
 import NavBar from "../components/NavBar";
 import { redirect } from "next/navigation";
@@ -21,8 +24,6 @@ export async function generateMetadata(
 ): Promise<any> {
   // read route params
   const id = params.deck.split("-")[1];
-  console.log("🚀 ~ id :", id);
-
 
   // fetch data
   const product = await prisma.decks.findUnique({
@@ -30,7 +31,6 @@ export async function generateMetadata(
       id: Number(id),
     },
   });
-  console.log("🚀 ~ product:", product);
 
   // optionally access and extend (rather than replace) parent metadata
   const previousImages = (await parent).openGraph?.images || [];
@@ -87,37 +87,32 @@ const page = async ({ params }: { params: { deck: string } }) => {
 
   return (
     <div className="w-full flex flex-col items-center">
-      {/* <NavBar
-        title={`
-          ${
-            deckById?.name
-              ? deckById.name + "(" + deckCards?.length + ")"
-              : "Selecciona un deck"
-          }
-        `}
-        goBack
-      /> */}
-
-      <CardsSlider
-        cards={deckCards}
-        deckId={+deckId}
-      ></CardsSlider>
-
-      <CardsGrid
-        cards={deckCards}
-        deckId={+deckId}
-      />
       <div className="flex flex-col items-center sm:flex-row  gap-3 my-5">
         <CreateDeckButton
           href={"/create-card"}
-          text={"Crear Apunte/Card"}
+          text={"Crear Apunte"}
         />
         <DeleteDeckButton />
         <CreateDeckButton
           href={"/create-cards"}
-          text={"Crear varios Apuntes/Cards"}
+          text={"Crear Apuntes"}
         />
       </div>
+      <h2 className=" text-2xl font-bold text-gray-800 my-6">
+        Elije una carta
+      </h2>
+      <CardsGrid
+        cards={deckCards}
+        deckId={+deckId}
+      />
+
+      <h2 className=" text-2xl font-bold text-gray-800 my-6">
+        Pre-Visualizador
+      </h2>
+      <CardsSlider
+        cards={deckCards}
+        deckId={+deckId}
+      ></CardsSlider>
     </div>
   );
 };

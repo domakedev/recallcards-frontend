@@ -193,6 +193,7 @@ const QuillJsCardCreator: React.FC<QuillEditorProps> = ({
         modules={modules}
         formats={formats}
         readOnly={readOnly}
+        placeholder="Tu apunte en formato texto simple aquí..."
       />
     </div>
   );

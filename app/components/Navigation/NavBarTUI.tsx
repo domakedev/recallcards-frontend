@@ -17,18 +17,22 @@ import PersonaAvatar from "@/assets/avatar-persona.webp";
 import SignOutButton from "../Auth/SignOutButton";
 import SignInButton from "../Auth/SignInButton";
 import SignControlButton from "../Auth/SignControlButton";
+import { headers } from "next/headers";
 
-// const navigation = [
-//   // { name: 'Mis Apuntes', href: '#', current: true },
-//   // { name: "Deck X", href: "/", current: false },
-// ];
+const navigation = [
+  { name: "Mis Apuntes", href: "/mis-decks", current: true },
+  // { name: "Deck X", href: "/", current: false },
+];
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default async function NavBarTUI() {
+export default async function NavBarTUI({ params }: any) {
   const session = await auth();
+
+  const headersList = headers();
+  const pathName = headersList.get("x-pathname");
 
   const handlerSignOut = async () => {
     "use server";
@@ -38,7 +42,7 @@ export default async function NavBarTUI() {
   return (
     <Disclosure
       as="nav"
-      className="bg-gray-800"
+      className="bg-gray-800 sticky top-0 z-50"
     >
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
         <div className="relative flex h-16 items-center justify-between">
@@ -70,15 +74,16 @@ export default async function NavBarTUI() {
               </Link>
               <p className="ml-3 sm:block text-white">repasoActivo.com</p>
             </div>
-            <div className="hidden sm:ml-2 sm:block">
+            <div className="hidden sm:ml-6 sm:block">
               <div className="flex space-x-4">
-                {/* {navigation.map((item) => (
+                {navigation.map((item) => (
                   <Link
                     key={item.name}
                     href={item.href}
                     aria-current={item.current ? "page" : undefined}
                     className={classNames(
-                      item.current
+                      // item.current
+                      item.href === pathName
                         ? "bg-gray-900 text-white"
                         : "text-gray-300 hover:bg-gray-700 hover:text-white",
                       "rounded-md px-3 py-2 text-sm font-medium"
@@ -86,7 +91,7 @@ export default async function NavBarTUI() {
                   >
                     {item.name}
                   </Link>
-                ))} */}
+                ))}
               </div>
             </div>
           </div>
@@ -158,7 +163,7 @@ export default async function NavBarTUI() {
         </div>
       </div>
 
-      {/* <DisclosurePanel className="sm:hidden">
+      <DisclosurePanel className="sm:hidden">
         <div className="space-y-1 px-2 pb-3 pt-2">
           {navigation.map((item) => (
             <DisclosureButton
@@ -167,7 +172,7 @@ export default async function NavBarTUI() {
               href={item.href}
               aria-current={item.current ? "page" : undefined}
               className={classNames(
-                item.current
+                item.href === pathName
                   ? "bg-gray-900 text-white"
                   : "text-gray-300 hover:bg-gray-700 hover:text-white",
                 "block rounded-md px-3 py-2 text-base font-medium"
@@ -177,7 +182,7 @@ export default async function NavBarTUI() {
             </DisclosureButton>
           ))}
         </div>
-      </DisclosurePanel> */}
+      </DisclosurePanel>
     </Disclosure>
   );
 }

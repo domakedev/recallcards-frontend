@@ -28,7 +28,8 @@ const SlidingCard = ({
   return (
     <div className="flex flex-col items-center gap-1 w-full">
       <Link
-        href={`${pathname}/${id}`}
+        href={pathname === "/" ? "#" : `${pathname}/${id}`}
+        // href={`${pathname}/${id}`}
         className="relative w-full"
       >
         {image?.includes("cloudinary") ? (

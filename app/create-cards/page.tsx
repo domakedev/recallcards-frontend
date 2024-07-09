@@ -161,9 +161,9 @@ const CreateCard: React.FC = () => {
           <label className="text-gray-700 text-sm font-bold mb-2 flex flex-col gap-1">
             {/* Respuesta puede ser: texto o imagen(url o archivo) */}
             <span>Crearé una card por cada una de tus imágenes 🙌✅</span>
-            <blockquote className="p-4 font-light border-l-4 bg-neutral-100 text-neutral-600 border-neutral-500 quote">
-              *Tamaño aprox recomendado: 1350x1080 px o cuadrado. <br />
-              *Evita subir imágenes altas o largas.
+            <blockquote className="text-sm p-2 font-light border-l-4 my-2 bg-neutral-100 text-neutral-600 border-neutral-500 quote flex items-center">
+              Te recomiendo usar un formato rectangular tipo Card:{" "}
+              <span className="text-3xl">🎴</span>
             </blockquote>
           </label>
           <input
@@ -178,9 +178,11 @@ const CreateCard: React.FC = () => {
             id="deselecting"
             type="button"
             onClick={removeImage}
-            className=" bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4 text-sm"
+            className={`bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4 text-sm ${
+              images ? "block" : "hidden"
+            }`}
           >
-            Quitar imagen
+            Quitar todo
           </button>
         </div>
         <div className="flex items-center justify-between">

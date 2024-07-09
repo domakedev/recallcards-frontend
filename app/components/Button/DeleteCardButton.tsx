@@ -20,7 +20,8 @@ const DeleteCardButton = ({
       const result = await deleteCardAction(userId, cardId, cardImage);
       if (result?.ok === true) {
         toast.success(result.message);
-        router.push("/");
+        router.push("/mis-decks");
+        // router.back();
       }
       if (result?.ok === false) {
         toast.error(result.message);

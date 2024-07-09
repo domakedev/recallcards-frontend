@@ -4,6 +4,7 @@ import prisma from "@/config/db";
 import { extractPublicId } from "@/lib/card.functions";
 import { DeckDB } from "@/types/Deck";
 
+//Trae todos los decks
 export const getDecksAction = async (): Promise<DeckDB[] | null> => {
   try {
     const decks = await prisma.decks.findMany();
@@ -13,6 +14,21 @@ export const getDecksAction = async (): Promise<DeckDB[] | null> => {
   }
 };
 
+//Trae decks por userId
+export const getDecksByUserIdAction = async (userId: number): Promise<DeckDB[] | null> => {
+  try {
+    const decks = await prisma.decks.findMany({
+      where: {
+        creatorId: userId,
+      },
+    });
+    return decks;
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
+};
+
+//Elimina un decj por deckId y userId e imagen en Cloudinary
 export const deleteDeckAction = async (
   deckId: number,
   userId: number,

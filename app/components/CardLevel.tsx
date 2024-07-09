@@ -148,14 +148,15 @@ const NivelDificultad: React.FC<NivelDificultadProps> = ({
           ))}
         </div>
       ) : (
-        <p className="text-sm md:text-xl text-red-500 font-bold  text-center">
+        <p className="text-sm md:text-base text-red-500 font-bold  text-center">
           <Link
             href="/auth/register"
-            className="text-green-500 block  
-            "
-            >
-            ¡Regístrate aquí si quieres guardar tu progreso{" "}
-            ! ⌛✅⚠️🟥
+            className="text-gray-200 block bg-gray-800 p-2 rounded-lg"
+          >
+            <span className="block">
+              Regístrate y guarda tu progreso en esta Card
+            </span>
+            <span className="block">✅🟨🟥</span>
           </Link>
         </p>
       )}

@@ -13,7 +13,6 @@ export const createDeck = async (deck: Deck) => {
     });
     const data = await result.json();
     if (data.ok) {
-      console.log("🚀 ~ createDeck ~ data:", data)
       return data;
     } else if (!data.ok) {
       throw new Error(data.message);

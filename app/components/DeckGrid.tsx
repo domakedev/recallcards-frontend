@@ -10,7 +10,7 @@ interface DeckPreviewProps {
 
 const DeckGrid = ({ decks }: DeckPreviewProps) => {
   return (
-    <div className="flex gap-7 md:gap-10 flex-wrap justify-center p-8">
+    <div className="flex gap-7 md:gap-10 flex-wrap justify-center p-1 py-8 md:p-8">
       {decks?.map((e, i) => (
         <DeckPreview
           key={uuidv4()}

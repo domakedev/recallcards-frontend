@@ -43,7 +43,7 @@ const DeleteDeckButton = () => {
       toast.success(result, {
         autoClose: 1000,
       });
-      router.push("/");
+      router.push("/mis-decks");
     } catch (error: any) {
       toast.error("Ocurrió un error al eliminar el deck");
     }
