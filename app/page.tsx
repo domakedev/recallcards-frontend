@@ -55,7 +55,7 @@ const ActiveRecallBanner = () => {
           <span>✨ Que usa la técnica: Active Recall, asi...</span>
           <span>⚡ Lo que marques como difícil ¡te aparecerá primero!</span>
           <span>
-            ✍️ Puedes crear tu propias Cards y organizarlas en ➡️ Decks
+            ✍️ Para crear tus cards primero crea un ➡️ Deck
           </span>
         </p>
         <div className="flex justify-start w-fit">

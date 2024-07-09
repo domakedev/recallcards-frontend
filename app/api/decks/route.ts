@@ -9,7 +9,7 @@ export const POST = async (req: Request) => {
       data,
     });
     return NextResponse.json(
-      { ok: true, message: `Deck ${creation.name} creado con éxito` },
+      { ok: true, message: `Deck ${creation.name} creado con éxito`, newDeck: creation},
       { status: 200 }
     );
   } catch (error) {

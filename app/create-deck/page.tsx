@@ -6,10 +6,12 @@ import "./styles.css";
 import { Deck } from "@/types/Deck";
 import { toast } from "react-toastify";
 import { createDeck } from "@/services/deck.services";
-import { useAppSelector } from "@/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { useRouter } from "next/navigation";
 import { uploadImage } from "@/services/image.services";
 import Image from "next/image";
+import { nameToSlug } from "@/utils/nameToSlug";
+import { setDeck as setDeckRedux } from "@/redux/deckSlice";
 
 const page = () => {
   const router = useRouter();
@@ -22,6 +24,7 @@ const page = () => {
   const [isAuth, setIsAuth] = useState(false);
   const [title, setTitle] = useState("Crea un nuevo Deck");
   const userState = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
   const [imageBlobUrl, setImageBlobUrl] = useState<string>("");
   const [image, setImage] = useState<File>();
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
@@ -70,6 +73,7 @@ const page = () => {
     const imageResult = await uploadImage(image);
     const newDeck = { ...deck, image: imageResult };
     const result = await createDeck(newDeck);
+    console.log("🚀 ~ handleSubmit ~ result:", result);
     if (result.ok) {
       setIsLoading(false);
       setTitle("¡Creado! ¿Uno más?");
@@ -78,6 +82,10 @@ const page = () => {
         autoClose: 1000,
       });
       setDeck({ name: "", image: "", creatorId: 0 });
+      dispatch(setDeckRedux(result.newDeck));
+      router.push(
+        `/deck-${result.newDeck.id}-${nameToSlug(result.newDeck.name)}`
+      );
     }
   };
 
@@ -99,7 +107,9 @@ const page = () => {
             {title}
           </h2>
           <p className="mt-2 text-sm text-gray-600">
-            Usa un nombre <strong>claro</strong> para el <strong>tema</strong> de tu deck y luego dentro del Deck podrás subir/crear tus apuntes o Cards, es ¡gratis!😁
+            Usa un nombre <strong>claro</strong> para el <strong>tema</strong>{" "}
+            de tu deck y luego dentro del Deck podrás subir/crear tus apuntes o
+            Cards, es ¡gratis!😁
           </p>
         </div>
         <form
