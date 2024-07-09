@@ -82,7 +82,13 @@ const page = () => {
         autoClose: 1000,
       });
       setDeck({ name: "", image: "", creatorId: 0 });
-      dispatch(setDeckRedux(result.newDeck));
+      const newDeck = {
+        id: result.newDeck.id,
+        deckName: result.newDeck.name,
+        deckImage: result.newDeck.image,
+        creatorId: result.newDeck.creatorId,
+      };
+      dispatch(setDeckRedux(newDeck));
       router.push(
         `/deck-${result.newDeck.id}-${nameToSlug(result.newDeck.name)}`
       );
