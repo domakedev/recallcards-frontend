@@ -45,7 +45,7 @@ const CreateCard: React.FC = () => {
   const userStateRedux = useAppSelector((state) => state.user);
   const deckStateRedux = useAppSelector((state) => state.deck);
 
-  console.log("🚀 ~ useEffect ~ newCard:", newCard);
+  console.log("🚀 ~ useEffect ~ newCard:", newCard.answer);
 
   useEffect(() => {
     setNewCard({ ...newCard, answer: contentQuillJs });
@@ -124,7 +124,7 @@ const CreateCard: React.FC = () => {
       toast.error("Primero selecciona un deck | Inicia sesión");
       return;
     }
-    if (newCard.answer === "") {
+    if (newCard.answer === "" && !image) {
       toast.error("No puedes dejar la respuesta vacía");
       return;
     }
@@ -224,7 +224,9 @@ const CreateCard: React.FC = () => {
           <label className="text-gray-700 text-sm font-bold mb-2 flex flex-col gap-1">
             {/* Respuesta puede ser: texto o imagen(url o archivo) */}
             <span>✅ Respuesta</span>
-            <span className="text-sm font-light">Texto o Imagen(Por ahora solo se admite 1 opción)</span>
+            <span className="text-sm font-light">
+              Texto o Imagen(Por ahora solo se admite 1 opción)
+            </span>
           </label>
           {/* <textarea
             maxLength={400}

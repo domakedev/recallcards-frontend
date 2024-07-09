@@ -31,7 +31,7 @@ const CardAswerOnlyText = ({
           <div className="text-xs sm:text-sm md:text-base flex-1 bg-slate-100 justify-center items-center flex shadow-inner rounded-lg p-4 md:p-8 text-gray-700 font-normal  break-words break-all whitespace-pre-wrap">
             {answer.startsWith("<") ? (
               // <iframe src={answer} className="w-full h-full" />
-              <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(answer) }} />
+              <div dangerouslySetInnerHTML={{ __html: answer }} />
             ) : (
               answer
             )}
