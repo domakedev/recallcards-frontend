@@ -184,9 +184,9 @@ const page = () => {
         <div className="relative w-full max-w-[500px] grow max-h-[625px] mx-auto ">
           <div
             id="imgParent"
-            onTouchStart={onTouchStart}
-            onTouchMove={onTouchMove}
-            onTouchEnd={onTouchEnd}
+            // onTouchStart={onTouchStart}
+            // onTouchMove={onTouchMove}
+            // onTouchEnd={onTouchEnd}
             className={`min-h-max h-fit`}
           >
             {cardDB?.answer.includes("cloudinary") ? (

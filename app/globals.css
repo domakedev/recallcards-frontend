@@ -66,7 +66,7 @@ pre.ql-syntax {
 }
 .ql-editor pre {
   padding: 10px !important; /* Espaciado */
-  white-space: pre-wrap; /* Ajustar texto */
+  /* white-space: pre-wrap;  */
 }
 
 #editor-container {
