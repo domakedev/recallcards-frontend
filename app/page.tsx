@@ -42,9 +42,9 @@ const page = async () => {
 export default page;
 
 const ActiveRecallBanner = async () => {
-  const deckID = 2;
+  const deckID = 46;
   const randomCards = await prisma.cards.findMany({
-    take: 10,
+    take: 20,
     where: {
       deckId: deckID,
     },
