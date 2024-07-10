@@ -81,7 +81,7 @@ const ActiveRecallBanner = async () => {
             </span>
             {" ¡después!"}
           </span>
-          <span>✍️ Para crear tus apuntes primero crea un ➡️ Deck</span>
+          <span>✍️ Sube o crea tus apuntes dentro de un ➡️ Deck</span>
         </p>
         <div className="flex justify-start w-fit">
           <CreateButton
