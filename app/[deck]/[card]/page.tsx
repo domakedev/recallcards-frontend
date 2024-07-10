@@ -195,10 +195,9 @@ const page = () => {
                 priority
               />
             ) : (
-              cardDB?.question &&
-              cardDB?.answer && (
+                cardDB?.answer && (
                 <CardAswerOnlyText
-                  question={cardDB.question}
+                  question={cardDB.question || "-"}
                   answer={cardDB.answer}
                 ></CardAswerOnlyText>
               )
