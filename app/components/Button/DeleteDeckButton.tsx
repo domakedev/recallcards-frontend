@@ -1,5 +1,6 @@
 "use client";
-import { useAppSelector } from "@/redux/hooks";
+import { resetDeck } from "@/redux/deckSlice";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { deleteDeckAction } from "@/services/deck.actions";
 import { DeckDB } from "@/types/Deck";
 import { UserDB } from "@/types/User";
@@ -17,6 +18,7 @@ const DeleteDeckButton = () => {
   const router = useRouter();
   const userState = useAppSelector((state) => state.user);
   const deckState = useAppSelector((state) => state.deck);
+  const dispatch = useAppDispatch(); 
   const [userDB, setUserDB] = useState<UserDB>();
   const [deckId, setDeckId] = useState<number>();
   const [deckImage, setDeckImage] = useState<string>("");
@@ -44,6 +46,7 @@ const DeleteDeckButton = () => {
         autoClose: 1000,
       });
       router.push("/mis-decks");
+      dispatch(resetDeck())
     } catch (error: any) {
       toast.error("Ocurrió un error al eliminar el deck");
     }

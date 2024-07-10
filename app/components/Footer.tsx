@@ -73,11 +73,11 @@ const Footer = () => {
           </div>
         </Link>
         <Link
-          href={`/deck-${actualDeck?.id}-${nameToSlug(actualDeck?.name || "")}`}
+          href={actualDeck?.id !== 0 ? `/deck-${actualDeck?.id}-${nameToSlug(actualDeck?.name || "")}` : "/#"}
           className="w-1/3 h-full active:bg-gray-700 flex items-center justify-center"
         >
           <div className="flex flex-col items-center">
-            {actualDeck?.image ? (
+            {actualDeck?.image && actualDeck?.image !== "" ? (
               <Image
                 src={actualDeck?.image}
                 alt={"Deck"}
