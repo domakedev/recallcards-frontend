@@ -36,14 +36,21 @@ const page = () => {
   const [disableRightButton, setDisableRightButton] = useState(false);
   const [prevCardNumber, setPrevCardNumber] = useState<number>();
   const [nextCardNumber, setNextCardNumber] = useState<number>();
-  const [actualDeckCardsIds, setActualDeckCardsIds] = useState<number[]>();
+  const [actualDeck, setActualDeck] = useState<DeckDB>();
 
   const params = useParams();
   const userState = useAppSelector((state) => state.user);
   const deckState = useAppSelector((state) => state.deck);
+  console.log("🚀 ~ page ~ deckState:", deckState);
 
   useEffect(() => {
-    setActualDeckCardsIds(deckState.cardsIds);
+    const newDeck = {
+      id: deckState.id,
+      name: deckState.deckName,
+      image: deckState.deckImage,
+      creatorId: deckState.creatorId,
+    };
+    setActualDeck(newDeck);
   }, [deckState]);
 
   useEffect(() => {
@@ -249,8 +256,8 @@ const page = () => {
           )}
         </div>
         {params.deck === "random" ||
-        !actualDeckCardsIds ||
-        actualDeckCardsIds.length === 0 ? null : (
+        !actualDeck?.id ||
+        actualDeck.id === 0 ? null : (
           <CardControlButtons />
         )}
       </div>
