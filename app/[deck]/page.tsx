@@ -106,12 +106,18 @@ const page = async ({ params }: { params: { deck: string } }) => {
           text={"Crear Apuntes"}
         />
       </div>
-      <p className="  my-6 text-center flex flex-col items-center">
-        <h2 className="text-2xl font-bold text-gray-800">Elije una carta</h2>
-        <span className="block text-xs text-gray-500">
-          Actualiza la página si no aparece tu cambio
-        </span>
-      </p>
+      {deckCards.length > 0 ? (
+        <p className="  my-6 text-center flex flex-col items-center">
+          <h2 className="text-2xl font-bold text-gray-800">Elije una carta</h2>
+          <span className="block text-xs text-gray-500">
+            Actualiza la página si no aparece tu cambio
+          </span>
+        </p>
+      ) : (
+        <div className="  my-6 text-center flex flex-col items-center">
+          <h2 className="text-2xl font-bold text-gray-800">No hay cartas</h2>
+        </div>
+      )}
       <CardsGrid
         cards={deckCards}
         deckId={+deckId}
