@@ -46,7 +46,7 @@ const CreateButton = ({ showCondition, route }: CreateButtonProps) => {
           }}
           className="mt-5 bg-blue-500 text-white font-bold py-2 px-4 rounded-lg shadow-lg transform transition-transform duration-200 hover:scale-105 active:scale-95 block mx-auto my-5"
         >
-          Crea tu Deck
+          Crear Deck
         </button>
       )}
     </>
