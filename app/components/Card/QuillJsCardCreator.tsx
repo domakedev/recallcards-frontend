@@ -122,7 +122,25 @@ const QuillJsCardCreator: React.FC<QuillEditorProps> = ({
   const modules = useMemo(
     () => ({
       syntax: {
-        highlight: (text: string) => hljs.highlightAuto(text).value,
+        highlight: (text: string) => hljs.highlightAuto(text,[
+          "javascript",
+          "typescript",
+          "java",
+          "python",
+          "json",
+          "html",
+          "css",
+          "scss",
+          "sql",
+          "shell",
+          "markdown",
+          "yaml",
+          "xml",
+          "http",
+          "nginx",
+          "dockerfile",
+          "plaintext",
+        ]).value,
       },
       toolbar: [
         [{ header: [1, 2, 3, 4, 5, 6, false] }],
