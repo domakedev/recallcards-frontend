@@ -93,8 +93,10 @@ import { useMemo, useEffect } from "react";
 import dynamic from "next/dynamic";
 import "react-quill/dist/quill.snow.css";
 import hljs from "highlight.js";
-import "highlight.js/styles/github.css"; // Light theme
+// import "highlight.js/styles/github.css"; // Light theme
 import "highlight.js/styles/github-dark.css"; // Dark theme
+// import "highlight.js/styles/monokai-sublime.css"
+// import "highlight.js/styles/atom-one-dark.css"
 import DOMPurify from "dompurify";
 
 interface QuillEditorProps {
@@ -107,7 +109,7 @@ interface QuillEditorProps {
 // Carga diferida de ReactQuill para evitar problemas en SSR
 const ReactQuill = dynamic(() => import("react-quill"), {
   ssr: false,
-  loading: () => <p>Loading editor...</p>,
+  loading: () => <p>Cargando editor...</p>,
 });
 
 const QuillJsCardCreator: React.FC<QuillEditorProps> = ({
@@ -120,28 +122,7 @@ const QuillJsCardCreator: React.FC<QuillEditorProps> = ({
   const modules = useMemo(
     () => ({
       syntax: {
-        highlight: (text: string) =>
-          hljs.highlightAuto(text, [
-            "javascript",
-            "python",
-            "c",
-            "cpp",
-            "java",
-            "html",
-            "css",
-            "json",
-            "xml",
-            "markdown",
-            "sql",
-            "php",
-            "typescript",
-            "bash",
-            "shell",
-            "yaml",
-            "makefile",
-            "dockerfile",
-            "plaintext",
-          ]).value,
+        highlight: (text: string) => hljs.highlightAuto(text).value,
       },
       toolbar: [
         [{ header: [1, 2, 3, 4, 5, 6, false] }],
@@ -185,7 +166,7 @@ const QuillJsCardCreator: React.FC<QuillEditorProps> = ({
   ];
 
   return (
-    <div className="relative shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline min-h-[150px]">
+    <div className="shadow appearance-none border rounded w-full py-1 px-1 text-gray-700 leading-tight focus:outline-none focus:shadow-outline min-h-[150px]">
       <ReactQuill
         theme={theme || "snow"}
         value={value}
