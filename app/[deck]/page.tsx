@@ -87,6 +87,14 @@ const page = async ({ params }: { params: { deck: string } }) => {
 
   return (
     <div className="w-full flex flex-col items-center">
+      {/* <h2 className=" text-2xl font-bold text-gray-800 my-6">
+        Pre-Visualizador
+      </h2> */}
+      <CardsSlider
+        cards={deckCards}
+        deckId={+deckId}
+      ></CardsSlider>
+
       <div className="flex flex-col items-center sm:flex-row  gap-3 my-5">
         <CreateDeckButton
           href={"/create-card"}
@@ -108,14 +116,6 @@ const page = async ({ params }: { params: { deck: string } }) => {
         cards={deckCards}
         deckId={+deckId}
       />
-
-      <h2 className=" text-2xl font-bold text-gray-800 my-6">
-        Pre-Visualizador
-      </h2>
-      <CardsSlider
-        cards={deckCards}
-        deckId={+deckId}
-      ></CardsSlider>
     </div>
   );
 };
