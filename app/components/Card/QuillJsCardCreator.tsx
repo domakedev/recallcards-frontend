@@ -166,7 +166,7 @@ const QuillJsCardCreator: React.FC<QuillEditorProps> = ({
   ];
 
   return (
-    <div className="shadow appearance-none border rounded w-full py-1 px-1 text-gray-700 leading-tight focus:outline-none focus:shadow-outline min-h-[150px]">
+    <div className="shadow appearance-none border rounded w-full py-1 px-1 text-gray-700 leading-tight focus:outline-none focus:shadow-outline min-h-[150px] ">
       <ReactQuill
         theme={theme || "snow"}
         value={value}
@@ -175,6 +175,7 @@ const QuillJsCardCreator: React.FC<QuillEditorProps> = ({
         formats={formats}
         readOnly={readOnly}
         placeholder="Tu apunte en formato texto simple aquí..."
+        className="md:text-xl"
       />
     </div>
   );

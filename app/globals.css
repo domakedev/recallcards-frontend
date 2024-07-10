@@ -66,13 +66,14 @@ pre.ql-syntax {
 }
 .ql-editor pre {
   padding: 10px !important; /* Espaciado */
+  white-space: pre-wrap; /* Ajustar texto */
 }
 
 #editor-container {
   height: 100%;
   /* added these styles */
   flex: 1;
-  display: flex; 
+  display: flex;
   flex-direction: column;
 }
 
@@ -83,3 +84,14 @@ pre.ql-syntax {
   overflow-y: auto;
   width: 100%;
 }
+
+.ql-editor {
+  @apply md:text-base;
+}
+
+/* div .ql-disabled .ql-tooltip {
+  display: none; 
+  max-width: 0px;
+  max-height: 0px;
+  overflow: hidden;
+} */

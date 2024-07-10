@@ -36,9 +36,15 @@ const page = () => {
   const [disableRightButton, setDisableRightButton] = useState(false);
   const [prevCardNumber, setPrevCardNumber] = useState<number>();
   const [nextCardNumber, setNextCardNumber] = useState<number>();
+  const [actualDeckCardsIds, setActualDeckCardsIds] = useState<number[]>();
 
   const params = useParams();
   const userState = useAppSelector((state) => state.user);
+  const deckState = useAppSelector((state) => state.deck);
+
+  useEffect(() => {
+    setActualDeckCardsIds(deckState.cardsIds);
+  }, [deckState]);
 
   useEffect(() => {
     setUserDB(userState);
@@ -148,7 +154,7 @@ const page = () => {
 
   return (
     <div className="min-h-screen">
-    {/* <div className=""> */}
+      {/* <div className=""> */}
       {/* <NavBar
         title={`${cardDB?.question || cardName}`}
         goBack
@@ -195,7 +201,7 @@ const page = () => {
                 priority
               />
             ) : (
-                cardDB?.answer && (
+              cardDB?.answer && (
                 <CardAswerOnlyText
                   question={cardDB.question || "-"}
                   answer={cardDB.answer}
@@ -242,7 +248,11 @@ const page = () => {
             <></>
           )}
         </div>
-        {params.deck === "random" ? null : <CardControlButtons />}
+        {params.deck === "random" ||
+        !actualDeckCardsIds ||
+        actualDeckCardsIds.length === 0 ? null : (
+          <CardControlButtons />
+        )}
       </div>
     </div>
   );

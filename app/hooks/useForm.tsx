@@ -65,7 +65,6 @@ export const useAuthForm = () => {
         redirect: false,
         // callbackUrl: "/mis-decks",
       });
-      console.log("🚀 ~ useAuthForm ~ result:", result)
 
 
       if (result?.error || !result) {
