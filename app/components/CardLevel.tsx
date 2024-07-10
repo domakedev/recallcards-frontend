@@ -156,7 +156,7 @@ const NivelDificultad: React.FC<NivelDificultadProps> = ({
             <span className="block">
               Regístrate y guarda tu progreso en esta Card
             </span>
-            <span className="block">✅🟨🟥</span>
+            <span className="block"> ✅ 🟨 🟥 </span>
           </Link>
         </p>
       )}
