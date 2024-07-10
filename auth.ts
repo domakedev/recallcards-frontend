@@ -6,12 +6,15 @@ import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
 import prisma from "./config/db";
 import { PrismaAdapter } from "@auth/prisma-adapter";
+import { SignIn } from './app/components/Auth/SignIn';
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   pages: {
     signIn: "/auth/login",
-    newUser: "/", // If set, new users will be directed here on first sign in
+    newUser: "/mis-decks", // If set, new users will be directed here on first sign in
     error: "/auth/login", // Error code passed in query string as ?error=
+    //que otros metodos hay? 
+     
   },
   adapter: PrismaAdapter(prisma),
   session: {

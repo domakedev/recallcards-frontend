@@ -4,7 +4,7 @@ import { User } from "@/types/User";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import {  toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 export const useAuthForm = () => {
   const [form, setForm] = useState<User>({
@@ -63,14 +63,17 @@ export const useAuthForm = () => {
         email: form.email,
         password: form.password,
         redirect: false,
+        // callbackUrl: "/mis-decks",
       });
+      console.log("🚀 ~ useAuthForm ~ result:", result)
+
 
       if (result?.error || !result) {
         toast.error("Algo falló al loguear al usuario");
         setRegisterLoading(false);
       } else if (!result.error) {
         // toast.success("Usuario logueado correctamente");
-        window.location.replace("/");
+        window.location.replace("/mis-decks");
       }
     } catch (error) {
       toast.error("Algo falló al loguear al usuario");

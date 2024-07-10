@@ -4,11 +4,8 @@ import { useAuthForm } from "@/app/hooks/useForm";
 import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
-import { useState } from "react";
 import { FaGoogle } from "react-icons/fa";
-import { FcGoogle } from "react-icons/fc";
 
-import { toast } from "react-toastify";
 
 const AuthPage = () => {
   const router = useRouter();
@@ -18,10 +15,6 @@ const AuthPage = () => {
   const auth = params.auth;
   const isLogin = auth === "login";
 
-  // if (session.status === "authenticated") {
-  //   router.push("/");
-  // }
-
   if (auth !== "login" && auth !== "register") {
     router.push("/auth/login");
   }
@@ -29,7 +22,6 @@ const AuthPage = () => {
   const {
     form,
     inputHandler,
-    loginUser,
     registerUser,
     loginUserNextAuthCredentials,
     registerLoading,
@@ -37,12 +29,12 @@ const AuthPage = () => {
 
   const signInWithGoogle = async () => {
     await signIn("google", {
-      callbackUrl: "/",
+      callbackUrl: "/mis-decks",
     });
   };
 
   return (
-    <div className="flex min-h-screen -mb-16 items-center justify-center">
+    <div className="flex min-h-screen -mb-16 items-start justify-center mt-20">
       <div className="max-w-md p-8 space-y-6 bg-gray-100 shadow-md rounded-md w-4/5">
         <h2 className="text-2xl font-bold text-center text-gray-900">
           {isLogin ? "Inicia sesión" : "Regístrate"}

@@ -54,17 +54,21 @@ const ActiveRecallBanner = async () => {
     <div className="flex flex-col items-center sm:flex-row mx-auto bg-[#101728]  sm:max-h-fit overflow-hidden ">
       <div className="w-full sm:w-1/2 md:pr-8 p-4 order-2 sm:order-1">
         <h1 className="text-3xl md:text-4xl font-bold mb-4">
-          <span className="text-green-500">¡Sube</span>{" "}
-          <span className="text-yellow-500">tus apuntes,</span>{" "}
-          <span className="text-white">repasa</span>{" "}
+          <span className="text-white">¡Sube</span>{" "}
+          <span className="text-white">tus apuntes,</span>{" "}
+          <span className="text-green-500">repasa,</span>{" "}
+          <span className="text-yellow-500">registra</span>{" "}
           <span className="text-red-500">y nunca </span>{" "}
           <span className="text-white">los olvides!</span>
         </h1>
         <p className="mb-5 text-gray-200 flex flex-col items-start gap-2 text-sm md:text-base">
-          <span>🛠️ Esta app es una herramienta de estudio</span>
+          <span>
+            🛠️ Esta app es una herramienta de estudio{" "}
+            <span className="font-bold">¡Gratuita!</span>
+          </span>
           <span>✨ Que usa la técnica: Active Recall</span>
           <span>
-            {"⚡ Así lo "}
+            {"⚡ Lo que registres como "}
             <span className="bg-red-500 p-1 text-xs md:text-sm rounded-sm font-bold">
               {"Difícil"}
             </span>
@@ -77,7 +81,7 @@ const ActiveRecallBanner = async () => {
             </span>
             {" ¡después!"}
           </span>
-          <span>✍️ Para crear tus cards primero crea un ➡️ Deck</span>
+          <span>✍️ Para crear tus apuntes primero crea un ➡️ Deck</span>
         </p>
         <div className="flex justify-start w-fit">
           <CreateButton
