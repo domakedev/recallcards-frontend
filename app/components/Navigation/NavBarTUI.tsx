@@ -19,10 +19,10 @@ import SignInButton from "../Auth/SignInButton";
 import SignControlButton from "../Auth/SignControlButton";
 import { headers } from "next/headers";
 
-const navigation = [
-  { name: "Mis Apuntes", href: "/mis-decks", current: true },
-  // { name: "Deck X", href: "/", current: false },
-];
+// const navigation = [
+//   { name: "Mis Apuntes", href: "/mis-decks", current: true },
+//   // { name: "Deck X", href: "/", current: false },
+// ];
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -75,7 +75,7 @@ export default async function NavBarTUI({ params }: any) {
               <p className="ml-3 sm:block text-white">repasoActivo.com</p>
             </div>
             <div className="hidden sm:ml-6 sm:block">
-              <div className="flex space-x-4">
+              {/* <div className="flex space-x-4">
                 {navigation.map((item) => (
                   <Link
                     key={item.name}
@@ -92,7 +92,7 @@ export default async function NavBarTUI({ params }: any) {
                     {item.name}
                   </Link>
                 ))}
-              </div>
+              </div> */}
             </div>
           </div>
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
@@ -163,7 +163,7 @@ export default async function NavBarTUI({ params }: any) {
         </div>
       </div>
 
-      <DisclosurePanel className="sm:hidden">
+      {/* <DisclosurePanel className="sm:hidden">
         <div className="space-y-1 px-2 pb-3 pt-2">
           {navigation.map((item) => (
             <DisclosureButton
@@ -182,7 +182,7 @@ export default async function NavBarTUI({ params }: any) {
             </DisclosureButton>
           ))}
         </div>
-      </DisclosurePanel>
+      </DisclosurePanel> */}
     </Disclosure>
   );
 }

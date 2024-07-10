@@ -12,6 +12,9 @@ import { useAppSelector } from "@/redux/hooks";
 import { DeckDB } from "@/types/Deck";
 import { nameToSlug } from "@/utils/nameToSlug";
 import Image from "next/image";
+import { HiMiniHome } from "react-icons/hi2";
+import { GoHomeFill } from "react-icons/go";
+
 
 const Footer = () => {
   const params = useParams();
@@ -65,7 +68,7 @@ const Footer = () => {
           className="w-1/3 h-full active:bg-gray-700 flex items-center justify-center"
         >
           <div className="flex flex-col items-center justify-center">
-            <FaHome className="text-2xl my-1" />
+            <GoHomeFill  className="text-2xl my-1" />
             <span className="text-xs md:text-sm">Inicio</span>
           </div>
         </Link>
