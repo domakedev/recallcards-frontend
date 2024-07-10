@@ -58,8 +58,8 @@ const page = () => {
       toast.error("Escribe un nombre de mínimo 4 caracteres.");
       return;
     }
-    if (deck.name.length > 20) {
-      toast.error("Escribe un nombre de máximo 20 caracteres.");
+    if (deck.name.length > 15) {
+      toast.error("Escribe un nombre de máximo 15 caracteres.");
       return;
     }
     if (!image) {
@@ -125,23 +125,35 @@ const page = () => {
             <div>
               <label
                 htmlFor="name"
-                className="sr-only"
+                className="relative"
               >
-                Deck Name
+                <input
+                  type="text"
+                  disabled={!isAuth}
+                  id="name"
+                  name="name"
+                  value={deck.name}
+                  onChange={handleChange}
+                  required
+                  className={`appearance-none rounded-none relative w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:z-10 sm:text-sm ${
+                    !isAuth ? "cursor-not-allowed" : ""
+                  } ${
+                    deck.name.length > 15
+                      ? "focus:ring-red-500 focus:border-red-500"
+                      : "focus:ring-indigo-500 focus:border-indigo-500"
+                  }`}
+                  placeholder="Nombre del Deck o tema"
+                />
+                <div
+                  className={`absolute bottom-8 right-1 bg-gray-800 text-right text-xs rounded-lg p-1  ${
+                    deck.name.length > 15
+                      ? "text-white bg-red-500"
+                      : "text-gray-400"
+                  }`}
+                >
+                  {deck.name.length}/15
+                </div>
               </label>
-              <input
-                type="text"
-                disabled={!isAuth}
-                id="name"
-                name="name"
-                value={deck.name}
-                onChange={handleChange}
-                required
-                className={`appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm ${
-                  !isAuth ? "cursor-not-allowed" : ""
-                }`}
-                placeholder="Nombre del Deck o tema"
-              />
             </div>
             <div>
               {/* <label

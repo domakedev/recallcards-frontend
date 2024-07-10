@@ -42,10 +42,11 @@ const page = async () => {
 export default page;
 
 const ActiveRecallBanner = async () => {
+  const deckID = 2;
   const randomCards = await prisma.cards.findMany({
     take: 10,
     where: {
-      deckId: 2,
+      deckId: deckID,
     },
   });
 
@@ -59,10 +60,23 @@ const ActiveRecallBanner = async () => {
           <span className="text-red-500">y nunca </span>{" "}
           <span className="text-white">los olvides!</span>
         </h1>
-        <p className="mb-5 text-gray-200 flex flex-col items-start gap-2">
+        <p className="mb-5 text-gray-200 flex flex-col items-start gap-2 text-sm md:text-base">
           <span>🛠️ Esta app es una herramienta de estudio</span>
-          <span>✨ Que usa la técnica: Active Recall, asi...</span>
-          <span>⚡ Lo que marques como difícil ¡te aparecerá primero!</span>
+          <span>✨ Que usa la técnica: Active Recall</span>
+          <span>
+            {"⚡ Así lo "}
+            <span className="bg-red-500 p-1 text-xs md:text-sm rounded-sm font-bold">
+              {"Difícil"}
+            </span>
+            {" te aparecerá primero"}
+          </span>
+          <span>
+            {"⚡ Y lo "}
+            <span className="bg-green-500 p-1 text-xs md:text-sm rounded-sm font-bold">
+              {"Fácil"}
+            </span>
+            {" ¡después!"}
+          </span>
           <span>✍️ Para crear tus cards primero crea un ➡️ Deck</span>
         </p>
         <div className="flex justify-start w-fit">
@@ -83,7 +97,7 @@ const ActiveRecallBanner = async () => {
         <CardsSlider
           cards={randomCards}
           showRandomCard={false}
-          deckId={2}
+          deckId={deckID}
         ></CardsSlider>
       </div>
     </div>

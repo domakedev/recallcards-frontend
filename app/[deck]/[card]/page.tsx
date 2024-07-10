@@ -126,25 +126,29 @@ const page = () => {
 
   const onTouchEnd = () => {
     if (touchStart - touchEnd > minSwipeDistance) {
-      // Deslizamiento a la izquierda
-      toast.info("Cargando ⏭️", {
-        autoClose: 1000,
-      });
-      router.push(`${nextCardNumber}`);
+      if (!disableRightButton) {
+        // Deslizamiento a la izquierda
+        toast.info("Cargando ⏭️", {
+          autoClose: 1000,
+        });
+        router.push(`${nextCardNumber}`);
+      }
     }
 
     if (touchEnd - touchStart > minSwipeDistance) {
-      // Deslizamiento a la derecha
-      toast.info("Cargando ⏮️", {
-        autoClose: 1000,
-      });
-      router.push(`${prevCardNumber}`);
+      if (!disableLeftButton) {
+        // Deslizamiento a la derecha
+        toast.info("Cargando ⏮️", {
+          autoClose: 1000,
+        });
+        router.push(`${prevCardNumber}`);
+      }
     }
   };
 
   return (
-    // <div className="min-h-screen">
-    <div className="">
+    <div className="min-h-screen">
+    {/* <div className=""> */}
       {/* <NavBar
         title={`${cardDB?.question || cardName}`}
         goBack
@@ -203,39 +207,40 @@ const page = () => {
 
           {/* Como centrar un elemento absolute */}
           {!showCard || !imgLoaded ? null : (
-            <div className="">
-              <div
-                className={`min-w-full min-h-[85%] bg-gray-800 absolute bottom-0 ${
-                  showCard ? "blur brightness-100" : ""
-                }`}
-              ></div>
-              <div className="p-4 w-11/12 text-sm  bg-white ring-1 ring-gray-400 rounded-md absolute m-auto left-0 right-0 top-0 bottom-0 text-center self-center">
-                <p className="font-bold">¿Ya recordaste este contenido?</p>
-                <br />
-                <p className="italic">
-                  Active Recall es una de las mejores técnicas de estudio,
-                  actívala:
-                  {/* <iframe
-                    className="aspect-video mx-auto rounded-lg my-4"
-                    src="https://www.youtube.com/embed/QD-zwXc3dtQ?si=RHDV6-8hMhRpG4iE"
-                    title="YouTube video player"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    referrerpolicy="strict-origin-when-cross-origin"
-                    allowfullscreen
-                  ></iframe>{" "} */}
-                  <br />
-                  <br /> ✅Recordando la información <br /> ❌ sin leerla.
-                </p>{" "}
-                <br />
-                <button
-                  onClick={() => setShowCard((prev) => !prev)}
-                  className="bg-[#3a3a3a] text-white rounded-lg px-4 py-2 mt-2"
-                >
-                  ¡Verificar respuesta🤔!
-                </button>
-              </div>
-            </div>
+            // <div className="">
+            //   <div
+            //     className={`min-w-full min-h-[85%] bg-gray-800 absolute bottom-0 ${
+            //       showCard ? "blur brightness-100" : ""
+            //     }`}
+            //   ></div>
+            //   <div className="p-4 w-11/12 text-sm  bg-white ring-1 ring-gray-400 rounded-md absolute m-auto left-0 right-0 top-0 bottom-0 text-center self-center">
+            //     <p className="font-bold">¿Ya recordaste este contenido?</p>
+            //     <br />
+            //     <p className="italic">
+            //       Active Recall es una de las mejores técnicas de estudio,
+            //       actívala:
+            //       {/* <iframe
+            //         className="aspect-video mx-auto rounded-lg my-4"
+            //         src="https://www.youtube.com/embed/QD-zwXc3dtQ?si=RHDV6-8hMhRpG4iE"
+            //         title="YouTube video player"
+            //         frameborder="0"
+            //         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            //         referrerpolicy="strict-origin-when-cross-origin"
+            //         allowfullscreen
+            //       ></iframe>{" "} */}
+            //       <br />
+            //       <br /> ✅Recordando la información <br /> ❌ sin leerla.
+            //     </p>{" "}
+            //     <br />
+            //     <button
+            //       onClick={() => setShowCard((prev) => !prev)}
+            //       className="bg-[#3a3a3a] text-white rounded-lg px-4 py-2 mt-2"
+            //     >
+            //       ¡Verificar respuesta🤔!
+            //     </button>
+            //   </div>
+            // </div>
+            <></>
           )}
         </div>
         {params.deck === "random" ? null : <CardControlButtons />}

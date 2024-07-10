@@ -7,6 +7,7 @@ import DeckPlaceHolderIMG from "@/assets/placeholder-256x256.svg";
 import { toast } from "react-toastify";
 import { useAppDispatch } from "@/redux/hooks";
 import { setDeck } from "@/redux/deckSlice";
+import { TbCardsFilled } from "react-icons/tb";
 
 interface DeckPreviewProps {
   src: StaticImageData | string;
@@ -42,26 +43,23 @@ const DeckPreview: React.FC<DeckPreviewProps> = ({
   return (
     <Link
       href={`/deck-${deckId}-${deckSlug}`}
-      className="flex flex-col gap-2 transform transition-transform duration-200 active:scale-95 hover:scale-105 "
+      className="relative flex flex-col gap-2 transform transition-transform duration-200 active:scale-95 hover:scale-105 bg-gray-800 rounded-2xl"
       onClick={setActualDEck}
     >
       <Image
-        className="w-40 h-w-40 md:w-52 md:h-52 object-cover rounded-xl shadow-lg"
+        className="w-40 h-40 md:w-52 md:h-52 object-cover rounded-xl shadow-lg"
         src={src === "" ? DeckPlaceHolderIMG : src}
         width={700}
         height={700}
         alt="Deck vista previa"
         priority
       />
-      <div className="flex justify-start items-start text-md max-w-40 md:max-w-64 ">
+      <div className="absolute bottom-0 text-center rounded-b-xl text-white bg-gray-800 p-2 w-full flex justify-center items-start text-md max-w-40 md:max-w-64 ">
         <div className="min-w-5 mr-1">
-          <Image
-            className="w-[20px] mt-1"
-            src={CardsIcon}
-            alt="Icono de varias cartas"
-          />
+          <TbCardsFilled className="w-[20px] mt-[3px]" />
         </div>
-        <h2 className=" text-sm sm:text-base sm:max-w-36 md:text-lg max-w-32 md:max-w-44 break-words capitalize">
+
+        <h2 className=" text-sm sm:text-base sm:max-w-36 md:text-lg max-w-32 md:max-w-44 break-words capitalize text-ellipsis overflow-hidden text-nowrap">
           {deckName}
         </h2>
         {/* <div className="flex items-center gap-[2px]"> */}

@@ -98,9 +98,12 @@ const page = async ({ params }: { params: { deck: string } }) => {
           text={"Crear Apuntes"}
         />
       </div>
-      <h2 className=" text-2xl font-bold text-gray-800 my-6">
-        Elije una carta
-      </h2>
+      <p className="  my-6 text-center flex flex-col items-center">
+        <h2 className="text-2xl font-bold text-gray-800">Elije una carta</h2>
+        <span className="block text-xs text-gray-500">
+          Actualiza la página si no aparece tu cambio
+        </span>
+      </p>
       <CardsGrid
         cards={deckCards}
         deckId={+deckId}
