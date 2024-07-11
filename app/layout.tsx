@@ -13,35 +13,35 @@ import AuthProvider from "./components/AuthProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata: Metadata = {
-  title: "Repaso Activo",
-  description: "¡Apunta, guarda y repasa tus anotaciones de estudios!",
-  keywords: [
-    "Active Recall",
-    "Cards",
-    "Anotaciones",
-    "Estudios",
-    "Flashcards",
-    "Apuntes",
-    "Repaso",
-    "Repaso Activo",
-  ],
-  openGraph: {
-    type: "website",
-    locale: "es_ES",
-    url: "https://www.repasoactivo.com",
-    siteName: "Repaso Activo",
-    description: "¡Apunta, guarda y repasa tus anotaciones de estudios!",
-    images: [
-      {
-        url: "https://res.cloudinary.com/domakedev/image/upload/v1720011553/recall-cards/jnla7elnujumhabiw2dz.png",
-        alt: "Repaso Activo",
-        width: 1200,
-        height: 630,
-      },
-    ],
-  },
-};
+// export const metadata: Metadata = {
+//   title: "Repaso Activo",
+//   description: "¡Apunta, guarda y repasa tus anotaciones de estudios!",
+//   keywords: [
+//     "Active Recall",
+//     "Cards",
+//     "Anotaciones",
+//     "Estudios",
+//     "Flashcards",
+//     "Apuntes",
+//     "Repaso",
+//     "Repaso Activo",
+//   ],
+//   openGraph: {
+//     type: "website",
+//     locale: "es_ES",
+//     url: "https://www.repasoactivo.com",
+//     siteName: "Repaso Activo",
+//     description: "¡Apunta, guarda y repasa tus anotaciones de estudios!",
+//     images: [
+//       {
+//         url: "https://res.cloudinary.com/domakedev/image/upload/v1720011553/recall-cards/jnla7elnujumhabiw2dz.png",
+//         alt: "Repaso Activo",
+//         width: 1200,
+//         height: 630,
+//       },
+//     ],
+//   },
+// };
 
 export default function RootLayout({
   children,
