@@ -26,7 +26,7 @@ const CardAswerOnlyText = ({
       {preview ? (
         <div className="bg-[#101728] p-6 rounded-xl  shadow-xl w-[160px] sm:w-[200px] md:w-[250px]  border-gray-800 border-2 min-h-[200px] flex justify-center items-center">
           {/* Nice Title styles  */}
-          <h1 className=" text-xs sm:text-base md:text-lg font-bold text-gray-100 max-w-[100px] text-ellipsis    break-words ">
+          <h1 className=" text-xs sm:text-base md:text-lg font-bold text-gray-100 max-w-[150px] text-ellipsis    break-words ">
             {question}
           </h1>
         </div>
@@ -42,7 +42,7 @@ const CardAswerOnlyText = ({
           <h1 className=" text-xl font-bold text-gray-100 mb-6 self-center text-center min-w-[250px] max-w-[200px] md:max-w-[500px] break-words">
             {question}
           </h1>
-          <div className="text-xs sm:text-sm md:text-base flex-1 bg-slate-100 justify-center items-start flex shadow-inner rounded-lg p-1 md:p-1 text-gray-700 font-normal  break-words break-all whitespace-pre-wrap overflow-y-auto">
+          <div className="text-xs sm:text-sm md:text-base flex-1 bg-slate-100 justify-center items-start flex shadow-inner rounded-lg p-1 md:p-1 text-gray-700 font-normal  break-words  whitespace-pre-wrap overflow-y-auto">
             {answer.startsWith("<") ? (
               // <iframe src={answer} className="w-full h-full" />
               // <div dangerouslySetInnerHTML={{ __html: answer }} />

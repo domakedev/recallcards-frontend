@@ -42,13 +42,19 @@ const page = async () => {
 export default page;
 
 const ActiveRecallBanner = async () => {
-  const deckID = 46;
+  const deckID = 105;
   const randomCards = await prisma.cards.findMany({
     take: 20,
+    orderBy: {
+      id: "desc",
+    },
     where: {
       deckId: deckID,
     },
   });
+  const takeFirstCard = randomCards.shift();
+  const putInTheEnd = takeFirstCard && randomCards.push(takeFirstCard);
+  console.log("🚀 ~ ActiveRecallBanner ~ randomCards:", randomCards)
 
   return (
     <div className="flex flex-col items-center sm:flex-row mx-auto bg-[#101728]  sm:max-h-fit overflow-hidden ">

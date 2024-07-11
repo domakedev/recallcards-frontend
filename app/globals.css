@@ -89,6 +89,24 @@ pre.ql-syntax {
   @apply md:text-base;
 }
 
+.ql-editor > h1 {
+  @apply md:text-2xl;
+}
+
+.ql-editor > h2 {
+  @apply md:text-xl;
+}
+
+.ql-editor > h3 {
+  @apply md:text-lg;
+}
+
+.ql-editor > blockquote {
+  margin-top: 10px !important;
+  padding-left: 8px !important;
+  @apply border-l-4 border-gray-300 my-4 bg-gray-100;
+}
+
 /* div .ql-disabled .ql-tooltip {
   display: none; 
   max-width: 0px;
