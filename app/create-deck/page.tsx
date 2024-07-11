@@ -37,7 +37,7 @@ const page = () => {
   useEffect(() => {
     if (!userState.authenticated) {
       setIsAuth(false);
-      toast.error("No puedes crear un deck si no estás logeado.");
+      toast.error("Para crear un deck regístrate o inicia sesión.");
     }
     if (userState.authenticated) {
       setDeck({ ...deck, creatorId: userState.id });
