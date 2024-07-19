@@ -24,7 +24,7 @@ const CardAswerOnlyText = ({
   return (
     <>
       {preview ? (
-        <div className="bg-[#101728] p-6 rounded-xl  shadow-xl w-[160px] sm:w-[200px] md:w-[250px]  border-gray-800 border-2 min-h-[200px] flex justify-center items-center">
+        <div className="bg-[#101728] p-6 rounded-xl  shadow-xl w-[160px] h-[200px] sm:w-[200px] sm:h-[250px] md:w-[250px] md:h-[312.5px]  border-gray-800 border-2 min-h-[200px] flex justify-center items-center">
           {/* Nice Title styles  */}
           <h1 className=" text-xs sm:text-base md:text-lg font-bold text-gray-100 max-w-[150px] text-ellipsis    break-words ">
             {question}
