@@ -41,7 +41,6 @@ const page = () => {
   const params = useParams();
   const userState = useAppSelector((state) => state.user);
   const deckState = useAppSelector((state) => state.deck);
-  console.log("🚀 ~ page ~ deckState:", deckState);
 
   useEffect(() => {
     const newDeck = {

@@ -28,7 +28,6 @@ const page = () => {
   const [imageBlobUrl, setImageBlobUrl] = useState<string>("");
   const [image, setImage] = useState<File>();
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
-
   // const userState = {
   //   authenticated: true,
   //   id: 1,
@@ -45,6 +44,14 @@ const page = () => {
       setIsAdmin(userState.roles.includes("admin"));
     }
   }, [userState]);
+
+  useEffect(() => {
+    if (image && !image?.type.includes("image")) {
+      toast.error("Solo puedes subir imágenes");
+      setImage(undefined);
+      setImageBlobUrl("");
+    }
+  }, [image]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -67,6 +74,10 @@ const page = () => {
       return;
     }
     if (deck.id === 0) {
+      return;
+    }
+    if (!image?.type.includes("image")) {
+      toast.error("Solo puedes subir imágenes");
       return;
     }
     setIsLoading(true);

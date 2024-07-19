@@ -54,7 +54,6 @@ const ActiveRecallBanner = async () => {
   });
   const takeFirstCard = randomCards.shift();
   const putInTheEnd = takeFirstCard && randomCards.push(takeFirstCard);
-  console.log("🚀 ~ ActiveRecallBanner ~ randomCards:", randomCards)
 
   return (
     <div className="flex flex-col items-center sm:flex-row mx-auto bg-[#101728]  sm:max-h-fit overflow-hidden ">

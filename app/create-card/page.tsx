@@ -45,10 +45,18 @@ const CreateCard: React.FC = () => {
   const userStateRedux = useAppSelector((state) => state.user);
   const deckStateRedux = useAppSelector((state) => state.deck);
 
-
   useEffect(() => {
     setNewCard({ ...newCard, answer: contentQuillJs });
   }, [contentQuillJs]);
+
+  useEffect(() => {
+    if (image && !image?.type.includes("image")) {
+      toast.error("Solo puedes subir imágenes");
+      setImage(undefined);
+      setImageBlobUrl("");
+      setDisableAnswerText(false)
+    }
+  }, [image]);
 
   useEffect(() => {
     if (deckStateRedux.id !== 0) {
@@ -125,6 +133,10 @@ const CreateCard: React.FC = () => {
     }
     if (newCard.answer === "" && !image) {
       toast.error("No puedes dejar la respuesta vacía");
+      return;
+    }
+    if (!image?.type.includes("image")) {
+      toast.error("Solo puedes subir imágenes");
       return;
     }
     try {
