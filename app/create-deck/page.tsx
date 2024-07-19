@@ -12,6 +12,7 @@ import { uploadImage } from "@/services/image.services";
 import Image from "next/image";
 import { nameToSlug } from "@/utils/nameToSlug";
 import { setDeck as setDeckRedux } from "@/redux/deckSlice";
+import { FaCamera, FaImage } from "react-icons/fa";
 
 const page = () => {
   const router = useRouter();
@@ -187,7 +188,8 @@ const page = () => {
               /> */}
               <label
                 htmlFor="image"
-                className="  cursor-pointer flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md"
+                // className="  cursor-pointer flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md"
+                className="w-fit mr-4 py-2 px-4 mt-5 rounded border-0 text-sm font-semibold bg-blue-50 text-blue-700 hover:bg-blue-100 flex items-center gap-2 cursor-pointer"
               >
                 <input
                   type="file"
@@ -196,8 +198,15 @@ const page = () => {
                   id="image"
                   multiple={false}
                   onChange={fileChangeHandler}
-                  className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
-                />
+                  // className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                  className="hidden"
+                />{" "}
+                <span className="text-black">Portada del Deck</span>
+                <span className="">Imagen</span>
+                <FaImage className="inline" />
+                <span>o</span>
+                <span>Foto</span>
+                <FaCamera className="inline" />
               </label>
               {imageBlobUrl && (
                 <Image

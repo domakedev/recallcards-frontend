@@ -73,16 +73,16 @@ const ActiveRecallBanner = async () => {
           </span>
           <span>✨ Que usa la técnica: Active Recall</span>
           <span>
-            {"⚡ Lo que registres como "}
+            {"⚡ Los apuntes que registres como "}
             <span className="bg-red-500 p-1 text-xs md:text-sm rounded-sm font-bold">
               {"Difícil"}
             </span>
-            {" te aparecerá primero"}
+            {" te aparecerán primero"}
           </span>
           <span>
-            {"⚡ Y lo "}
+            {"⚡ Y los "}
             <span className="bg-green-500 p-1 text-xs md:text-sm rounded-sm font-bold">
-              {"Fácil"}
+              {"Fáciles"}
             </span>
             {" ¡después!"}
           </span>
