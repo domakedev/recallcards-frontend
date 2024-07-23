@@ -13,6 +13,7 @@ import DeleteDeckButton from "../components/Button/DeleteDeckButton";
 
 import { Metadata, ResolvingMetadata } from "next";
 import Image from "next/image";
+import { FaWhatsapp } from "react-icons/fa";
 
 type Props = {
   params: { deck: string };
@@ -115,7 +116,27 @@ const page = async ({ params }: { params: { deck: string } }) => {
         </div>
       ) : (
         <div className="  my-6 text-center flex flex-col items-center">
-          <h2 className="text-2xl font-bold text-gray-800">No hay cartas</h2>
+          <h2 className="text-2xl font-bold text-gray-800">
+            No hay Apuntes(cards), si eres el creador puedes crear uno como
+            imagen o texto.
+          </h2>
+          <blockquote className="bg-yellow-200 p-4 rounded-lg shadow-md flex items-center gap-2 m-8 w-fit max-w-[800px]">
+            <a
+              href="https://api.whatsapp.com/send?phone=51943047804&text=Hola%2C%20me%20gustaria%20contactar%20contigo%20sobre%3A%20"
+              className="text-green-800 hover:text-green-600 flex"
+              target="_blank"
+            >
+              <p className="text-base font-semibold">
+                ⚠️ Si tienes problemas para crear un apunte o tienes dudas,
+                escríbeme para ayudarte o solucionar el problema, ¡Gracias!, soy
+                el creador:
+              </p>
+              <FaWhatsapp
+                size={24}
+                className="min-w-12 self-center"
+              />
+            </a>
+          </blockquote>
         </div>
       )}
       <CardsGrid
