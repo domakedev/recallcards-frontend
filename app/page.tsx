@@ -67,6 +67,7 @@ const ActiveRecallBanner = async () => {
           <span className="text-white">los olvides!</span>
         </h1>
         <p className="mb-5 text-gray-200 flex flex-col items-start gap-2 text-sm md:text-base">
+          <span>✍️ Para crear tus apuntes primero crea un ➡️ Deck</span>
           <span>
             🛠️ Esta app es una herramienta de estudio{" "}
             <span className="font-bold">¡Gratuita!</span>
@@ -86,7 +87,7 @@ const ActiveRecallBanner = async () => {
             </span>
             {" ¡después!"}
           </span>
-          <span>✍️ Sube o crea tus apuntes dentro de un ➡️ Deck</span>
+          <span>✍️ Tus apuntes se agruparan en un deck público 🌐</span>
         </p>
         <div className="flex justify-start w-fit">
           <CreateButton
