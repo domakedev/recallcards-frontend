@@ -135,7 +135,7 @@ const CreateCard: React.FC = () => {
       toast.error("No puedes dejar la respuesta vacía");
       return;
     }
-    if (!image?.type.includes("image")) {
+    if (image && !image?.type.includes("image")) {
       toast.error("Solo puedes subir imágenes");
       return;
     }
