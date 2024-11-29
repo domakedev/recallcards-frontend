@@ -25,35 +25,33 @@ import {
 } from "@/lib/card.functions";
 import { setCardsIds } from "@/redux/deckSlice";
 import { useRouter } from "next/navigation";
-import { getDecks } from "@/services/deck.services";
-import { Deck } from "@/types/Deck";
 
 interface CardsSliderProps {
   cards: CardDB[];
-  // children: React.ReactNode;
   deckId: number;
   showRandomCard?: boolean;
 }
 
-const CardsSlider = ({ cards, deckId, showRandomCard = true }: CardsSliderProps) => {
+const CardsSlider = ({
+  cards,
+  deckId,
+  showRandomCard = true,
+}: CardsSliderProps) => {
   const swiperRef = useRef<SwiperType | null>(null);
-  const dispacth = useAppDispatch();
+  const dispatch = useAppDispatch();
 
   // const numeroDeHijos = React.Children.count(children);
   const userState = useAppSelector((state) => state.user);
-  const [isAuth, setIsAuth] = useState<boolean>(false);
   const [userId, setUserId] = useState<number>();
   const [userEmail, setUserEmail] = useState<string>();
   const [cardsDifficultiesByUserAndDeck, setcardsDifficultiesByUserAndDeck] =
     useState<cardsDifficultiesByUserAndDeck>();
   const [deckCards, setDeckCards] = useState<CardDB[]>(cards);
-  const [actualDeck, setActualDeck] = useState<Deck>();
 
   const router = useRouter();
 
   useEffect(() => {
     if (userState) {
-      setIsAuth(userState.authenticated);
       setUserId(userState.id);
       setUserEmail(userState.email);
     }
@@ -66,7 +64,7 @@ const CardsSlider = ({ cards, deckId, showRandomCard = true }: CardsSliderProps)
     const idsArr = cards.map((cards: { id: any }) => cards.id);
     // Uso a: "idsArr"  para el random card
     // setDeckCardsIds(idsArr);
-    dispacth(setCardsIds(idsArr));
+    dispatch(setCardsIds(idsArr));
     if (userId === undefined) {
       return;
     }
@@ -81,29 +79,21 @@ const CardsSlider = ({ cards, deckId, showRandomCard = true }: CardsSliderProps)
       const resetCards = sortCards(
         cards,
         userId,
-        cardsDifficultiesByUserAndDeck
+        cardsDifficultiesByUserAndDeck,
       );
       return setDeckCards(resetCards);
     }
-  }, [cards, cardsDifficultiesByUserAndDeck, dispacth, userId]);
+  }, [cards, cardsDifficultiesByUserAndDeck, dispatch, userId]);
 
   useEffect(() => {
     if (deckId === undefined || !deckId) {
       router.push("/");
     }
-    if (deckId) {
-      // getDecks().then((data) => setDecks(data.decks));
-      getDecks().then((data) =>
-        setActualDeck(
-          data.decks?.find((deck: { id: number }) => deck.id === Number(deckId))
-        )
-      );
-    }
     if (userId && deckId) {
       getCardsDifficultyByDeckId({ userId, deckId: Number(deckId) }).then(
         (data) => {
           setcardsDifficultiesByUserAndDeck(data);
-        }
+        },
       );
     }
   }, [deckId, userId]);
@@ -119,7 +109,7 @@ const CardsSlider = ({ cards, deckId, showRandomCard = true }: CardsSliderProps)
   };
 
   return (
-    <div className="w-full overflow-hidden mb-2 flex flex-col items-center gap-2 my-5">
+    <div className="my-5 mb-2 flex w-full flex-col items-center gap-2 overflow-hidden">
       <Swiper
         effect={"cards"}
         grabCursor={true}
@@ -130,22 +120,25 @@ const CardsSlider = ({ cards, deckId, showRandomCard = true }: CardsSliderProps)
         }}
       >
         {deckCards.map((e, i) => (
-          <SwiperSlide key={i}>
+          <SwiperSlide
+            key={i}
+            className="h-fit"
+          >
             <SlidingCard
               key={i}
-              image={e.answer}
+              answer={e.answer}
               cardName={e.question || "-"}
               id={e.id}
               userId={userId}
               difficulty={getCardDifficulty(
                 userId,
                 e.id,
-                cardsDifficultiesByUserAndDeck
+                cardsDifficultiesByUserAndDeck,
               )}
               cardDifficultyId={getCardDifficultyId(
                 userId,
                 e.id,
-                cardsDifficultiesByUserAndDeck
+                cardsDifficultiesByUserAndDeck,
               )}
               userEmail={userEmail}
             />

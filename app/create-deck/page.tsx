@@ -13,6 +13,7 @@ import Image from "next/image";
 import { nameToSlug } from "@/utils/nameToSlug";
 import { setDeck as setDeckRedux } from "@/redux/deckSlice";
 import { FaCamera, FaImage } from "react-icons/fa";
+import React from "react";
 
 const page = () => {
   const router = useRouter();
@@ -28,11 +29,6 @@ const page = () => {
   const dispatch = useAppDispatch();
   const [imageBlobUrl, setImageBlobUrl] = useState<string>("");
   const [image, setImage] = useState<File>();
-  const [isAdmin, setIsAdmin] = useState<boolean>(false);
-  // const userState = {
-  //   authenticated: true,
-  //   id: 1,
-  // };
 
   useEffect(() => {
     if (!userState.authenticated) {
@@ -42,7 +38,6 @@ const page = () => {
     if (userState.authenticated) {
       setDeck({ ...deck, creatorId: userState.id });
       setIsAuth(true);
-      setIsAdmin(userState.roles.includes("admin"));
     }
   }, [userState]);
 
@@ -101,7 +96,7 @@ const page = () => {
       };
       dispatch(setDeckRedux(newDeck));
       router.push(
-        `/deck-${result.newDeck.id}-${nameToSlug(result.newDeck.name)}`
+        `/deck-${result.newDeck.id}-${nameToSlug(result.newDeck.name)}`,
       );
     }
   };
@@ -118,7 +113,7 @@ const page = () => {
 
   return (
     <div className="flex items-center justify-center py-8">
-      <div className="max-w-md w-full space-y-8 p-10 bg-white rounded-xl shadow-lg z-10">
+      <div className="z-10 w-full max-w-md space-y-8 rounded-xl bg-white p-10 shadow-lg">
         <div className="text-center">
           <h2 className="mt-6 text-3xl font-extrabold text-gray-900">
             {title}
@@ -133,7 +128,7 @@ const page = () => {
           onSubmit={handleSubmit}
           className="mt-8 space-y-6"
         >
-          <div className="rounded-md shadow-sm -space-y-px">
+          <div className="-space-y-px rounded-md shadow-sm">
             <div>
               <label
                 htmlFor="name"
@@ -147,19 +142,19 @@ const page = () => {
                   value={deck.name}
                   onChange={handleChange}
                   required
-                  className={`appearance-none rounded-none relative w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:z-10 sm:text-sm ${
+                  className={`relative w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:outline-none sm:text-sm ${
                     !isAuth ? "cursor-not-allowed" : ""
                   } ${
                     deck.name.length > 15
-                      ? "focus:ring-red-500 focus:border-red-500"
-                      : "focus:ring-indigo-500 focus:border-indigo-500"
+                      ? "focus:border-red-500 focus:ring-red-500"
+                      : "focus:border-indigo-500 focus:ring-indigo-500"
                   }`}
                   placeholder="Nombre del Deck o tema"
                 />
                 <div
-                  className={`absolute bottom-8 right-1 bg-gray-800 text-right text-xs rounded-lg p-1  ${
+                  className={`absolute bottom-8 right-1 rounded-lg bg-gray-800 p-1 text-right text-xs ${
                     deck.name.length > 15
-                      ? "text-white bg-red-500"
+                      ? "bg-red-500 text-white"
                       : "text-gray-400"
                   }`}
                 >
@@ -168,28 +163,9 @@ const page = () => {
               </label>
             </div>
             <div>
-              {/* <label
-                htmlFor="image"
-                className="sr-only"
-              >
-                Deck Image URL. 
-              </label>
-              <input
-                type="text"
-                disabled={!isAuth}
-                id="image"
-                name="image"
-                value={deck.image}
-                onChange={handleChange}
-                className={`appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm ${
-                  !isAuth ? "cursor-not-allowed" : ""
-                }`}
-                placeholder="Deck Image[1:1] URL"
-              /> */}
               <label
                 htmlFor="image"
-                // className="  cursor-pointer flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md"
-                className="w-fit mr-4 py-2 px-4 mt-5 rounded border-0 text-sm font-semibold bg-blue-50 text-blue-700 hover:bg-blue-100 flex items-center gap-2 cursor-pointer"
+                className="mr-4 mt-5 flex w-fit cursor-pointer items-center gap-2 rounded border-0 bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-700 hover:bg-blue-100"
               >
                 <input
                   type="file"
@@ -198,9 +174,8 @@ const page = () => {
                   id="image"
                   multiple={false}
                   onChange={fileChangeHandler}
-                  // className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
                   className="hidden"
-                />{" "}
+                />
                 <span className="text-black">Portada del Deck</span>
                 <span className="">Imagen</span>
                 <FaImage className="inline" />
@@ -212,7 +187,7 @@ const page = () => {
                 <Image
                   src={imageBlobUrl}
                   alt="Preview"
-                  className="mt-4 w-full object-cover rounded"
+                  className="mt-4 w-full rounded object-cover"
                   width={300}
                   height={300}
                 />
@@ -226,8 +201,8 @@ const page = () => {
               disabled={!isAuth}
               className={`${
                 isLoading ? "rainbow-animation" : ""
-              } group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 ${
-                !isAuth ? "cursor-not-allowed bg-gray-600 " : ""
+              } group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 ${
+                !isAuth ? "cursor-not-allowed bg-gray-600" : ""
               }`}
             >
               {isAuth
@@ -243,14 +218,14 @@ const page = () => {
             <button
               onClick={() => router.push("/auth/login")}
               disabled={isAuth}
-              className={`group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 my-4`}
+              className={`group relative my-4 flex w-full justify-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2`}
             >
               Iniciar Sesión
             </button>
             <button
               onClick={() => router.push("/auth/register")}
               disabled={isAuth}
-              className={`group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 my-4`}
+              className={`group relative my-4 flex w-full justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2`}
             >
               Registrarme
             </button>

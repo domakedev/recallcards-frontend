@@ -4,7 +4,6 @@ import { createCard } from "@/services/card.services";
 import { uploadImages } from "@/services/image.services";
 import { Card } from "@/types/Card";
 import { DeckDB } from "@/types/Deck";
-import Image from "next/image";
 import React, {
   useState,
   ChangeEvent,
@@ -13,14 +12,12 @@ import React, {
   useEffect,
 } from "react";
 import { toast } from "react-toastify";
-import NavBar from "../components/NavBar";
 import { useRouter } from "next/navigation";
 
 const CreateCard: React.FC = () => {
   const [newCard, setNewCard] = useState<Card>({
     answer: "",
     question: "",
-    // @TODO: Cambiar estos valores por los valores reales
     deckId: 0,
     creatorId: 0,
   });
@@ -29,7 +26,6 @@ const CreateCard: React.FC = () => {
   const [thereIsDeck, setThereIsDeck] = useState<boolean>(false);
   const [userId, setUserId] = useState<number>();
   const [deckState, setDeckState] = useState<DeckDB>();
-  const [isAdmin, setIsAdmin] = useState<boolean>(false);
 
   const router = useRouter();
 
@@ -64,7 +60,6 @@ const CreateCard: React.FC = () => {
       setThereIsDeck(false);
     } else {
       setUserId(userStateRedux.id);
-      setIsAdmin(userStateRedux.roles.includes("admin"));
     }
   }, [userStateRedux]);
 
@@ -104,7 +99,6 @@ const CreateCard: React.FC = () => {
 
       //Cargar imagenes a Cloudinary y obtener la URL
       if (images && images.length > 1) {
-        //@TODO: añadir 2do argumento: deckName
         setIsLoading(true);
         const imagesURLArr = await uploadImages(images, String(deckState?.id));
 
@@ -123,7 +117,6 @@ const CreateCard: React.FC = () => {
           setNewCard({
             answer: "",
             question: "",
-            // @TODO: Cambiar estos valores por los valores reales
             deckId: 0,
             creatorId: 0,
           });
@@ -140,28 +133,20 @@ const CreateCard: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center bg-gradient-to-r from-blue-500 to-teal-500 min-h-screen -mb-32 pb-16 pt-16">
-      {/* <NavBar
-        title={`${
-          userStateRedux.id !== deckState?.creatorId
-            ? "No tienes permisos para crear cartas en este deck"
-            : "🌲⛅🌲"
-        }`}
-        goBack={false}
-      /> */}
+    <div className="-mb-32 flex min-h-screen flex-col items-center bg-gradient-to-r from-blue-500 to-teal-500 pb-16 pt-16">
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-lg bg-white rounded-lg shadow-xl p-8"
+        className="w-full max-w-lg rounded-lg bg-white p-8 shadow-xl"
       >
-        <p className=" text-md text-gray-400 mb-3">
-          📖 Sube tus apuntes, estúdialos y registra tu progreso ✍️
+        <p className="text-md mb-3 text-gray-400">
+          📖 Crea apuntes, repasa y registra tu progreso ✍️
         </p>
-        <h2 className="text-2xl font-bold text-gray-800 mb-6">Crea Cards</h2>
+        <h2 className="mb-6 text-2xl font-bold text-gray-800">Crea Cards</h2>
         <div className="mb-6">
-          <label className="text-gray-700 text-sm font-bold mb-2 flex flex-col gap-1">
+          <label className="mb-2 flex flex-col gap-1 text-sm font-bold text-gray-700">
             {/* Respuesta puede ser: texto o imagen(url o archivo) */}
             <span>Crearé una card por cada una de tus imágenes 🙌✅</span>
-            <blockquote className="text-sm p-2 font-light border-l-4 my-2 bg-neutral-100 text-neutral-600 border-neutral-500 quote flex items-center">
+            <blockquote className="quote my-2 flex items-center border-l-4 border-neutral-500 bg-neutral-100 p-2 text-sm font-light text-neutral-600">
               Te recomiendo usar un formato rectangular tipo Card:{" "}
               <span className="text-3xl">🎴</span>
             </blockquote>
@@ -172,13 +157,13 @@ const CreateCard: React.FC = () => {
             multiple={true}
             accept="image/*"
             onChange={handleImageChange}
-            className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+            className="block w-full text-sm text-gray-500 file:mr-4 file:rounded file:border-0 file:bg-blue-50 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-blue-700 hover:file:bg-blue-100"
           />
           <button
             id="deselecting"
             type="button"
             onClick={removeImage}
-            className={`bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4 text-sm ${
+            className={`focus:shadow-outline mt-4 rounded bg-red-500 px-4 py-2 text-sm font-bold text-white hover:bg-red-700 focus:outline-none ${
               images ? "block" : "hidden"
             }`}
           >
@@ -188,22 +173,18 @@ const CreateCard: React.FC = () => {
         <div className="flex items-center justify-between">
           <button
             type="submit"
-            // disabled={!thereIsDeck || userId!==deckState?.creatorId}
-            disabled={
-              userId !== deckState?.creatorId || !thereIsDeck
-              // userId !== deckState?.creatorId || !thereIsDeck || !isAdmin
-            }
-            className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transform transition duration-150 ease-in-out ${
+            disabled={userId !== deckState?.creatorId || !thereIsDeck}
+            className={`focus:shadow-outline transform rounded bg-blue-500 px-4 py-2 font-bold text-white transition duration-150 ease-in-out hover:bg-blue-700 focus:outline-none ${
               userId === deckState?.creatorId && thereIsDeck
                 ? ""
-                : "bg-gray-500 hover:bg-gray-500 cursor-not-allowed"
+                : "cursor-not-allowed bg-gray-500 hover:bg-gray-500"
             }`}
           >
             {isLoading ? "Creando Cards..." : "Crear Cards"}
           </button>
           <button
             type="button"
-            className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transform transition duration-150 ease-in-out"
+            className="focus:shadow-outline transform rounded bg-gray-500 px-4 py-2 font-bold text-white transition duration-150 ease-in-out hover:bg-gray-700 focus:outline-none"
             onClick={() => {
               router.back();
             }}

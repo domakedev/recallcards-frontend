@@ -13,35 +13,35 @@ import AuthProvider from "./components/AuthProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
-// export const metadata: Metadata = {
-//   title: "Repaso Activo",
-//   description: "¡Apunta, guarda y repasa tus anotaciones de estudios!",
-//   keywords: [
-//     "Active Recall",
-//     "Cards",
-//     "Anotaciones",
-//     "Estudios",
-//     "Flashcards",
-//     "Apuntes",
-//     "Repaso",
-//     "Repaso Activo",
-//   ],
-//   openGraph: {
-//     type: "website",
-//     locale: "es_ES",
-//     url: "https://www.repasoactivo.com",
-//     siteName: "Repaso Activo",
-//     description: "¡Apunta, guarda y repasa tus anotaciones de estudios!",
-//     images: [
-//       {
-//         url: "https://res.cloudinary.com/domakedev/image/upload/v1720011553/recall-cards/jnla7elnujumhabiw2dz.png",
-//         alt: "Repaso Activo",
-//         width: 1200,
-//         height: 630,
-//       },
-//     ],
-//   },
-// };
+export const metadata: Metadata = {
+  title: "Repaso Activo",
+  description: "¡Crea y repasa tus anotaciones de estudios en flashcards!",
+  keywords: [
+    "Active Recall",
+    "Cards",
+    "Anotaciones",
+    "Estudios",
+    "Flashcards",
+    "Apuntes",
+    "Repaso",
+    "Repaso Activo",
+  ],
+  openGraph: {
+    type: "website",
+    locale: "es_ES",
+    url: "https://www.repasoactivo.com",
+    siteName: "Repaso Activo",
+    description: "¡Apunta, guarda y repasa tus anotaciones de estudios!",
+    images: [
+      {
+        url: "https://res.cloudinary.com/domakedev/image/upload/v1720011553/recall-cards/jnla7elnujumhabiw2dz.png",
+        alt: "Repaso Activo",
+        width: 1200,
+        height: 630,
+      },
+    ],
+  },
+};
 
 export default function RootLayout({
   children,
@@ -64,12 +64,11 @@ export default function RootLayout({
       />
       <GoogleAnalytics />
 
-      <body className={`${inter.className} flex flex-col min-h-full`}>
-        {/* <header className="min-h-[10px] bg-green-100">Header</header> */}
+      <body className={`${inter.className} flex min-h-full flex-col`}>
         <AuthProvider>
           <Providers>
             <Navbar />
-            <main className="flex-grow">{children}</main>
+            <main className="flex-grow justify-center">{children}</main>
             {/* Create a footer that show a nice message */}
             <Footer />
           </Providers>

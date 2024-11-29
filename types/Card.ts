@@ -21,3 +21,5 @@ export type cardsDifficultiesByUserAndDeck = {
   difficultyId: 1 | 2 | 3;
   deckId: number;
 }[];
+
+export type SubjectType = "ingles" | "software" | "simple";

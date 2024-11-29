@@ -2,7 +2,6 @@ export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 import React from "react";
-import NavBar from "../components/NavBar";
 import { redirect } from "next/navigation";
 
 import CardsSlider from "../components/CardSlider/CardsSlider";
@@ -11,8 +10,7 @@ import CreateDeckButton from "../components/Button/CreateDeckButton";
 import prisma from "@/config/db";
 import DeleteDeckButton from "../components/Button/DeleteDeckButton";
 
-import { Metadata, ResolvingMetadata } from "next";
-import Image from "next/image";
+import { ResolvingMetadata } from "next";
 import { FaWhatsapp } from "react-icons/fa";
 
 type Props = {
@@ -21,7 +19,7 @@ type Props = {
 
 export async function generateMetadata(
   { params }: Props,
-  parent: ResolvingMetadata
+  parent: ResolvingMetadata,
 ): Promise<any> {
   // read route params
   const id = params.deck.split("-")[1];
@@ -87,7 +85,7 @@ const page = async ({ params }: { params: { deck: string } }) => {
   //Funcion para traer las dificultades de las cartas del deck
 
   return (
-    <div className="w-full flex flex-col items-center">
+    <div className="flex w-full flex-col items-center">
       {/* <h2 className=" text-2xl font-bold text-gray-800 my-6">
         Pre-Visualizador
       </h2> */}
@@ -96,7 +94,7 @@ const page = async ({ params }: { params: { deck: string } }) => {
         deckId={+deckId}
       ></CardsSlider>
 
-      <div className="flex flex-col items-center sm:flex-row  gap-3 my-5">
+      <div className="my-5 flex flex-col items-center gap-3 sm:flex-row">
         <CreateDeckButton
           href={"/create-card"}
           text={"Crear Apunte"}
@@ -108,22 +106,22 @@ const page = async ({ params }: { params: { deck: string } }) => {
         />
       </div>
       {deckCards.length > 0 ? (
-        <div className="  my-6 text-center flex flex-col items-center">
+        <div className="my-6 flex flex-col items-center text-center">
           <h2 className="text-2xl font-bold text-gray-800">Elije una carta</h2>
           <span className="block text-xs text-gray-500">
             Actualiza la página si no aparece tu cambio
           </span>
         </div>
       ) : (
-        <div className="  my-6 text-center flex flex-col items-center">
+        <div className="my-6 flex flex-col items-center text-center">
           <h2 className="text-2xl font-bold text-gray-800">
             No hay Apuntes(cards), si eres el creador puedes crear uno como
             imagen o texto.
           </h2>
-          <blockquote className="bg-yellow-200 p-4 rounded-lg shadow-md flex items-center gap-2 m-8 w-fit max-w-[800px]">
+          <blockquote className="m-8 flex w-fit max-w-[800px] items-center gap-2 rounded-lg bg-yellow-200 p-4 shadow-md">
             <a
               href="https://api.whatsapp.com/send?phone=51943047804&text=Hola%2C%20me%20gustaria%20contactar%20contigo%20sobre%3A%20"
-              className="text-green-800 hover:text-green-600 flex"
+              className="flex text-green-800 hover:text-green-600"
               target="_blank"
             >
               <p className="text-base font-semibold">

@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import CardPreview from "./CardPreview";
+import CardPreview from "./Card/CardPreview";
 import { CardDB, cardsDifficultiesByUserAndDeck } from "@/types/Card";
 import LargeButton from "./LargeButton";
 import DadosIcon from "@/assets/dados-icon.svg";
@@ -56,7 +56,7 @@ const CardsGrid = ({ cards, deckId }: CardsGridProps) => {
       const resetCards = sortCards(
         cards,
         userId,
-        cardsDifficultiesByUserAndDeck
+        cardsDifficultiesByUserAndDeck,
       );
       return setDeckCards(resetCards);
     }
@@ -67,15 +67,17 @@ const CardsGrid = ({ cards, deckId }: CardsGridProps) => {
       // getDecks().then((data) => setDecks(data.decks));
       getDecks().then((data) =>
         setActualDeck(
-          data.decks?.find((deck: { id: number }) => deck.id === Number(deckId))
-        )
+          data.decks?.find(
+            (deck: { id: number }) => deck.id === Number(deckId),
+          ),
+        ),
       );
     }
     if (userId && deckId) {
       getCardsDifficultyByDeckId({ userId, deckId: Number(deckId) }).then(
         (data) => {
           setcardsDifficultiesByUserAndDeck(data);
-        }
+        },
       );
     }
   }, [deckId, userId]);
@@ -92,7 +94,7 @@ const CardsGrid = ({ cards, deckId }: CardsGridProps) => {
           }`}
         ></LargeButton>
       )}
-      <div className="flex flex-wrap gap-4 p-5 justify-center">
+      <div className="flex flex-wrap justify-center gap-4 p-5">
         {deckCards?.map((e, i) => (
           <CardPreview
             key={i}

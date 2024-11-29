@@ -72,11 +72,11 @@ const NivelDificultad: React.FC<NivelDificultadProps> = ({
         setCardDifficultyId(res.difficultyId);
         toast.success(
           `Dificultad de la card "${cardId}" creada: "${getName(
-            number
+            number,
           )}" del usuario ${userEmail}`,
           {
             autoClose: 1000,
-          }
+          },
         );
       }
       //Actualiza difficulty si ya esta definido
@@ -89,11 +89,11 @@ const NivelDificultad: React.FC<NivelDificultadProps> = ({
         //res es el registro actualizado completo
         toast.success(
           `Dificultad de la card "${cardId}" actualizada a: "${getName(
-            number
+            number,
           )}" del usuario ${userEmail}`,
           {
             autoClose: 1000,
-          }
+          },
         );
       }
       router.refresh();
@@ -124,34 +124,38 @@ const NivelDificultad: React.FC<NivelDificultadProps> = ({
   }, [cardDifficultId]);
 
   return (
-    <div className="m-3">
+    <div className="m-3 space-y-2">
       {isAuth ? (
-        <div className="flex gap-1 sm:gap-2 md:gap-3">
-          {niveles.map((nivel) => (
-            <label
-              key={uuidv4()}
-              className={`text-sm md:text-xl py-1 px-4 rounded ${getColor(
-                nivel
-              )}  cursor-pointer ring-1 ring-gray-500 hover:scale-105 transition-transform duration-200
-                `}
-              onClick={changeLevelInDB}
-            >
-              <input
-                type="checkbox"
-                className="mr-2 bg-white hidden"
-                name={String(nivel)}
-                checked={nivel === level}
-                onChange={onDificultadChange}
-              />
-              {getName(nivel)}
-            </label>
-          ))}
-        </div>
+        <>
+          <p className="w-full rounded-full bg-white px-4 py-1 text-center text-sm font-medium">
+            Dificultad de la flashcard
+          </p>
+          <div className="flex gap-1 sm:gap-2 md:gap-3">
+            {niveles.map((nivel) => (
+              <label
+                key={uuidv4()}
+                className={`rounded px-4 py-1 text-sm md:text-xl ${getColor(
+                  nivel,
+                )} cursor-pointer ring-1 ring-gray-500 transition-transform duration-200 hover:scale-105`}
+                onClick={changeLevelInDB}
+              >
+                <input
+                  type="checkbox"
+                  className="mr-2 hidden bg-white"
+                  name={String(nivel)}
+                  checked={nivel === level}
+                  onChange={onDificultadChange}
+                />
+                {getName(nivel)}
+              </label>
+            ))}
+          </div>
+        </>
       ) : (
-        <p className="text-sm md:text-base text-red-500 font-bold  text-center">
+        <p className="text-center text-sm font-bold text-red-500 md:text-base">
           <Link
             href="/auth/register"
-            className="text-gray-200 block bg-gray-800 p-2 rounded-lg"
+            className="block rounded-lg bg-gray-800 p-2 text-gray-200"
           >
             <span className="block">
               Regístrate y guarda tu progreso en esta Card

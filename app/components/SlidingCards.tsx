@@ -3,11 +3,12 @@ import React from "react";
 import CardLevel from "@/app/components/CardLevel";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import CardAswerOnlyText from "./Card/CardAswerOnlyText";
+import CardAnswerOnlyText from "./Card/CardAnswerOnlyText";
+import { EnglishCard, SimpleCard, SoftwareCard } from "./Card/SubjetcCard";
 
 interface SlidingCardProps {
   id: number;
-  image: string;
+  answer: string;
   cardName: string;
   userId?: number;
   userEmail?: string;
@@ -16,7 +17,7 @@ interface SlidingCardProps {
 }
 
 const SlidingCard = ({
-  image,
+  answer,
   cardName,
   userId,
   userEmail,
@@ -26,26 +27,47 @@ const SlidingCard = ({
 }: SlidingCardProps) => {
   const pathname = usePathname();
   return (
-    <div className="flex flex-col items-center gap-1 w-full">
+    <div className="flex w-full flex-col items-center gap-1 font-normal text-black">
       <Link
         href={pathname === "/" ? "#" : `${pathname}/${id}`}
         // href={`${pathname}/${id}`}
         className="relative w-full"
       >
-        {image?.includes("cloudinary") ? (
+        {answer?.includes("cloudinary") ? (
           <Image
-            src={image}
+            src={answer}
             alt={cardName}
             width={1080}
             height={1350}
             className="max-h-[625px] w-full object-cover"
           />
+        ) : answer.includes("ingles") ? (
+          <EnglishCard
+            answer={answer}
+            isEditing={false}
+            question={cardName}
+            className="mx-auto max-h-[525px] overflow-y-auto"
+          />
+        ) : answer.includes("software") ? (
+          <SoftwareCard
+            answer={answer}
+            isEditing={false}
+            question={cardName}
+            className="mx-auto max-h-[525px] overflow-y-auto"
+          />
+        ) : answer.includes("simple") ? (
+          <SimpleCard
+            answer={answer}
+            isEditing={false}
+            question={cardName}
+            className="mx-auto max-h-[525px] overflow-y-auto"
+          />
         ) : (
           <div className="w-full p-1">
-            <CardAswerOnlyText
+            <CardAnswerOnlyText
               question={cardName}
-              answer={image}
-            ></CardAswerOnlyText>
+              answer={answer}
+            ></CardAnswerOnlyText>
           </div>
         )}
       </Link>
