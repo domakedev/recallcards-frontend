@@ -4,12 +4,13 @@ import React, { ReactNode } from "react";
 interface ButtonProps {
   children: ReactNode;
   href?: string;
+  className?: string;
 }
 
-const Button = ({ children, href = "" }: ButtonProps) => {
+const Button = ({ children, href = "", className }: ButtonProps) => {
   return (
     <Link
-      className=" m-3 bg-blue-500 text-white font-bold py-2 px-4 rounded-lg shadow-lg transform transition-transform duration-200 hover:scale-105 active:scale-95 block mx-auto w-[150px] text-center"
+      className={`m-3 mx-auto block w-[150px] transform rounded-lg bg-blue-500 px-4 py-2 text-center font-bold text-white shadow-lg transition-transform duration-200 hover:scale-105 active:scale-95 ${className}`}
       href={href}
     >
       {children}

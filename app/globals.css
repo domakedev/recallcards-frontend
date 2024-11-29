@@ -104,12 +104,5 @@ pre.ql-syntax {
 .ql-editor > blockquote {
   margin-top: 10px !important;
   padding-left: 8px !important;
-  @apply border-l-4 border-gray-300 my-4 bg-gray-100;
+  @apply my-4 border-l-4 border-gray-300 bg-gray-100;
 }
-
-/* div .ql-disabled .ql-tooltip {
-  display: none; 
-  max-width: 0px;
-  max-height: 0px;
-  overflow: hidden;
-} */

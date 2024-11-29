@@ -69,7 +69,6 @@ export default function RootLayout({
           <Providers>
             <Navbar />
             <main className="flex-grow justify-center">{children}</main>
-            {/* Create a footer that show a nice message */}
             <Footer />
           </Providers>
         </AuthProvider>
