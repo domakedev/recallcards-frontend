@@ -33,7 +33,7 @@ const SlidingCard = ({
         // href={`${pathname}/${id}`}
         className="relative w-full"
       >
-        {answer?.includes("cloudinary") ? (
+        {answer?.includes("cloudinary.com") ? (
           <Image
             src={answer}
             alt={cardName}

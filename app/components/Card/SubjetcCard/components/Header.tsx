@@ -16,7 +16,7 @@ const Header: FC<HeaderProps> = ({ question, isEditing, setQuestion }) => {
           name="question"
           value={question}
           onChange={(e) => setQuestion(e.target.value)}
-          className="mx-auto block w-10/12 rounded-xl bg-gray-700 p-2 text-center font-bold text-white sm:p-4 sm:text-xl"
+          className="mx-auto block w-10/12 rounded-xl bg-gray-700 p-2 text-center font-bold text-white sm:p-4 sm:text-xl text-wrap"
           placeholder="Ingresa un titulo o pregunta"
         />
       ) : (

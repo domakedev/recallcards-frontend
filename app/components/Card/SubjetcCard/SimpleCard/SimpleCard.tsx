@@ -3,6 +3,7 @@ import { Footer, Header, TextArea } from "../components";
 import { FaSeedling } from "react-icons/fa6";
 import { SubjectCardProps } from "../SubjectCard";
 import { SimpleAnswerProps } from "./SimpleCard.types";
+import QuillJsCardCreator from "../../QuillJsCardCreator";
 
 const SimpleCard: FC<SubjectCardProps> = ({
   isEditing,
@@ -36,8 +37,8 @@ const SimpleCard: FC<SubjectCardProps> = ({
     }
   }, [fields, isEditing, setAnswer, setResetCard]);
 
-  const handleFieldChange = (field: string, value: string) => {
-    setFields((prev) => ({ ...prev, [field]: value }));
+  const handleQuillChange = (content: string) => {
+    setFields((prev) => ({ ...prev, explanation: content }));
   };
 
   return (
@@ -50,16 +51,15 @@ const SimpleCard: FC<SubjectCardProps> = ({
         setQuestion={setQuestion}
       />
       <div className="flex flex-col bg-white p-5 py-10 sm:gap-5">
-        <TextArea
-          title="Explicación"
-          field="explanation"
-          titleColor="text-gray-600"
-          required={isEditing && fields.explanation === ""}
-          isEditing={isEditing}
-          value={fields.explanation}
-          valueChange={handleFieldChange}
-          question={question}
-          answeredValue={answerParsed.explanation}
+        <QuillJsCardCreator
+          value={
+            fields.explanation === ""
+              ? answerParsed.explanation
+              : fields.explanation
+          }
+          onChange={handleQuillChange}
+          readOnly={!isEditing}
+          theme={!isEditing ? "bubble" : "snow"}
         />
       </div>
       <Footer

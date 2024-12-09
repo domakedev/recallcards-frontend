@@ -40,7 +40,7 @@ const CreateCard: React.FC = () => {
     creatorId: 0,
   });
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [subjectType, setSubjectType] = useState<SubjectType>("ingles");
+  const [subjectType, setSubjectType] = useState<SubjectType>("simple");
   const [resetCard, setResetCard] = useState<boolean>(false);
 
   useEffect(() => {

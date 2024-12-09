@@ -82,13 +82,9 @@ const page = async ({ params }: { params: { deck: string } }) => {
       deckId: +deckId,
     },
   });
-  //Funcion para traer las dificultades de las cartas del deck
 
   return (
-    <div className="flex w-full flex-col items-center">
-      {/* <h2 className=" text-2xl font-bold text-gray-800 my-6">
-        Pre-Visualizador
-      </h2> */}
+    <div className="flex min-h-[calc(100vh-136px)] w-full flex-col items-center justify-between">
       <CardsSlider
         cards={deckCards}
         deckId={+deckId}
@@ -96,13 +92,13 @@ const page = async ({ params }: { params: { deck: string } }) => {
 
       <div className="my-5 flex flex-col items-center gap-3 sm:flex-row">
         <CreateDeckButton
-          href={"/create-card"}
-          text={"Crear Apunte"}
+          href="/create-card"
+          text="Crear Flashcard"
         />
         <DeleteDeckButton />
         <CreateDeckButton
-          href={"/create-cards"}
-          text={"Crear Apuntes"}
+          href="/create-cards"
+          text="Subir imágenes"
         />
       </div>
       {deckCards.length > 0 ? (
@@ -113,21 +109,19 @@ const page = async ({ params }: { params: { deck: string } }) => {
           </span>
         </div>
       ) : (
-        <div className="my-6 flex flex-col items-center text-center">
+        <div className="my-6 mt-auto flex flex-col items-center text-center">
           <h2 className="text-2xl font-bold text-gray-800">
-            No hay Apuntes(cards), si eres el creador puedes crear uno como
-            imagen o texto.
+            No hay flashcards.
           </h2>
           <blockquote className="m-8 flex w-fit max-w-[800px] items-center gap-2 rounded-lg bg-yellow-200 p-4 shadow-md">
             <a
               href="https://api.whatsapp.com/send?phone=51943047804&text=Hola%2C%20me%20gustaria%20contactar%20contigo%20sobre%3A%20"
-              className="flex text-green-800 hover:text-green-600"
+              className="flex text-green-800 hover:text-green-900"
               target="_blank"
             >
               <p className="text-base font-semibold">
-                ⚠️ Si tienes problemas para crear un apunte o tienes dudas,
-                escríbeme para ayudarte o solucionar el problema, ¡Gracias!, soy
-                el creador:
+                ⚠️ Si tienes dudas o problemas para crear una flashcard,
+                escríbeme para ayudarte o solucionar el problema 🙌
               </p>
               <FaWhatsapp
                 size={24}

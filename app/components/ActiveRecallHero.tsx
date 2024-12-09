@@ -7,7 +7,7 @@ const ActiveRecallHero = async () => {
   const randomCards = await prisma.cards.findMany({
     take: 20,
     orderBy: {
-      id: "desc",
+      id: "asc",
     },
     where: {
       deckId: deckID,
