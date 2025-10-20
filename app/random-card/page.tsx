@@ -1,5 +1,5 @@
 import { auth } from "@/auth";
-import { getCardsByUserIdAction } from "@/services/card.actions";
+import { getRandomCardByUserIdAction } from "@/services/card.actions";
 import { redirect } from "next/navigation";
 
 const RandomCardPage = async () => {
@@ -9,13 +9,12 @@ const RandomCardPage = async () => {
     redirect("/auth/login");
   }
 
-  const cards = await getCardsByUserIdAction(+session.user.id);
+  const randomCard = await getRandomCardByUserIdAction(+session.user.id);
+  console.log("🚀 ~ RandomCardPage ~ randomCard:", randomCard)
 
-  if (cards.length === 0) {
+  if (!randomCard) {
     redirect("/mis-decks");
   }
-
-  const randomCard = cards[Math.floor(Math.random() * cards.length)];
 
   redirect(`/${randomCard.decks.name.toLowerCase().replace(/\s+/g, '-')}-${randomCard.deckId}/${randomCard.id}`);
 };

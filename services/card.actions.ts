@@ -12,18 +12,22 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-//Trae cartas por userId
-export const getCardsByUserIdAction = async (userId: number) => {
+//Trae una carta al azar por userId
+export const getRandomCardByUserIdAction = async (userId: number) => {
   try {
-    const cards = await prisma.cards.findMany({
+    const card = await prisma.cards.findFirst({
       where: {
         creatorId: userId,
       },
       include: {
         decks: true,
       },
+      orderBy: {
+        id: 'desc', // Usamos desc para tener consistencia, pero realmente queremos aleatorio
+      },
+      skip: Math.floor(Math.random() * await prisma.cards.count({ where: { creatorId: userId } })),
     });
-    return cards;
+    return card;
   } catch (error: any) {
     throw new Error(error.message);
   }
