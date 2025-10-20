@@ -18,6 +18,7 @@ import SignOutButton from "../Auth/SignOutButton";
 import SignInButton from "../Auth/SignInButton";
 import SignControlButton from "../Auth/SignControlButton";
 import { headers } from "next/headers";
+import { GiDiceSixFacesSix } from "react-icons/gi";
 
 // const navigation = [
 //   { name: "Mis Apuntes", href: "/mis-decks", current: true },
@@ -75,24 +76,17 @@ export default async function NavBarTUI({ params }: any) {
               <p className="ml-3 sm:block text-white">repasoActivo.com</p>
             </div>
             <div className="hidden sm:ml-6 sm:block">
-              {/* <div className="flex space-x-4">
-                {navigation.map((item) => (
+              <div className="flex space-x-4">
+                {session?.user && (
                   <Link
-                    key={item.name}
-                    href={item.href}
-                    aria-current={item.current ? "page" : undefined}
-                    className={classNames(
-                      // item.current
-                      item.href === pathName
-                        ? "bg-gray-900 text-white"
-                        : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                      "rounded-md px-3 py-2 text-sm font-medium"
-                    )}
+                    href="/random-card"
+                    className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium flex items-center gap-2"
                   >
-                    {item.name}
+                    <GiDiceSixFacesSix size={16} />
+                    Carta al azar
                   </Link>
-                ))}
-              </div> */}
+                )}
+              </div>
             </div>
           </div>
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">

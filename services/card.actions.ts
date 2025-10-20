@@ -12,6 +12,23 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
+//Trae cartas por userId
+export const getCardsByUserIdAction = async (userId: number) => {
+  try {
+    const cards = await prisma.cards.findMany({
+      where: {
+        creatorId: userId,
+      },
+      include: {
+        decks: true,
+      },
+    });
+    return cards;
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
+};
+
 export const deleteCardAction = async (
   userId: number,
   cardId: number,

@@ -7,6 +7,7 @@ export const GET = async (
   req: Request,
   { params }: { params: { cardId: number } }
 ) => {
+  console.log("🚀 ~ params:", params)
   try {
     const result = await prisma.cards.findUnique({
       where: {
@@ -24,6 +25,7 @@ export const GET = async (
       { status: 200 }
     );
   } catch (error) {
+    console.log("🚀 ~ error:", error)
     return NextResponse.json(
       { ok: false, message: "Error en CARDID API" },
       { status: 500 }

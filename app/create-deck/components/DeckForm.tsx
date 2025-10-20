@@ -49,8 +49,8 @@ const DeckForm: FC<DeckFormProps> = ({ deck, setDeck, isAuth }) => {
       toast.error("Escribe un nombre de mínimo 4 caracteres.");
       return;
     }
-    if (deck.name.length > 15) {
-      toast.error("Escribe un nombre de máximo 15 caracteres.");
+    if (deck.name.length > 35) {
+      toast.error("Escribe un nombre de máximo 35 caracteres.");
       return;
     }
     if (!image) {
@@ -111,10 +111,10 @@ const DeckForm: FC<DeckFormProps> = ({ deck, setDeck, isAuth }) => {
               value={deck.name}
               onChange={handleChange}
               required
-              className={`relative w-full appearance-none rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:outline-none sm:text-sm ${
+              className={`border-gray-350 relative w-full appearance-none rounded-md border px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:outline-none sm:text-sm ${
                 !isAuth ? "cursor-not-allowed" : ""
               } ${
-                deck.name.length > 15
+                deck.name.length > 35
                   ? "focus:border-red-500 focus:ring-red-500"
                   : "focus:border-indigo-500 focus:ring-indigo-500"
               }`}
@@ -122,12 +122,12 @@ const DeckForm: FC<DeckFormProps> = ({ deck, setDeck, isAuth }) => {
             />
             <div
               className={`absolute bottom-8 right-1 rounded-lg bg-gray-800 p-1 text-right text-xs ${
-                deck.name.length > 15
+                deck.name.length > 35
                   ? "bg-red-500 text-white"
                   : "text-gray-400"
               }`}
             >
-              {deck.name.length}/15
+              {deck.name.length}/35
             </div>
           </label>
         </div>
@@ -158,8 +158,8 @@ const DeckForm: FC<DeckFormProps> = ({ deck, setDeck, isAuth }) => {
                 src={imageBlobUrl}
                 alt="Preview"
                 className="mt-4 aspect-square w-full rounded object-cover"
-                width={300}
-                height={300}
+                width={350}
+                height={350}
               />
             )}
           </div>
