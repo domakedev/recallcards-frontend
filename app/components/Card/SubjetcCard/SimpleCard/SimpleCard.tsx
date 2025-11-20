@@ -43,14 +43,14 @@ const SimpleCard: FC<SubjectCardProps> = ({
 
   return (
     <div
-      className={`mx-1 w-full max-w-[500px] rounded-2xl shadow-xl ${className}`}
+      className={`mx-1 w-full max-w-5xl rounded-2xl shadow-xl ${className}`}
     >
       <Header
         question={question ?? "-"}
         isEditing={isEditing}
         setQuestion={setQuestion}
       />
-      <div className="flex flex-col bg-white p-5 py-10 sm:gap-5">
+      <div className="flex flex-col bg-white p-5 sm:gap-5 rounded-b-2xl">
         <QuillJsCardCreator
           value={
             fields.explanation === ""
@@ -62,10 +62,10 @@ const SimpleCard: FC<SubjectCardProps> = ({
           theme={!isEditing ? "bubble" : "snow"}
         />
       </div>
-      <Footer
+      {/* <Footer
         subjectName="Simple"
         icon={<FaSeedling className="h-auto w-7" />}
-      />
+      /> */}
     </div>
   );
 };
